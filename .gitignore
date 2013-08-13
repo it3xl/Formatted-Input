@@ -2,3 +2,5 @@
 obj
 Bin
 *.user
+/*.suo
+/_ReSharper.FormattedInputSolution
