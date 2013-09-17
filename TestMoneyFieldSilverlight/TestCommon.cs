@@ -302,6 +302,7 @@ namespace TestMoneyFieldSilverlight
 
 
 
+		// TODO.it3xl.ru: 0000123 inserting with caret at the 3.
 
 
 		// TODO.it3xl.ru: Как-то протестировать основные комбинации с основными разделителями и отступами в числах - Ru, En, Us.

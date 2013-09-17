@@ -1,3 +1,4 @@
+// ReSharper disable ConvertToAutoProperty
 using System;
 
 namespace MoneyField.Silverlight.View.Converter

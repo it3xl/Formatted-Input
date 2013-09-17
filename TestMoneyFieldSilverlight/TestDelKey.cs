@@ -30,6 +30,8 @@ namespace TestMoneyFieldSilverlight
 
 		// TODO.it3xl.ru: The Del key.
 
+		// TODO.it3xl.ru: Deleting the 8 at the 80000123.
+
 		// В целой части должно удалять число справа.
 		// Есил перед числом справа разделитель группы, то его удалять вместе с числом.
 

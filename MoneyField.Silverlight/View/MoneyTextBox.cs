@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -180,17 +181,18 @@ namespace MoneyField.Silverlight.View
 			{
 				textBox.Text = formatteValue;
 
-				// Задание позиции меньше 0 приведет к исключению.
-				// Задание позиции больше длины строки приведет к автоматическому изменению позиции к длине строки.
+				// Fix the impossible negative caret's position for sake of the unwanted exception.
 				var correctedPosition = Math.Max(selectionStart, 0);
 
+				// For debug purposes.
 				if (selectionStart < 0)
 				{
-
+					// For the negative caret's position will throw an exception.
 				}
+				// For debug purposes.
 				if (formatteValue.Length < selectionStart)
 				{
-
+					// The caret's position that more than a value's length will be changed to the end position.
 				}
 
 				textBox.SelectionStart = correctedPosition;
@@ -203,7 +205,7 @@ namespace MoneyField.Silverlight.View
 			Converter = null;
 
 			var textBox = this;
-			// Отпишемся от всех событий, чтоб предотвратить возможные утечки.
+			// Unsubscribe from all events for sake of leaks.
 			textBox.TextChanged -= textBox_TextChanged;
 			textBox.SelectionChanged -= textBox_SelectionChanged;
 		}

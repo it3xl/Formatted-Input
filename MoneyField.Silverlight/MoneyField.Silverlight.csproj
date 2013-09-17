@@ -95,12 +95,10 @@
     <Compile Include="NullAndEmptyHandling\WeakReference.cs" />
     <Compile Include="View\Converter\DeleteDirection.cs" />
     <Compile Include="View\Converter\FormatterState.cs" />
-    <Compile Include="View\Behavior\MoneyFormatterWithCaretManagementBehavior.cs" />
     <Compile Include="View\Converter\FormattingAfter.cs" />
     <Compile Include="View\MoneyTextBox.cs" />
     <Compile Include="NullAndEmptyHandling\NotNullNotDefaultExecutionExtention.cs" />
     <Compile Include="View\Converter\AnyNumberToMoneyConverter.cs" />
-    <Compile Include="View\Behavior\TestMoneyFormatterWithCaretManagementBehavior.cs" />
     <Compile Include="ViewModel\ViewModelForTests.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>

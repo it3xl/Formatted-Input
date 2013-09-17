@@ -6,6 +6,9 @@ using MoneyField.Silverlight.NullAndEmptyHandling;
 
 namespace MoneyField.Silverlight.View.Converter
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public sealed class AnyNumberToMoneyConverter : IValueConverter
 	{
 		private const Char NonBreakingSpaceChar = (Char)160;
@@ -113,7 +116,7 @@ namespace MoneyField.Silverlight.View.Converter
 		}
 
 		/// <summary>
-		/// Символы, которые допустимы для внутреннего представления числа.
+		/// Available chars of a number.
 		/// </summary>
 		private Char[] CustomSerialilzationDigitChars
 		{
@@ -145,7 +148,7 @@ namespace MoneyField.Silverlight.View.Converter
 		}
 
 		/// <summary>
-		/// Значение переданное из ViewModel конвертирует в строковое представление.
+		/// Converts from a ViewModel to a View.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <param name="targetType"></param>
@@ -179,7 +182,7 @@ namespace MoneyField.Silverlight.View.Converter
 
 
 		/// <summary>
-		/// Производит возвратное конвертирование строки в число для ViewModel.
+		/// Converts from a View to a ViewModel.
 		/// </summary>
 		/// <param name="value"></param>
 		/// <param name="targetType"></param>
@@ -193,7 +196,7 @@ namespace MoneyField.Silverlight.View.Converter
 			{
 				WriteLogAction(String.Format("ConvertBack. return = {0}", "null"));
 
-				// Мы ожидаем тут только строку.
+				// Only a string is available.
 				return null;
 			}
 
@@ -205,9 +208,14 @@ namespace MoneyField.Silverlight.View.Converter
 
 		/// <summary>
 		/// Отформатирует строковое представление Double и сообщит, какая должна быть позиция курсора, относильено начальной.
+		/// Fucking russian, yeah? For UK with love... :)
+		/// TODO.it3xl.com: Make the translation.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
-		/// <param name="textBeforeChanging">The previous text value. Must have the null value if it is call from the <see cref="Convert"/>.</param>
+		/// <param name="textBeforeChanging">
+		/// The previous text value.
+		/// Must have the null value if it is the call from the <see cref="Convert"/> method.
+		/// </param>
 		/// <param name="lastCaretPosition"></param>
 		/// <param name="formatteValue"></param>
 		/// <param name="caretPosition"></param>
@@ -314,22 +322,22 @@ namespace MoneyField.Silverlight.View.Converter
 
 				var digit = state.FormatteValue.Split(DecimalSeparator);
 
-				// Обработаем целочисленную часть числа.
+				// Integral part processing.
 				var integer = digit.First();
-				// Удалим все начальные нули, если в целой части после них есть числа.
+				// Leading zeros' processing.
 				while (1 < integer.Length && integer.First() == '0')
 				{
 					integer = integer.Remove(0, 1);
 					state.CaretPosition--;
 				}
-				// Перед запятой должно быть 0, если ничего нет.
+				// Before decimal separator should be the 0, if it's the first.
 				if (integer.Length == 0)
 				{
 					integer = "0";
 
 					state.CaretPosition++;
 				}
-				// Расставим разделители каждых трех знаков с конца.
+				// The group separator's inserting.
 				GroupSeparator.InvokeIfNotDefault(el =>
 					{
 						var lengthWithoutDelimiters = integer.Length;
@@ -348,7 +356,6 @@ namespace MoneyField.Silverlight.View.Converter
 							var offset = i / 3 - 1;
 							integerInvert = integerInvert.Insert(i + offset, GroupSeparatorChar);
 
-							// Полагаемся на аксиому, описанную выше и то, что разделительные были удалены логикой выше.
 							state.CaretPosition++;
 						}
 						integer = String.Join(null, integerInvert.Reverse());
@@ -356,9 +363,9 @@ namespace MoneyField.Silverlight.View.Converter
 				);
 
 
-				// Обработаем дробную часть числа.
+				// Processing of the fractional part of a number.
 				var partial = digit.Last();
-				// После запятой должно быть два знака.
+				// After the decimal point should be two digits.
 				if (partial.Length == 0)
 				{
 					partial = "00";
@@ -386,7 +393,8 @@ namespace MoneyField.Silverlight.View.Converter
 
 				// Полученную сериализацию числа конвертируем в число и получаем из него автоматическкую сериализацию.
 				// Это нужно из-за ограничений точности хранения чисел в .NET Framework. Слишком большие числа округляются.
-				// Если этого не делать здесь, то получим отличное значение из ViewModel и неуправляемую передвижку курсора в начальную позицию.
+				// Если этого не делать здесь, то получим отличное значение из ViewModel
+				//  и неуправляемую передвижку курсора в начальную позицию.
 				state.FormatteValue = FormatByPrecisionForDouble(state.FormatteValue);
 
 
@@ -404,11 +412,11 @@ namespace MoneyField.Silverlight.View.Converter
 		}
 
 		/// <summary>
-		/// Defines formattion type.
+		/// Defines the formatting type <see cref="FormattingAfter"/>.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
 		/// <param name="textBeforeChanging"></param>
-		/// <returns></returns>
+		/// <returns>The value of the  <see cref="FormattingAfter"/></returns>
 		private static FormattingAfter SetFormattingType(String unformattedValue, String textBeforeChanging)
 		{
 			FormattingAfter formattingAfter;
@@ -451,22 +459,28 @@ namespace MoneyField.Silverlight.View.Converter
 		/// </summary>
 		/// <param name="doubleValue"></param>
 		/// <returns></returns>
-		private string GetCustomSerialisationFromDouble(double doubleValue)
+		private String GetCustomSerialisationFromDouble(double doubleValue)
 		{
+
+			const String numberStandartFormattingKey = "n";
 			var unformattedValue = doubleValue
-				.ToString("n", CultureInfo.InvariantCulture);
+				.ToString(numberStandartFormattingKey, CultureInfo.InvariantCulture);
 
 			// The order is important! The GroupSeparatorChar replacing must go before the DecimalSeparatorChar replacing.
 			if (GroupSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator)
 			{
 				// The turn form CultureInfo.InvariantCulture to the custom separator.
-				unformattedValue = unformattedValue.Replace(CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator, GroupSeparatorChar);
+				unformattedValue = unformattedValue.Replace(
+					CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator,
+					GroupSeparatorChar);
 			}
 
 			if (DecimalSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
 			{
 				// The turn form CultureInfo.InvariantCulture to the custom separator.
-				unformattedValue = unformattedValue.Replace(CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator, DecimalSeparatorChar);
+				unformattedValue = unformattedValue.Replace(
+					CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator,
+					DecimalSeparatorChar);
 			}
 
 			return unformattedValue;
@@ -496,7 +510,9 @@ namespace MoneyField.Silverlight.View.Converter
 			if (DecimalSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
 			{
 				// The turn to the CultureInfo.InvariantCulture.
-				cSharpDigitalSerialisation = cSharpDigitalSerialisation.Replace(DecimalSeparatorChar, CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
+				cSharpDigitalSerialisation = cSharpDigitalSerialisation.Replace(
+					DecimalSeparatorChar,
+					CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
 			}
 
 			WriteLogAction(String.Format("ConvertBack. return = {0}", cSharpDigitalSerialisation));
@@ -512,19 +528,19 @@ namespace MoneyField.Silverlight.View.Converter
 		}
 
 		/// <summary>
-		/// We must use non-breking space becouse of default value at the CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator.
+		/// We must use non-breking space because of default value at the 
+		/// CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator.
 		/// </summary>
 		/// <param name="charValue"></param>
 		public static void ConvertSpaceToNonBreaking(ref Char charValue)
 		{
-			if (charValue == BreakingSpaceChar)
+			if (charValue != BreakingSpaceChar)
 			{
-				// It's the breaking space!
-
-				charValue = NonBreakingSpaceChar;
+				return;
 			}
+
+			// It's the breaking space. Fix it!
+			charValue = NonBreakingSpaceChar;
 		}
-
-
 	}
 }
