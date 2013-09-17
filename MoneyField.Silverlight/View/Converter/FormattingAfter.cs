@@ -1,4 +1,4 @@
-namespace MoneyField.Silverlight.View.Converter
+﻿namespace MoneyField.Silverlight.View.Converter
 {
 	/// <summary>
 	/// The type of formattin.
@@ -8,7 +8,7 @@ namespace MoneyField.Silverlight.View.Converter
 		/// <summary>
 		/// It's was only the pasting.
 		/// </summary>
-		GroupPastingOrDeleting,
+		GroupPastingOrDeletion,
 
 		/// <summary>
 		/// It's the formatting after a call from the <see cref="AnyNumberToMoneyConverter.Convert"/> method.
@@ -21,7 +21,7 @@ namespace MoneyField.Silverlight.View.Converter
 		OneSymbolAdded,
 
 		/// <summary>
-		/// Deleting of a one symbol.
+		/// Deletion of a one symbol.
 		/// </summary>
 		OneSymbolDeleted,
 	}

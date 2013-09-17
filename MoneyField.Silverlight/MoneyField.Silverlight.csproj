@@ -93,7 +93,7 @@
     <Compile Include="NullAndEmptyHandling\ManagedClosure.cs" />
     <Compile Include="NullAndEmptyHandling\WeakClosure.cs" />
     <Compile Include="NullAndEmptyHandling\WeakReference.cs" />
-    <Compile Include="View\Converter\DeleteDirection.cs" />
+    <Compile Include="View\Converter\DeletionDirection.cs" />
     <Compile Include="View\Converter\FormatterState.cs" />
     <Compile Include="View\Converter\FormattingAfter.cs" />
     <Compile Include="View\MoneyTextBox.cs" />
@@ -118,7 +118,9 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

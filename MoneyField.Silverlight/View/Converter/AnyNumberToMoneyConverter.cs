@@ -118,7 +118,7 @@ namespace MoneyField.Silverlight.View.Converter
 		/// <summary>
 		/// Available chars of a number.
 		/// </summary>
-		private Char[] CustomSerialilzationDigitChars
+		private Char[] CustomSerialilzationChars
 		{
 			get
 			{
@@ -246,26 +246,7 @@ namespace MoneyField.Silverlight.View.Converter
 						FormattingType = formattingType,
 					};
 
-				// Обработаем удаление одного символа.
-				if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
-				{
-					var deleteDirection = state.CaretPosition < lastCaretPosition
-						? DeleteDirection.BackspaceButton
-						: DeleteDirection.DeleteButton;
-
-					// Restoring of the DecimalSeparator.
-					var wasDeletedSeparator = state.FormatteValue.Contains(DecimalSeparator) == false;
-					if (wasDeletedSeparator)
-					{
-						state.FormatteValue = state.FormatteValue.Insert(state.CaretPosition, DecimalSeparatorChar);
-						if (deleteDirection == DeleteDirection.DeleteButton)
-						{
-							state.CaretPosition++;
-						}
-					}
-				}
-
-				// Заменим алтернативный разделитель на основной.
+				// Заменим алтернативный десятичный разделитель на основной.
 				AlternativeInputDecimalSeparator.InvokeIfNotDefault(el =>
 					{
 						if (AlternativeInputDecimalSeparator == DecimalSeparator)
@@ -275,34 +256,33 @@ namespace MoneyField.Silverlight.View.Converter
 
 						state.FormatteValue = state.FormatteValue.Replace(AlternativeInputDecimalSeparator, DecimalSeparator);
 					});
-				// Удалить символы, которые не относятся к цифрам.
-				var stringForIteraction = state.FormatteValue;
-				foreach (var @char in stringForIteraction)
+
+				// Обработаем удаление одного символа.
+				if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 				{
-					if (CustomSerialilzationDigitChars.Contains(@char))
-					{
-						continue;
-					}
+					state.DeletionType = state.CaretPosition < lastCaretPosition
+						? DeletionDirection.BackspaceButton
+						: DeletionDirection.DeleteButton;
 
-					// Удалим только один символ (даже, если есть такие же повторяющиеся), чтобы избежать сложных вычислений.
-					var index = state.FormatteValue.IndexOf(@char);
-					state.FormatteValue = state.FormatteValue.Remove(index, 1);
-
-					if (index <= (state.CaretPosition - 1))
+					// Restoring of the Decimal Separator and carret promotion.
+					// The Decimal Separator delition means onle caret promotion.
+					var wasDeletedSeparator = state.FormatteValue.Contains(DecimalSeparator) == false;
+					if (wasDeletedSeparator)
 					{
-						state.CaretPosition -= 1;
+						state.FormatteValue = state.FormatteValue.Insert(state.CaretPosition, DecimalSeparatorChar);
+						if (state.DeletionType == DeletionDirection.DeleteButton)
+						{
+							state.CaretPosition++;
+						}
 					}
 				}
 
-	
-				// The Decimal Separator processing.
-				// The Decimal Separator must be!
+				// Excessive Decimal Separator processing.
 				var separatorCount = state.FormatteValue.Count(el => el == DecimalSeparator);
 				if (separatorCount == 0)
 				{
 					state.FormatteValue += DecimalSeparator;
 				}
-				// Удалить лишний разделитель целой и дробной части.
 				if (1 < separatorCount)
 				{
 					// Пока не знаю как правильно и для простоты оставляю только самый первый разделитель.
@@ -319,6 +299,26 @@ namespace MoneyField.Silverlight.View.Converter
 					}
 				}
 
+				// Удалить символы, которые не относятся к цифрам.
+				var stringForIteraction = state.FormatteValue;
+				foreach (var @char in stringForIteraction)
+				{
+					if (CustomSerialilzationChars.Contains(@char))
+					{
+						continue;
+					}
+
+					// Удалим только один символ (даже, если есть такие же повторяющиеся), чтобы избежать сложных вычислений.
+					var index = state.FormatteValue.IndexOf(@char);
+					state.FormatteValue = state.FormatteValue.Remove(index, 1);
+
+					if (index <= (state.CaretPosition - 1))
+					{
+						state.CaretPosition -= 1;
+					}
+				}
+
+	
 
 				var digit = state.FormatteValue.Split(DecimalSeparator);
 
@@ -328,7 +328,10 @@ namespace MoneyField.Silverlight.View.Converter
 				while (1 < integer.Length && integer.First() == '0')
 				{
 					integer = integer.Remove(0, 1);
-					state.CaretPosition--;
+					if (0 < state.CaretPosition)
+					{
+						state.CaretPosition--;
+					}
 				}
 				// Before decimal separator should be the 0, if it's the first.
 				if (integer.Length == 0)
@@ -337,12 +340,15 @@ namespace MoneyField.Silverlight.View.Converter
 
 					state.CaretPosition++;
 				}
-				// The group separator's inserting.
+
+				// The group separator processing.
 				GroupSeparator.InvokeIfNotDefault(el =>
 					{
-						var lengthWithoutDelimiters = integer.Length;
+						var lengthWithoutSeparator = integer.Length;
+						var caretPositionWithoutSeparator = state.CaretPosition;
+
 						var integerInvert = String.Join(null, integer.Reverse());
-						for (var i = 0; i < lengthWithoutDelimiters; i++)
+						for (var i = 0; i < lengthWithoutSeparator; i++)
 						{
 							if (i == 0)
 							{
@@ -358,7 +364,29 @@ namespace MoneyField.Silverlight.View.Converter
 
 							state.CaretPosition++;
 						}
+
 						integer = String.Join(null, integerInvert.Reverse());
+
+						// Actualizes caret position.
+						var digitsAfterCaretWithoutSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutSeparator);
+						var separarotAmountAfterCaret = digitsAfterCaretWithoutSeparator / 3;
+						if (0 < digitsAfterCaretWithoutSeparator
+							&& digitsAfterCaretWithoutSeparator % 3 == 0)
+						{
+							separarotAmountAfterCaret--;
+						}
+						if(state.DeletionType == DeletionDirection.BackspaceButton
+							&& digitsAfterCaretWithoutSeparator % 3 == 0)
+						{
+							separarotAmountAfterCaret++;
+						}
+						//if(state.DeletionType == DeletionDirection.DeleteButton
+						//	&& 0 < digitsAfterCaretWithoutSeparator % 3)
+						//{
+						//	separarotAmountAfterCaret++;
+						//}
+
+						state.CaretPosition -= separarotAmountAfterCaret;
 					}
 				);
 
@@ -426,11 +454,11 @@ namespace MoneyField.Silverlight.View.Converter
 			}
 			else if (Math.Abs(unformattedValue.Length - textBeforeChanging.Length) != 1)
 			{
-				formattingAfter = FormattingAfter.GroupPastingOrDeleting;
+				formattingAfter = FormattingAfter.GroupPastingOrDeletion;
 			}
 			else
 			{
-				var subtraction = Math.Abs(unformattedValue.Length - textBeforeChanging.Length);
+				var subtraction = unformattedValue.Length - textBeforeChanging.Length;
 				formattingAfter = 0 < subtraction
 					? FormattingAfter.OneSymbolAdded
 					: FormattingAfter.OneSymbolDeleted;

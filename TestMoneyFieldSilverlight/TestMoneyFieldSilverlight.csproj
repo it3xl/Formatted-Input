@@ -110,12 +110,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestBackspaceKey.cs" />
+    <Compile Include="EmptyValueTest.cs" />
+    <Compile Include="DummyTest.cs" />
+    <Compile Include="GroupSeparatorTest.cs" />
+    <Compile Include="BackspaceKeyTest.cs" />
+    <Compile Include="NullableTest.cs" />
+    <Compile Include="PartialDigitsTest.cs" />
+    <Compile Include="RoundingTest.cs" />
     <Compile Include="Scaffold.cs" />
-    <Compile Include="TestDelKey.cs" />
-    <Compile Include="TestSeparator.cs" />
+    <Compile Include="DelKeyTest.cs" />
+    <Compile Include="DecimalSeparatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestCommon.cs" />
+    <Compile Include="IntegerDigitsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

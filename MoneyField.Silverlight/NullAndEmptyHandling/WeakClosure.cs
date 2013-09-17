@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace HCFB.UFO.Code
+namespace MoneyField.Silverlight.NullAndEmptyHandling
 {
 	/// <summary>
 	/// The implementation of the Weak Closure Pattern.

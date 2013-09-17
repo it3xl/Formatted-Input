@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HCFB.UFO.Code
+namespace MoneyField.Silverlight.NullAndEmptyHandling
 {
 	/// <summary>
 	/// The implementation of the Managed Closure Pattern.<para/>

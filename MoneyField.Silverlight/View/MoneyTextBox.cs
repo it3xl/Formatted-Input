@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using HCFB.UFO.Code;
 using MoneyField.Silverlight.NullAndEmptyHandling;
 using MoneyField.Silverlight.View.Converter;
 

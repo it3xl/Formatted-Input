@@ -1,4 +1,4 @@
-// ReSharper disable ConvertToAutoProperty
+﻿// ReSharper disable ConvertToAutoProperty
 using System;
 
 namespace MoneyField.Silverlight.View.Converter
@@ -43,6 +43,12 @@ namespace MoneyField.Silverlight.View.Converter
 		/// Type of formatting.
 		/// </summary>
 		public FormattingAfter FormattingType { get; set; }
+
+		/// <summary>
+		/// Type of the deletion for the <see cref="FormattingType"/>
+		///  == <see cref="FormattingAfter"/>.<see cref="FormattingAfter.OneSymbolDeleted"/>.
+		/// </summary>
+		public DeletionDirection? DeletionType { get; set; }
 
 		/// <summary>
 		/// The value before formatting.

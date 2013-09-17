@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HCFB.UFO.Code
+namespace MoneyField.Silverlight.NullAndEmptyHandling
 {
 	/// <summary>
 	/// it3xl.ru: maximally simplified generic implementation of the <see cref="WeakReference"/>.<para/>
