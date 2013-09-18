@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class RoundingTest : SilverlightTest
 	{
@@ -28,12 +30,8 @@ namespace TestMoneyFieldSilverlight
 			_scaffold.ViewModel.AmountDouble = 123456789123456789123456789.987654321;
 
 			Assert.IsTrue(
-				_scaffold.TestBox.Text == String.Format(
-					"123{1}456{1}789{1}123{1}457{1}000{1}000{1}000{1}000{0}00",
-					_scaffold.TestBox.DecimalSeparator,
-					_scaffold.TestBox.GroupSeparator
-				)
-			);
+				_scaffold.TestBox_.Text == "123 456 789 123 457 000 000 000 000.00".ToSpecificValue()
+				);
 		}
 
 		/// <summary>
@@ -50,12 +48,12 @@ namespace TestMoneyFieldSilverlight
 			String formatteValueOut;
 
 			// 1
-			beforeInput = String.Format("123{1}456{1}789{1}123{1}457{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 789 123 457 000.00".ToSpecificValue();
 			beforeInputCaretPosition = 24;
-			input = String.Format("123{1}456{1}789{1}123{1}457{1}000{0}200", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 789 123 457 000.200".ToSpecificValue();
 			inputCaretPositionRef = 25;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -64,15 +62,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 25);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{1}789{1}123{1}457{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());
 
 			// 2
-			beforeInput = String.Format("123{1}456{1}789{1}123{1}457{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 789 123 457 000.00".ToSpecificValue();
 			beforeInputCaretPosition = 25;
-			input = String.Format("123{1}456{1}789{1}123{1}457{1}000{0}020", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 789 123 457 000.020".ToSpecificValue();
 			inputCaretPositionRef = 26;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -81,7 +79,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 26);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{1}789{1}123{1}457{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());
 		}
 
 

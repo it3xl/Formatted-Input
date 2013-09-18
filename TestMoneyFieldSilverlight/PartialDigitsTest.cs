@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	/// <summary>
 	/// The testing of a integer part of number.
 	/// </summary>
@@ -30,7 +32,7 @@ namespace TestMoneyFieldSilverlight
 		{
 			_scaffold.ViewModel.AmountDouble = 12345.000432;
 
-			Assert.IsTrue(_scaffold.TestBox.Text == String.Format("12{1}345{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(_scaffold.TestBox_.Text == "12 345.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -40,14 +42,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void NeedCutSecondPartialDigit()
 		{
-			var beforeInput = String.Format("23{0}98", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "23.98".ToSpecificValue();
 			var beforeInputCaretPosition = 3;
-			var input = String.Format("23{0}198", _scaffold.TestBox.DecimalSeparator);
+			var input = "23.198".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -56,7 +58,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == String.Format("23{0}18", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "23.18".ToSpecificValue());
 		}
 
 		// TODO.it3xl.com: Partial digits.

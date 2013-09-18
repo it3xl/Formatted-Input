@@ -13,6 +13,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class DummyTest : SilverlightTest
 	{
@@ -34,22 +36,22 @@ namespace TestMoneyFieldSilverlight
 		[Asynchronous]
 		public void DummyParallelTesting()
 		{
-			_scaffold.TestBox.Text = String.Format("0{0}00", _scaffold.TestBox.DecimalSeparator);
-			_scaffold.TestBox.SelectionStart = 1;
+			_scaffold.TestBox_.Text = "0.00".ToSpecificValue();
+			_scaffold.TestBox_.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
-			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart)));
-			EnqueueCallback(() => _scaffold.TestBox.Text = String.Format("1{0}00", _scaffold.TestBox.DecimalSeparator));
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox_.SelectionStart)));
+			EnqueueCallback(() => _scaffold.TestBox_.Text = "1.00".ToSpecificValue());
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
 			EnqueueCallback(() =>
 			{
-				Assert.IsTrue(_scaffold.TestBox.Text == String.Format("1{0}00", _scaffold.TestBox.DecimalSeparator));
-				Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("Second Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart));
+				Assert.IsTrue(_scaffold.TestBox_.Text == "1.00".ToSpecificValue());
+				Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 1, String.Format("Second Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox_.SelectionStart));
 			});
 			EnqueueTestComplete();
 		}

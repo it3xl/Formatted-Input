@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class DecimalSeparatorTest : SilverlightTest
 	{
@@ -27,16 +29,16 @@ namespace TestMoneyFieldSilverlight
 		[Asynchronous]
 		public void SeparatorAddedFirstOnly()
 		{
-			_scaffold.TestBox.Focus();
-			_scaffold.TestBox.Text = _scaffold.TestBox.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
-			_scaffold.TestBox.SelectionStart = 1;
+			_scaffold.TestBox_.Focus();
+			_scaffold.TestBox_.Text = _scaffold.TestBox_.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
+			_scaffold.TestBox_.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 			//EnqueueDelay(TimeSpan.FromMilliseconds(500));
 			EnqueueCallback(() =>
 				{
-					Assert.IsTrue(_scaffold.TestBox.Text == String.Format("0{0}00", _scaffold.TestBox.DecimalSeparator));
-					Assert.IsTrue(_scaffold.TestBox.SelectionStart == 2);
+					Assert.IsTrue(_scaffold.TestBox_.Text == "0.00".ToSpecificValue());
+					Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 2);
 				}
 			);
 			EnqueueTestComplete();
@@ -57,12 +59,12 @@ namespace TestMoneyFieldSilverlight
 			String formatteValueOut;
 
 
-			beforeInput = String.Format("1{0}25", _scaffold.TestBox.DecimalSeparator);
+			beforeInput = "1.25".ToSpecificValue();
 			beforeInputCaretPosition = 1;
-			input = String.Format("1{0}{0}25", _scaffold.TestBox.DecimalSeparator);
+			input = "1..25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -71,15 +73,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
-			Assert.IsTrue(formatteValueOut == String.Format(beforeInput, _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == beforeInput);
 
 
-			beforeInput = String.Format("123{1}456{1}789" + "{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 789" + ".25".ToSpecificValue();
 			beforeInputCaretPosition = 11;
-			input = String.Format("123{1}456{1}789{0}{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 789..25".ToSpecificValue();
 			inputCaretPositionRef = 12;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -88,7 +90,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 12);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456 789.25".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -97,14 +99,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterSeparator()
 		{
-			var beforeInput = String.Format("1{0}25", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
-			var input = String.Format("1{0}{0}25", _scaffold.TestBox.DecimalSeparator);
+			var input = "1..25".ToSpecificValue();
 			var inputCaretPositionRef = 3;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -113,7 +115,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
-			Assert.IsTrue(formatteValueOut == String.Format(beforeInput, _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == beforeInput);
 		}
 
 		/// <summary>
@@ -123,14 +125,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterDecimal()
 		{
-			var beforeInput = String.Format("1{0}25", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 3;
-			var input = String.Format("1{0}2{0}5", _scaffold.TestBox.DecimalSeparator);
+			var input = "1.2.5".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -139,7 +141,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 3);
-			Assert.IsTrue(formatteValueOut == String.Format(beforeInput, _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == beforeInput);
 		}
 
 		/// <summary>
@@ -149,14 +151,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterHandredth()
 		{
-			var beforeInput = String.Format("1{0}25", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 4;
-			var input = String.Format("1{0}25{0}", _scaffold.TestBox.DecimalSeparator);
+			var input = "1.25.".ToSpecificValue();
 			var inputCaretPositionRef = 5;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -165,7 +167,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == String.Format(beforeInput, _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == beforeInput);
 		}
 
 		/// <summary>
@@ -183,12 +185,12 @@ namespace TestMoneyFieldSilverlight
 			String formatteValueOut;
 
 			// 1
-			beforeInput = String.Format("1" + "23{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "1" + "23 456 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 1;
-			input = String.Format("1{0}23{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "1.23 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -197,15 +199,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
-			Assert.IsTrue(formatteValueOut == String.Format("1{0}23", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "1.23".ToSpecificValue());
 
 			// 2
-			beforeInput = String.Format("12" + "3{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "12" + "3 456 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 2;
-			input = String.Format("12{0}3{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "12.3 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 3;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -214,15 +216,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 3);
-			Assert.IsTrue(formatteValueOut == String.Format("12{0}34", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "12.34".ToSpecificValue());
 
 			// 3
-			beforeInput = String.Format("123" + "{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123" + " 456 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 3;
-			input = String.Format("123{0}{1}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123. 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 4;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -231,15 +233,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == String.Format("123{0}45", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "123.45".ToSpecificValue());
 
 			// 4
-			beforeInput = String.Format("123{1}" + "456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 " + "456 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 4;
-			input = String.Format("123{1}{0}456{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 .456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 5;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -248,15 +250,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == String.Format("123{0}45", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "123.45".ToSpecificValue());
 
 			// 5
-			beforeInput = String.Format("123{1}4" + "56{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 4" + "56 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 5;
-			input = String.Format("123{1}4{0}56{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 4.56 789.25".ToSpecificValue();
 			inputCaretPositionRef = 6;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -265,15 +267,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 6);
-			Assert.IsTrue(formatteValueOut == String.Format("1{1}234{0}56", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "1 234.56".ToSpecificValue());
 
 			// 6
-			beforeInput = String.Format("123{1}45" + "6{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 45" + "6 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 6;
-			input = String.Format("123{1}45{0}6{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 45.6 789.25".ToSpecificValue();
 			inputCaretPositionRef = 7;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -282,15 +284,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 7);
-			Assert.IsTrue(formatteValueOut == String.Format("12{1}345{0}67", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
 
 			// 7
-			beforeInput = String.Format("123{1}456" + "{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456" + " 789.25".ToSpecificValue();
 			beforeInputCaretPosition = 7;
-			input = String.Format("123{1}456{0}{1}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456. 789.25".ToSpecificValue();
 			inputCaretPositionRef = 8;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -299,15 +301,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 8);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{0}78", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456.78".ToSpecificValue());
 
 			// 8
-			beforeInput = String.Format("123{1}456{1}" + "789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 " + "789.25".ToSpecificValue();
 			beforeInputCaretPosition = 8;
-			input = String.Format("123{1}456{1}{0}789{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 .789.25".ToSpecificValue();
 			inputCaretPositionRef = 9;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -316,15 +318,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 8);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{0}78", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456.78".ToSpecificValue());
 
 			// 9
-			beforeInput = String.Format("123{1}456{1}7" + "89{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 7" + "89.25".ToSpecificValue();
 			beforeInputCaretPosition = 9;
-			input = String.Format("123{1}456{1}7{0}89{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 7.89.25".ToSpecificValue();
 			inputCaretPositionRef = 10;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -333,15 +335,15 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 10);
-			Assert.IsTrue(formatteValueOut == String.Format("1{1}234{1}567{0}89", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "1 234 567.89".ToSpecificValue());
 
 			// 10
-			beforeInput = String.Format("123{1}456{1}78" + "9{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			beforeInput = "123 456 78" + "9.25".ToSpecificValue();
 			beforeInputCaretPosition = 10;
-			input = String.Format("123{1}456{1}78{0}9{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			input = "123 456 78.9.25".ToSpecificValue();
 			inputCaretPositionRef = 11;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -350,7 +352,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 11);
-			Assert.IsTrue(formatteValueOut == String.Format("12{1}345{1}678{0}92", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "12 345 678.92".ToSpecificValue());
 		}
 
 
@@ -362,14 +364,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorBeforNumber()
 		{
-			var beforeInput = String.Format("1{0}25", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 0;
-			var input = String.Format("{0}1{0}25", _scaffold.TestBox.DecimalSeparator);
+			var input = ".1.25".ToSpecificValue();
 			var inputCaretPositionRef = 1;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -378,7 +380,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
-			Assert.IsTrue(formatteValueOut == String.Format("0{0}12", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "0.12".ToSpecificValue());
 		}
 
 

@@ -9,9 +9,9 @@ namespace TestMoneyFieldSilverlight
 
 		public App()
 		{
-			this.Startup += this.Application_Startup;
-			this.Exit += this.Application_Exit;
-			this.UnhandledException += this.Application_UnhandledException;
+			Startup += Application_Startup;
+			Exit += Application_Exit;
+			UnhandledException += Application_UnhandledException;
 
 			InitializeComponent();
 		}

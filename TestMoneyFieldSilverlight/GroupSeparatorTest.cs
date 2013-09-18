@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class GroupSeparatorTest : SilverlightTest
 	{
@@ -32,7 +34,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -41,7 +43,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 9);
-			Assert.IsTrue(formatteValueOut == String.Format("123{1}456{1}789{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "123 456 789.00".ToSpecificValue());
 		}
 
 

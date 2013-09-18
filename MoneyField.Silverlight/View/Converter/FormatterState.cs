@@ -5,21 +5,21 @@ namespace MoneyField.Silverlight.View.Converter
 {
 	internal sealed class FormatterState
 	{
-		private string _formatteValue;
+		private string _formattedValue;
 		private int _caretPosition;
 
 		/// <summary>
 		/// The money representation.
 		/// </summary>
-		public String FormatteValue
+		public String FormattedValue
 		{
 			get
 			{
-				return _formatteValue;
+				return _formattedValue;
 			}
 			set
 			{
-				_formatteValue = value;
+				_formattedValue = value;
 			}
 		}
 
@@ -51,8 +51,24 @@ namespace MoneyField.Silverlight.View.Converter
 		public DeletionDirection? DeletionType { get; set; }
 
 		/// <summary>
+		/// The sign that the Group Separator has been deleted.
+		/// </summary>
+		public Boolean? GroupSeparatorDeleted { get; set; }
+
+		/// <summary>
 		/// The value before formatting.
 		/// </summary>
-		public string UnformattedValue { get; set; }
+		public String UnformattedValue { get; set; }
+
+
+		/// <summary>
+		/// The previous integer part.
+		/// </summary>
+		public string PreviousInteger { get; set; }
+
+		/// <summary>
+		/// The previous partial part.
+		/// </summary>
+		public string PreviousParatial { get; set; }
 	}
 }

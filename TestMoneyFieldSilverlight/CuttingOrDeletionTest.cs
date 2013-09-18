@@ -5,12 +5,18 @@ using System;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
+// HowTo:
+// http://www.jeff.wilcox.name/2008/03/silverlight2-unit-testing/
+// Async HowTo:
+// http://developer.yahoo.com/dotnet/silverlight/2.0/unittest.html#async
+// http://stackoverflow.com/questions/11513422/silverlight-async-unit-testing
+
 namespace TestMoneyFieldSilverlight
 {
 	using TestMoneyFieldSilverlight.Utils;
 
 	[TestClass]
-	public class NullableTest : SilverlightTest
+	public class CuttingOrDeletionTest : SilverlightTest
 	{
 		private readonly Scaffold _scaffold = new Scaffold();
 
@@ -21,21 +27,7 @@ namespace TestMoneyFieldSilverlight
 		}
 
 
-		/// <summary>
-		/// The Double Type default value behavior.
-		/// </summary>
-		[TestMethod]
-		public void NullableDoubleIsEmptyField()
-		{
-			_scaffold.ViewModel.AmountDouble = null;
 
-			Assert.IsTrue(_scaffold.TestBox_.Text == String.Empty);
-		}
-
-
-
-		// TODO.it3xl.com: Добавить поддержку Decimal, Int32, UInt32.
-
-
+		// TODO.it3xl.com: Make any tests.
 	}
 }

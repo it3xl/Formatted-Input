@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class BackspaceKeyTest : SilverlightTest
 	{
@@ -18,30 +20,6 @@ namespace TestMoneyFieldSilverlight
 			_scaffold.TestInitialize(TestPanel);
 		}
 
-		/// <summary>
-		/// Decimal Separator deletion.
-		/// </summary>
-		[TestMethod]
-		public void DecimalSeparatorDeletion()
-		{
-			var beforeInput = String.Format("80{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
-			var beforeInputCaretPosition = 1;
-			var input = String.Format("0{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
-			var inputCaretPositionRef = 0;
-
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
-
-			Assert.IsTrue(inputCaretPositionRef == 0);
-			Assert.IsTrue(formatteValueOut == String.Format("9{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
-		}
 
 		/// <summary>
 		/// Deletion of the first digit before a bunch of zeros.
@@ -49,14 +27,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void LeadingZeros()
 		{
-			var beforeInput = String.Format("80{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var beforeInput = "80 000 009 123.25".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
-			var input = String.Format("0{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var input = "0 000 009 123.25".ToSpecificValue();
 			var inputCaretPositionRef = 0;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -65,7 +43,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 0);
-			Assert.IsTrue(formatteValueOut == String.Format("9{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "9 123.25".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -74,14 +52,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void LeadingSeparator()
 		{
-			var beforeInput = String.Format("8{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var beforeInput = "8 000 009 123.25".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
-			var input = String.Format("{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var input = " 000 009 123.25".ToSpecificValue();
 			var inputCaretPositionRef = 0;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -90,23 +68,25 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 0);
-			Assert.IsTrue(formatteValueOut == String.Format("9{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "9 123.25".ToSpecificValue());
 		}
+
+
 
 		/// <summary>
 		/// Deletion of a digit in the integer part of a number.
 		/// </summary>
 		[TestMethod]
-		public void IntegerDigitDeletion()
+		public void IntegerDigitBackspacing()
 		{
-			var beforeInput = String.Format("80{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var beforeInput = "80 111 222 333.25".ToSpecificValue();
 			var beforeInputCaretPosition = 5;
-			var input = String.Format("80{1}00{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var input = "80 11 222 333.25".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -115,23 +95,25 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == String.Format("8{1}000{1}009{1}123{0}25", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "8 011 222 333.25".ToSpecificValue());
 		}
 
+
+
 		/// <summary>
-		/// Deletion of the Group Separator in the integer part of a number.
+		/// Deletion of the Group Separator in the middle part of a number.
 		/// </summary>
 		[TestMethod]
-		public void GroupSeparatorInMiddleDeletion()
+		public void GroupSeparatorInMiddleBackspacing()
 		{
-			var beforeInput = String.Format("80{1}111{1}222{1}333{1}444{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 11;
-			var input = String.Format("80{1}111{1}222333{1}444{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator);
+			var input = "80 111 222333 444 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 10;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -140,51 +122,213 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 9);
-			Assert.IsTrue(formatteValueOut == String.Format("8{1}011{1}122{1}333{1}444{1}000{0}00", _scaffold.TestBox.DecimalSeparator, _scaffold.TestBox.GroupSeparator));
+			Assert.IsTrue(formatteValueOut == "8 011 122 333 444 000.00".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// Deletion of the Group Separator at the beginning part of a number.
+		/// </summary>
+		[TestMethod]
+		public void GroupSeparatorAtStartBackspacing()
+		{
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
+			var beforeInputCaretPosition = 3;
+			var input = "80111 222 333 444 000.00".ToSpecificValue();
+			var inputCaretPositionRef = 2;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 1);
+			Assert.IsTrue(formatteValueOut == "8 111 222 333 444 000.00".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// Deletion of the Group Separator at the end part of a number.
+		/// </summary>
+		[TestMethod]
+		public void GroupSeparatorAtEndBackspacing()
+		{
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
+			var beforeInputCaretPosition = 19;
+			var input = "80 111 222 333 444000.00".ToSpecificValue();
+			var inputCaretPositionRef = 18;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 17);
+			Assert.IsTrue(formatteValueOut == "8 011 122 233 344 000.00".ToSpecificValue());
 		}
 
 
 
+		/// <summary>
+		/// Deletion of a digit after a Group Separator in the middle part of a number.
+		/// </summary>
+		[TestMethod]
+		public void DigitAfterGroupSeparatorInMiddleBackspacing()
+		{
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
+			var beforeInputCaretPosition = 12;
+			var input = "80 111 222 33 444 000.00".ToSpecificValue();
+			var inputCaretPositionRef = 11;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 11);
+			Assert.IsTrue(formatteValueOut == "8 011 122 233 444 000.00".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// Deletion of a digit after a Group Separator at the beginning part of a number.
+		/// </summary>
+		[TestMethod]
+		public void DigitAfterGroupSeparatorAtStartBackspacing()
+		{
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
+			var beforeInputCaretPosition = 4;
+			var input = "80 11 222 333 444 000.00".ToSpecificValue();
+			var inputCaretPositionRef = 3;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 3);
+			Assert.IsTrue(formatteValueOut == "8 011 222 333 444 000.00".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// Deletion of a digit after a Group Separator at the end part of a number.
+		/// </summary>
+		[TestMethod]
+		public void DigitAfterGroupSeparatorAtEndBackspacing()
+		{
+			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
+			var beforeInputCaretPosition = 20;
+			var input = "80 111 222 333 444 00.00".ToSpecificValue();
+			var inputCaretPositionRef = 19;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 19);
+			Assert.IsTrue(formatteValueOut == "8 011 122 233 344 400.00".ToSpecificValue());
+
+
+			beforeInput = "8 111 222 333 444 000.00".ToSpecificValue();
+			beforeInputCaretPosition = 19;
+			input = "8 111 222 333 444 00.00".ToSpecificValue();
+			inputCaretPositionRef = 18;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 17);
+			Assert.IsTrue(formatteValueOut == "811 122 233 344 400.00".ToSpecificValue());
+		}
 
 
 
+		/// <summary>
+		/// Deletion of the Decimal Separator by the Backspace key.<para/>
+		/// It's only moves the cursor to the left.
+		/// </summary>
+		[TestMethod]
+		public void DecimalSeparatorBackspacing()
+		{
+			var beforeInput = "80 111 222.00".ToSpecificValue();
+			var beforeInputCaretPosition = 11;
+			var input = "80 111 22200".ToSpecificValue();
+			var inputCaretPositionRef = 10;
 
+			String formatteValueOut;
 
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
 
+			Assert.IsTrue(inputCaretPositionRef == 10);
+			Assert.IsTrue(formatteValueOut == "80 111 222.00".ToSpecificValue());
+		}
 
+		/// <summary>
+		/// Deletion of the Decimal Separator by the Backspace key for the zero value.<para/>
+		/// </summary>
+		[TestMethod]
+		public void DecimalSeparatorBackspacingForZero()
+		{
+			var beforeInput = "0.00".ToSpecificValue();
+			var beforeInputCaretPosition = 2;
+			var input = "000".ToSpecificValue();
+			var inputCaretPositionRef = 1;
 
+			String formatteValueOut;
 
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+			Assert.IsTrue(inputCaretPositionRef == 1);
+			Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());
+		}
 
 
 
 
 		// TODO.it3xl.com: The Backspace key.
 
-		// В целой части должно удалять число слева.
-		// Есил перед числом слева разделитель группы, то его удалять вместе с числом. Куроср поставить перед разделителем.
-		// Тоже, но после удаления будет разделитель.
-		// Все это повторить для первого и последнего разделителя.
-		
-		// Ошибка! Удаление разделителя ведет к умножению целой части на 100.
-		// Нужно, чтоб ничего не менялось, а позиция курсора вставала перед запятой.
-
-		// Backspace в дробной части должен отрабатывать, как стрелка влево с обнулением чисел.
-		// Удаление запятой кнопкой Backspace.
-		// 12,00
+		// Backspace в дробной части.
+		// Должен отрабатывать, как стрелка влево с обнулением чисел.
 		// 0,00 - курсор должен оставаться в позиции 1 (т.е. Backspace должен отработать, как стрелка влево)
 		// 0,00 - если курсор в первой позиции и нажимется Backspace, то нужно ставить курсор в позицию 1.
 		// 0,00 - если курсор в 0 позиции и нажимется Backspace, то нужно ставить курсор в позицию 1.

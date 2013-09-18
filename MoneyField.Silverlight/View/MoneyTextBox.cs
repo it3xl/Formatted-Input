@@ -170,7 +170,7 @@ namespace MoneyField.Silverlight.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formatteValue;
-			Converter.FormatDoubleManagePosition(unformattedValue, LastText, LastSelectionStart, out formatteValue, ref selectionStart);
+			Converter.FormatAndManageCaret(unformattedValue, LastText, LastSelectionStart, out formatteValue, ref selectionStart);
 
 			LastText = formatteValue;
 			LastSelectionStart = selectionStart;

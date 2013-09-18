@@ -91,6 +91,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="NullAndEmptyHandling\ManagedClosure.cs" />
+    <Compile Include="NullAndEmptyHandling\NullingExtention.cs" />
     <Compile Include="NullAndEmptyHandling\WeakClosure.cs" />
     <Compile Include="NullAndEmptyHandling\WeakReference.cs" />
     <Compile Include="View\Converter\DeletionDirection.cs" />

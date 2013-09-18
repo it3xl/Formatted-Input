@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	/// <summary>
 	/// The testing of a integer part of number.
 	/// </summary>
@@ -30,7 +32,7 @@ namespace TestMoneyFieldSilverlight
 		{
 			_scaffold.ViewModel.AmountDouble = 50;
 
-			Assert.IsTrue(_scaffold.TestBox.Text == String.Format("50{0}00", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(_scaffold.TestBox_.Text == "50.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -39,14 +41,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void ReplaceIntegerZeroWithDigitAfterZero()
 		{
-			var beforeInput = String.Format("0{0}00", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "0.00".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
-			var input = String.Format("01{0}00", _scaffold.TestBox.DecimalSeparator);
+			var input = "01.00".ToSpecificValue();
 			var inputCaretPositionRef = 2;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -55,7 +57,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 1);
-			Assert.IsTrue(formatteValueOut == String.Format("1{0}00", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "1.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -71,7 +73,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -80,7 +82,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 1);
-			Assert.IsTrue(formatteValueOut == string.Format("4{0}00", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "4.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -89,14 +91,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void AddZeroBeforeIntegerPart()
 		{
-			var beforeInput = String.Format("234{0}00", _scaffold.TestBox.DecimalSeparator);
+			var beforeInput = "234.00".ToSpecificValue();
 			var beforeInputCaretPosition = 0;
-			var input = String.Format("0234{0}00", _scaffold.TestBox.DecimalSeparator);
+			var input = "0234.00".ToSpecificValue();
 			var inputCaretPositionRef = 1;
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -105,7 +107,66 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 0);
-			Assert.IsTrue(formatteValueOut == string.Format("234{0}00", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "234.00".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// If the integer part is the zero, then a input leads to replacing of that zero at the position 0 and 1. 
+		/// </summary>
+		[TestMethod]
+		public void InsertAtPlaceOfZero()
+		{
+			var beforeInput = "0.03".ToSpecificValue();
+			var beforeInputCaretPosition = 0;
+			var input = "10.03".ToSpecificValue();
+			var inputCaretPositionRef = 1;
+
+			String formatteValueOut;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 1);
+			Assert.IsTrue(formatteValueOut == "1.03".ToSpecificValue());
+
+
+			beforeInput = "0.03".ToSpecificValue();
+			beforeInputCaretPosition = 0;
+			input = "1 0.03".ToSpecificValue();
+			inputCaretPositionRef = 2;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 1);
+			Assert.IsTrue(formatteValueOut == "1.03".ToSpecificValue());
+
+
+			beforeInput = "0.03".ToSpecificValue();
+			beforeInputCaretPosition = 0;
+			input = "1_ 8790.03".ToSpecificValue();
+			inputCaretPositionRef = 6;
+
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+				input,
+				beforeInput,
+				beforeInputCaretPosition,
+				out formatteValueOut,
+				ref inputCaretPositionRef
+			);
+
+			Assert.IsTrue(inputCaretPositionRef == 5);
+			Assert.IsTrue(formatteValueOut == "1 879.03".ToSpecificValue());
 		}
 
 

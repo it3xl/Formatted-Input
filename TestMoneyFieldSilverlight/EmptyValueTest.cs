@@ -7,6 +7,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
+	using TestMoneyFieldSilverlight.Utils;
+
 	[TestClass]
 	public class EmptyValueTest : SilverlightTest
 	{
@@ -33,7 +35,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatDoubleManagePosition(
+			_scaffold.TestBox_.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -42,7 +44,7 @@ namespace TestMoneyFieldSilverlight
 			);
 
 			Assert.IsTrue(inputCaretPositionRef == 1);
-			Assert.IsTrue(formatteValueOut == String.Format("0{0}00", _scaffold.TestBox.DecimalSeparator));
+			Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());
 		}
 	
 	
