@@ -142,7 +142,7 @@ namespace TestMoneyFieldSilverlight
 
 
 
-		// TODO.it3xl.ru: The Del key.
+		// TODO.it3xl.com: The Del key.
 
 		// В целой части должно удалять число справа.
 		// Есил перед числом справа разделитель группы, то его удалять вместе с числом.

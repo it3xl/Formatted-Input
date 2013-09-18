@@ -232,7 +232,7 @@ namespace MoneyField.Silverlight.View.Converter
 
 				if (unformattedValue == String.Empty)
 				{
-					// Пустое поле не правим и считаем корректным.
+					// The empty value is correct and will stay unprocessed.
 
 					return;
 				}
@@ -246,16 +246,7 @@ namespace MoneyField.Silverlight.View.Converter
 						FormattingType = formattingType,
 					};
 
-				// Заменим алтернативный десятичный разделитель на основной.
-				AlternativeInputDecimalSeparator.InvokeIfNotDefault(el =>
-					{
-						if (AlternativeInputDecimalSeparator == DecimalSeparator)
-						{
-							return;
-						}
-
-						state.FormatteValue = state.FormatteValue.Replace(AlternativeInputDecimalSeparator, DecimalSeparator);
-					});
+				AlternateDecimalSeparatorReplacing(state);
 
 				// Обработаем удаление одного символа.
 				if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
@@ -437,6 +428,27 @@ namespace MoneyField.Silverlight.View.Converter
 				caretPosition = 0;
 			}
 
+		}
+
+		/// <summary>
+		/// Replaces an alternate Decimal Separator.
+		/// <see cref="AlternativeInputDecimalSeparator"/>
+		/// </summary>
+		/// <param name="state"></param>
+		private void AlternateDecimalSeparatorReplacing(FormatterState state)
+		{
+			if (AlternativeInputDecimalSeparator.IsDefault())
+			{
+				return;
+			}
+
+			if (AlternativeInputDecimalSeparator == DecimalSeparator)
+			{
+				return;
+			}
+
+			state.FormatteValue = state.FormatteValue
+				.Replace(AlternativeInputDecimalSeparator, DecimalSeparator);
 		}
 
 		/// <summary>

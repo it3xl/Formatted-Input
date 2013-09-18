@@ -32,7 +32,7 @@ namespace TestMoneyFieldSilverlight
 
 
 
-		// TODO.it3xl.ru: Добавить поддержку Decimal, Int32, UInt32.
+		// TODO.it3xl.com: Добавить поддержку Decimal, Int32, UInt32.
 
 
 	}

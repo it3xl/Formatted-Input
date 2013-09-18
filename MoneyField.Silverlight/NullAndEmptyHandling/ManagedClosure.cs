@@ -7,7 +7,7 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 	/// https://managedclosure.codeplex.com/
 	/// </summary>
 	/// <remarks>
-	/// TODO.it3xl.ru: В следующих классах разобраться с причиной обнуления целевого объекта и заменить там этот класс на <see cref="WeakClosure{T}"/>.
+	/// TODO.it3xl.com: В следующих классах разобраться с причиной обнуления целевого объекта и заменить там этот класс на <see cref="WeakClosure{T}"/>.
 	/// Web\Calculation\CreditCalculation\Controller\QuickYes\CalculatorQuickYesControllerBase.cs
 	/// + PopUp открываемые из калькуляторов (см. мои туду).
 	/// </remarks>

@@ -5,27 +5,13 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 {
 	/// <summary>
 	/// Расширения, позволяющие выполнять действие только для не нулевых объектов и структур не равных значению по умлочанию.
+	/// Processing of the null or default values.
 	/// </summary>
 	public static class NotNullNotDefaultExecutionExtention
 	{
 
 
-
-		// Для строки сделать отдельный метод Not Null + Not Empty.
-
-		// Для строки сделать Is null or empty.
-
-
-
-
-
-
-
-
-
-
-
-
+		// TODO.it3xl.com: For the String make Not Null, Not Empty, Is null or empty.
 
 
 
@@ -60,7 +46,6 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 		/// Or returns default type value.
 		/// </summary>
 		/// <typeparam name="TTarget"></typeparam>
-		/// <typeparam name="TValue"></typeparam>
 		/// <param name="target"></param>
 		/// <param name="setter">The some property setter.</param>
 		/// <returns></returns>
@@ -72,11 +57,11 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 
 
 		/// <summary>
-		/// Выполнит действие, если параметр не ссылается на null.
+		/// Executes the action if the parameter is not null.
 		/// </summary>
 		/// <typeparam name="TTarget"></typeparam>
 		/// <param name="target"></param>
-		/// <param name="action"></param>
+		/// <param name="action">Input action.</param>
 		[DebuggerStepThrough]
 		public static void InvokeNotNull<TTarget>(this TTarget target, Action<TTarget> action)
 			where TTarget : class 
@@ -96,7 +81,7 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 
 
 		/// <summary>
-		/// Выполнит действие, если параметр не ссылается на null.
+		/// Executes the action if the parameter is not null.
 		/// </summary>
 		/// <param name="target"></param>
 		/// <param name="action"></param>
@@ -117,7 +102,7 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 		}
 
 		/// <summary>
-		/// Выполнит дейстие, если значение параметра не указывает на null.
+		/// Executes the action if the parameter is not null.
 		/// </summary>
 		/// <typeparam name="TTarget"></typeparam>
 		/// <param name="target"></param>
@@ -140,7 +125,7 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 		}
 
 		/// <summary>
-		/// Выполнит дейстие, если значение параметра типа значения не указывает на значение типа по умолчанию.
+		/// Executes the action if the parameter not equals to its type default value.
 		/// </summary>
 		/// <typeparam name="TTarget"></typeparam>
 		/// <param name="target"></param>
@@ -160,6 +145,18 @@ namespace MoneyField.Silverlight.NullAndEmptyHandling
 			}
 
 			action(target);
+		}
+
+		/// <summary>
+		/// Defines that parameter equals to its type default value.
+		/// </summary>
+		/// <typeparam name="TTarget"></typeparam>
+		/// <param name="target"></param>
+		[DebuggerStepThrough]
+		public static Boolean IsDefault<TTarget>(this TTarget target)
+			where TTarget : struct
+		{
+			return Equals(target, default(TTarget));
 		}
 
 

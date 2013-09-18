@@ -59,7 +59,7 @@ namespace TestMoneyFieldSilverlight
 			Assert.IsTrue(formatteValueOut == String.Format("23{0}18", _scaffold.TestBox.DecimalSeparator));
 		}
 
-		// TODO.it3xl.ru: Partial digits.
+		// TODO.it3xl.com: Partial digits.
 		// Typing of the first digit sets the second to the 0. 
 
 	}

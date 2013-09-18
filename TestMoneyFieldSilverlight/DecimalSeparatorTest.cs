@@ -382,7 +382,7 @@ namespace TestMoneyFieldSilverlight
 		}
 
 
-		// TODO.it3xl.ru: Decimal separator.
+		// TODO.it3xl.com: Decimal separator.
 		// 0000123 inserting with caret at the 3. Decimal separator needing.
 
 

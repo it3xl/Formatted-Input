@@ -45,7 +45,7 @@ namespace TestMoneyFieldSilverlight
 		}
 
 
-		// TODO.it3xl.ru: .
+		// TODO.it3xl.com: .
 		// Separator inserting ignored an any position.
 	
 	}

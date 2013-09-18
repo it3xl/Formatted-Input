@@ -172,7 +172,7 @@ namespace TestMoneyFieldSilverlight
 
 
 
-		// TODO.it3xl.ru: The Backspace key.
+		// TODO.it3xl.com: The Backspace key.
 
 		// В целой части должно удалять число слева.
 		// Есил перед числом слева разделитель группы, то его удалять вместе с числом. Куроср поставить перед разделителем.

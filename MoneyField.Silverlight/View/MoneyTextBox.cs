@@ -114,11 +114,11 @@ namespace MoneyField.Silverlight.View
 				{
 					var binding = new Binding(el.ParentBinding)
 					{
-						// it3xl.ru: Только сами определяем, когда обновлять источник.
+						// it3xl.com: Только сами определяем, когда обновлять источник.
 						UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
 						Mode = BindingMode.TwoWay,
 
-						// it3xl.ru: Биндинг правильно может работать только с нашим конвертером.
+						// it3xl.com: Биндинг правильно может работать только с нашим конвертером.
 						Converter = converter,
 					};
 

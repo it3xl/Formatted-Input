@@ -86,7 +86,7 @@ namespace TestMoneyFieldSilverlight
 
 
 
-		// TODO.it3xl.ru: Проверить, как поведут себя Decimal, Int32, UInt32 для огромных чисел.
+		// TODO.it3xl.com: Проверить, как поведут себя Decimal, Int32, UInt32 для огромных чисел.
 	
 	
 	}
