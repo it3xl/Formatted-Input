@@ -1,24 +1,37 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyField.Silverlight", "MoneyField.Silverlight\MoneyField.Silverlight.csproj", "{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedInput.WPF", "FormattedInput.WPF\FormattedInput.WPF.csproj", "{F9ACC72A-14D7-4745-BCE6-1FF3A93E25FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMoneyFieldSilverlight", "TestMoneyFieldSilverlight\TestMoneyFieldSilverlight.csproj", "{EDE4C546-AA40-43BE-8365-2E2E6958D49D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedInput.Silverlight", "FormattedInput.Silverlight\FormattedInput.Silverlight.csproj", "{F82ED199-78FE-4474-909E-8CB6ED7B0C0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.MoneyField.Silverlight", "Test.MoneyField.Silverlight\Test.MoneyField.Silverlight.csproj", "{EDE4C546-AA40-43BE-8365-2E2E6958D49D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scaffold.MoneyField.Silverlight", "Scaffold.MoneyField.Silverlight\Scaffold.MoneyField.Silverlight.csproj", "{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Description = it3xl.com FormattedInput
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9ACC72A-14D7-4745-BCE6-1FF3A93E25FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9ACC72A-14D7-4745-BCE6-1FF3A93E25FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9ACC72A-14D7-4745-BCE6-1FF3A93E25FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9ACC72A-14D7-4745-BCE6-1FF3A93E25FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F82ED199-78FE-4474-909E-8CB6ED7B0C0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82ED199-78FE-4474-909E-8CB6ED7B0C0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82ED199-78FE-4474-909E-8CB6ED7B0C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82ED199-78FE-4474-909E-8CB6ED7B0C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDE4C546-AA40-43BE-8365-2E2E6958D49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDE4C546-AA40-43BE-8365-2E2E6958D49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE4C546-AA40-43BE-8365-2E2E6958D49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE4C546-AA40-43BE-8365-2E2E6958D49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

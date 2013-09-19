@@ -4,3 +4,5 @@ Bin
 *.user
 /*.suo
 /_ReSharper.FormattedInputSolution
+
+*.StyleCop
