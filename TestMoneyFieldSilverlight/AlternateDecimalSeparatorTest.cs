@@ -22,7 +22,7 @@ namespace TestMoneyFieldSilverlight
 
 
 		/// <summary>
-		/// 
+		/// The common behaviours for the AlternativeDecimalSeparator.
 		/// </summary>
 		[TestMethod]
 		public void CommonBehaviours()
@@ -31,89 +31,74 @@ namespace TestMoneyFieldSilverlight
 			_scaffold.TestBox.DecimalSeparator = ',';
 			_scaffold.TestBox.GroupSeparator = ' ';
 
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
 			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
-			var beforeInput = "9 876 543.21".ToSpecificValue();
-			var beforeInputCaretPosition = 5;
-			var input = "9 876_ 543.21".ToSpecificValue();
-			var inputCaretPositionRef = 6;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
-
-			Assert.IsTrue(inputCaretPositionRef == 6);
-			Assert.IsTrue(formatteValueOut == "9 876.54".ToSpecificValue());
-
-
-			beforeInput = "9 876 543.21".ToSpecificValue();
-			beforeInputCaretPosition = 6;
-			input = "9 876 _543.21".ToSpecificValue();
-			inputCaretPositionRef = 7;
+			var beforeInput = "9 876| 543.21".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "9 876_| 543.21".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 6);
-			Assert.IsTrue(formatteValueOut == "9 876.54".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "9 876.|54".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
-			beforeInput = "9 876 543.21".ToSpecificValue();
-			beforeInputCaretPosition = 7;
-			input = "9 876 5_43.21".ToSpecificValue();
-			inputCaretPositionRef = 8;
+			beforeInput = "9 876 |543.21".ToSpecificValue(out beforeInputCaretPosition);
+			input = "9 876 _|543.21".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 7);
-			Assert.IsTrue(formatteValueOut == "98 765.43".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "9 876.|54".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
-			beforeInput = "12 345.67".ToSpecificValue();
-			beforeInputCaretPosition = 6;
-			input = "12 345_.67".ToSpecificValue();
-			inputCaretPositionRef = 7;
+			beforeInput = "9 876 5|43.21".ToSpecificValue(out beforeInputCaretPosition);
+			input = "9 876 5_|43.21".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 7);
-			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "98 765.|43".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
-			beforeInput = "12 345.67".ToSpecificValue();
-			beforeInputCaretPosition = 7;
-			input = "12 345._67".ToSpecificValue();
-			inputCaretPositionRef = 8;
+			beforeInput = "12 345|.67".ToSpecificValue(out beforeInputCaretPosition);
+			input = "12 345_|.67".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 7);
-			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "12 345.|67".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
-			beforeInput = "12 345.67".ToSpecificValue();
-			beforeInputCaretPosition = 8;
-			input = "12 345.6_7".ToSpecificValue();
-			inputCaretPositionRef = 9;
+			beforeInput = "12 345.|67".ToSpecificValue(out beforeInputCaretPosition);
+			input = "12 345._|67".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 8);
-			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "12 345.|67".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
-			beforeInput = "12 345.67".ToSpecificValue();
-			beforeInputCaretPosition = 9;
-			input = "12 345.67_".ToSpecificValue();
-			inputCaretPositionRef = 10;
+			beforeInput = "12 345.6|7".ToSpecificValue(out beforeInputCaretPosition);
+			input = "12 345.6_|7".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 9);
-			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "12 345.6|7".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+
+			beforeInput = "12 345.67|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "12 345.67_|".ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == "12 345.67|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 
-		// TODO.it3xl.com: 
-		
-		// Insertionf of a AlternativeDecimalSeparator
-	
 	}
 }
