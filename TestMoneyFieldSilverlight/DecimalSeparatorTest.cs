@@ -285,6 +285,10 @@ namespace TestMoneyFieldSilverlight
 			Assert.IsTrue(formatteValueOut == "0.12".ToSpecificValue());
 		}
 
+
+
+		// TODO.it3xl.com: Insert a Decimal Seporator before the same and after.
+
 	}
 
 
