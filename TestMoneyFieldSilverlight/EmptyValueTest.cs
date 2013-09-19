@@ -27,17 +27,18 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void FirstIncorectSymbolBehavior()
 		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
 			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
-			var beforeInput = String.Empty;
-			var beforeInputCaretPosition = 0;
-			var input = "e";
-			var inputCaretPositionRef = 1;
+			var beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "e|".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 1);
-			Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "0|.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 	
 	

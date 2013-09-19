@@ -29,29 +29,33 @@ namespace TestMoneyFieldSilverlight
 		/// <summary>
 		/// It's the useless test for the demonstration of a parallel testing.
 		/// </summary>
-		[Ignore]
+		//[Ignore]
 		[Description("Useless test to demonstrate the parallel testing.")]
 		[TestMethod]
 		[Asynchronous]
 		public void DummyParallelTesting()
 		{
-			_scaffold.TestBox.Text = "0.00".ToSpecificValue();
+			Int32 expectedCaretPosition;
+
+			_scaffold.TestBox.Text = "0.00".ToSpecificValue(out expectedCaretPosition);
 			_scaffold.TestBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
-			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox.SelectionStart)));
-			EnqueueCallback(() => _scaffold.TestBox.Text = "1.00".ToSpecificValue());
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart)));
+
+			EnqueueCallback(() => _scaffold.TestBox.Text = "1.00".ToSpecificValue(out expectedCaretPosition));
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
 			EnqueueCallback(() =>
 			{
-				Assert.IsTrue(_scaffold.TestBox.Text == "1.00".ToSpecificValue());
-				Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("Second Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox.SelectionStart));
+				Assert.IsTrue(_scaffold.TestBox.Text == "1.00".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.TestBox.SelectionStart == 0, String.Format("Second Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart));
 			});
+
 			EnqueueTestComplete();
 		}
 	

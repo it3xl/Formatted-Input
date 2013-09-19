@@ -26,17 +26,18 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void GroupDelimiterFormatting()
 		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
 			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
-			var beforeInput = "89";
-			var beforeInputCaretPosition = 0;
-			var input = "123456789";
-			var inputCaretPositionRef = 7;
+			var beforeInput = "|89.00".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "1234567|89.00".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 9);
-			Assert.IsTrue(formatteValueOut == "123 456 789.00".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "123 456 7|89.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 	
 	}

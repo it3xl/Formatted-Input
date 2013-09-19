@@ -31,7 +31,9 @@ namespace TestMoneyFieldSilverlight
 		{
 			_scaffold.ViewModel.AmountDouble = 12345.000432;
 
-			Assert.IsTrue(_scaffold.TestBox.Text == "12 345.00".ToSpecificValue());
+			Int32 expectedCaretPosition;
+			Assert.IsTrue(_scaffold.TestBox.Text == "|12 345.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(_scaffold.TestBox.SelectionStart == expectedCaretPosition);
 		}
 
 		/// <summary>
@@ -41,17 +43,18 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void NeedCutSecondPartialDigit()
 		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
 			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
-			var beforeInput = "23.98".ToSpecificValue();
-			var beforeInputCaretPosition = 3;
-			var input = "23.198".ToSpecificValue();
-			var inputCaretPositionRef = 4;
+			var beforeInput = "23.|98".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "23.1|98".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 4);
-			Assert.IsTrue(formatteValueOut == "23.18".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "23.1|8".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 	}
