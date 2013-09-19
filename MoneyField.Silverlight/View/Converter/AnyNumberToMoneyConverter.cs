@@ -6,6 +6,10 @@
 	using System.Windows.Data;
 	using NullAndEmptyHandling;
 
+
+	// TODO.it3xl.com: Extract ViewModel from the project.
+
+
 	/// <summary>
 	/// The main logic of a formatting.
 	/// </summary>

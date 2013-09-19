@@ -27,20 +27,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void X()
 		{
+			//String formatteValueOut;
+
 			//var beforeInput = String.Empty;
 			//var beforeInputCaretPosition = 0;
 			//var input = "e";
 			//var inputCaretPositionRef = 1;
 
-			//String formatteValueOut;
-
-			//_scaffold.TestBox.Converter.FormatAndManageCaret(
-			//	input,
-			//	beforeInput,
-			//	beforeInputCaretPosition,
-			//	out formatteValueOut,
-			//	ref inputCaretPositionRef
-			//);
+			//_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			//Assert.IsTrue(inputCaretPositionRef == 1);
 			//Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());

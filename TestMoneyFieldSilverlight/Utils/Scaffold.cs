@@ -1,12 +1,10 @@
 ﻿namespace TestMoneyFieldSilverlight.Utils
 {
-	using System.Windows.Controls;
-
+	using System;
 	using MoneyField.Silverlight;
 	using MoneyField.Silverlight.View;
 	using MoneyField.Silverlight.ViewModel;
-
-	using System;
+	using System.Windows.Controls;
 
 	public class Scaffold
 	{
@@ -28,5 +26,7 @@
 
 			testPanel.Children.Add(testPage);
 		}
+
+		// TODO.it3xl.com: Test the Decimal, Int32, UInt32
 	}
 }

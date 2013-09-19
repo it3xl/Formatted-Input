@@ -41,20 +41,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void NeedCutSecondPartialDigit()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "23.98".ToSpecificValue();
 			var beforeInputCaretPosition = 3;
 			var input = "23.198".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == "23.18".ToSpecificValue());

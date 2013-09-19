@@ -50,26 +50,19 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorBeforSeparator()
 		{
+			String formatteValueOut;
+
 			String beforeInput;
 			Int32 beforeInputCaretPosition;
 			String input;
 			Int32 inputCaretPositionRef;
-
-			String formatteValueOut;
-
 
 			beforeInput = "1.25".ToSpecificValue();
 			beforeInputCaretPosition = 1;
 			input = "1..25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == beforeInput);
@@ -80,13 +73,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789..25".ToSpecificValue();
 			inputCaretPositionRef = 12;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 12);
 			Assert.IsTrue(formatteValueOut == "123 456 789.25".ToSpecificValue());
@@ -98,20 +85,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterSeparator()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
 			var input = "1..25".ToSpecificValue();
 			var inputCaretPositionRef = 3;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == beforeInput);
@@ -124,20 +105,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterDecimal()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 3;
 			var input = "1.2.5".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 3);
 			Assert.IsTrue(formatteValueOut == beforeInput);
@@ -150,20 +125,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAfterHandredth()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "1.25".ToSpecificValue();
 			var beforeInputCaretPosition = 4;
 			var input = "1.25.".ToSpecificValue();
 			var inputCaretPositionRef = 5;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == beforeInput);
@@ -176,12 +145,12 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void InputSeparatorAmongNumberPart()
 		{
+			String formatteValueOut;
+
 			String beforeInput;
 			Int32 beforeInputCaretPosition;
 			String input;
 			Int32 inputCaretPositionRef;
-
-			String formatteValueOut;
 
 			// 1
 			beforeInput = "1" + "23 456 789.25".ToSpecificValue();
@@ -189,13 +158,7 @@ namespace TestMoneyFieldSilverlight
 			input = "1.23 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == "1.23".ToSpecificValue());
@@ -206,13 +169,7 @@ namespace TestMoneyFieldSilverlight
 			input = "12.3 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 3;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 3);
 			Assert.IsTrue(formatteValueOut == "12.34".ToSpecificValue());
@@ -223,13 +180,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123. 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 4;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == "123.45".ToSpecificValue());
@@ -240,13 +191,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 .456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 5;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == "123.45".ToSpecificValue());
@@ -257,13 +202,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 4.56 789.25".ToSpecificValue();
 			inputCaretPositionRef = 6;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 6);
 			Assert.IsTrue(formatteValueOut == "1 234.56".ToSpecificValue());
@@ -274,13 +213,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 45.6 789.25".ToSpecificValue();
 			inputCaretPositionRef = 7;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 7);
 			Assert.IsTrue(formatteValueOut == "12 345.67".ToSpecificValue());
@@ -291,13 +224,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456. 789.25".ToSpecificValue();
 			inputCaretPositionRef = 8;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 8);
 			Assert.IsTrue(formatteValueOut == "123 456.78".ToSpecificValue());
@@ -308,13 +235,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 .789.25".ToSpecificValue();
 			inputCaretPositionRef = 9;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 8);
 			Assert.IsTrue(formatteValueOut == "123 456.78".ToSpecificValue());
@@ -325,13 +246,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 7.89.25".ToSpecificValue();
 			inputCaretPositionRef = 10;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 10);
 			Assert.IsTrue(formatteValueOut == "1 234 567.89".ToSpecificValue());
@@ -342,13 +257,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 78.9.25".ToSpecificValue();
 			inputCaretPositionRef = 11;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 11);
 			Assert.IsTrue(formatteValueOut == "12 345 678.92".ToSpecificValue());
@@ -370,13 +279,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == "0.12".ToSpecificValue());

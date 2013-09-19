@@ -111,8 +111,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AlternateDecimalSeparatorTest.cs" />
-    <Compile Include="CuttingOrDeletionTest.cs" />
-    <Compile Include="PastingTest.cs" />
     <Compile Include="EmptyValueTest.cs" />
     <Compile Include="DummyTest.cs" />
     <Compile Include="GroupSeparatorTest.cs" />

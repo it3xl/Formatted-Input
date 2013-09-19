@@ -90,7 +90,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NullAndEmptyHandling\ManagedClosure.cs" />
     <Compile Include="NullAndEmptyHandling\NullingExtention.cs" />
     <Compile Include="NullAndEmptyHandling\WeakClosure.cs" />
     <Compile Include="NullAndEmptyHandling\WeakReference.cs" />

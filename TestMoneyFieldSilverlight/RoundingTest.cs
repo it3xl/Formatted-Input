@@ -40,12 +40,12 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DoubleRoundingPartialPart()
 		{
+			String formatteValueOut;
+
 			String beforeInput;
 			Int32 beforeInputCaretPosition;
 			String input;
 			Int32 inputCaretPositionRef;
-
-			String formatteValueOut;
 
 			// 1
 			beforeInput = "123 456 789 123 457 000.00".ToSpecificValue();
@@ -53,13 +53,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789 123 457 000.200".ToSpecificValue();
 			inputCaretPositionRef = 25;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 25);
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());
@@ -70,13 +64,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789 123 457 000.020".ToSpecificValue();
 			inputCaretPositionRef = 26;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 26);
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());

@@ -26,12 +26,12 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void GroupDelimiterFormatting()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "89";
 			var beforeInputCaretPosition = 0;
 			var input = "123456789";
 			var inputCaretPositionRef = 7;
-
-			String formatteValueOut;
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 

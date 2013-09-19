@@ -25,20 +25,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void LeadingZeros()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 000 009 123.25".ToSpecificValue();
 			var beforeInputCaretPosition = 0;
 			var input = "0 000 009 123.25".ToSpecificValue();
 			var inputCaretPositionRef = 0;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 0);
 			Assert.IsTrue(formatteValueOut == "9 123.25".ToSpecificValue());
@@ -50,20 +44,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void LeadingSeparator()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "8 000 009 123.25".ToSpecificValue();
 			var beforeInputCaretPosition = 0;
 			var input = " 000 009 123.25".ToSpecificValue();
 			var inputCaretPositionRef = 0;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 0);
 			Assert.IsTrue(formatteValueOut == "9 123.25".ToSpecificValue());
@@ -77,20 +65,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void IntegerDigitDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333.25".ToSpecificValue();
 			var beforeInputCaretPosition = 4;
 			var input = "80 11 222 333.25".ToSpecificValue();
 			var inputCaretPositionRef = 4;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == "8 011 222 333.25".ToSpecificValue());
@@ -104,20 +86,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void GroupSeparatorInMiddleDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 10;
 			var input = "80 111 222333 444 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 10;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 11);
 			Assert.IsTrue(formatteValueOut == "8 011 122 233 444 000.00".ToSpecificValue());
@@ -129,20 +105,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void GroupSeparatorAtStartDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 2;
 			var input = "80111 222 333 444 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 2;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 3);
 			Assert.IsTrue(formatteValueOut == "8 011 222 333 444 000.00".ToSpecificValue());
@@ -154,20 +124,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void GroupSeparatorAtEndDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 18;
 			var input = "80 111 222 333 444000.00".ToSpecificValue();
 			var inputCaretPositionRef = 18;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 19);
 			Assert.IsTrue(formatteValueOut == "8 011 122 233 344 400.00".ToSpecificValue());
@@ -181,20 +145,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DigitBeforeGroupSeparatorInMiddleDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 9;
 			var input = "80 111 22 333 444 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 9;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 10);
 			Assert.IsTrue(formatteValueOut == "8 011 122 333 444 000.00".ToSpecificValue());
@@ -206,20 +164,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DigitBeforeGroupSeparatorAtStartDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 1;
 			var input = "8 111 222 333 444 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 1;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == "8 111 222 333 444 000.00".ToSpecificValue());
@@ -231,20 +183,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DigitBeforeGroupSeparatorAtEndDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222 333 444 000.00".ToSpecificValue();
 			var beforeInputCaretPosition = 17;
 			var input = "80 111 222 333 44 000.00".ToSpecificValue();
 			var inputCaretPositionRef = 17;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 18);
 			Assert.IsTrue(formatteValueOut == "8 011 122 233 344 000.00".ToSpecificValue());
@@ -255,13 +201,7 @@ namespace TestMoneyFieldSilverlight
 			input = "8 111 222 333 44 000.00".ToSpecificValue();
 			inputCaretPositionRef = 16;
 
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 16);
 			Assert.IsTrue(formatteValueOut == "811 122 233 344 000.00".ToSpecificValue());
@@ -276,20 +216,14 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DecimalSeparatorDeletion()
 		{
+			String formatteValueOut;
+
 			var beforeInput = "80 111 222.00".ToSpecificValue();
 			var beforeInputCaretPosition = 10;
 			var input = "80 111 22200".ToSpecificValue();
 			var inputCaretPositionRef = 10;
 
-			String formatteValueOut;
-
-			_scaffold.TestBox.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 11);
 			Assert.IsTrue(formatteValueOut == "80 111 222.00".ToSpecificValue());
