@@ -30,7 +30,7 @@ namespace TestMoneyFieldSilverlight
 			_scaffold.ViewModel.AmountDouble = 123456789123456789123456789.987654321;
 
 			Assert.IsTrue(
-				_scaffold.TestBox_.Text == "123 456 789 123 457 000 000 000 000.00".ToSpecificValue()
+				_scaffold.TestBox.Text == "123 456 789 123 457 000 000 000 000.00".ToSpecificValue()
 				);
 		}
 
@@ -53,7 +53,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789 123 457 000.200".ToSpecificValue();
 			inputCaretPositionRef = 25;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -70,7 +70,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789 123 457 000.020".ToSpecificValue();
 			inputCaretPositionRef = 26;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,

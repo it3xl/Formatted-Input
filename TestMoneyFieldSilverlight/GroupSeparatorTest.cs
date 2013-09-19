@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class GroupSeparatorTest : SilverlightTest
@@ -34,21 +33,11 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
-				input,
-				beforeInput,
-				beforeInputCaretPosition,
-				out formatteValueOut,
-				ref inputCaretPositionRef
-			);
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(inputCaretPositionRef == 9);
 			Assert.IsTrue(formatteValueOut == "123 456 789.00".ToSpecificValue());
 		}
-
-
-		// TODO.it3xl.com: .
-		// Separator inserting ignored an any position.
 	
 	}
 }

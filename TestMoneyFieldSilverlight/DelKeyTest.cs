@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class DelKeyTest : SilverlightTest
@@ -33,7 +32,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -58,7 +57,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -85,7 +84,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -112,7 +111,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -137,7 +136,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -162,7 +161,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -189,7 +188,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -214,7 +213,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -239,7 +238,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -256,7 +255,7 @@ namespace TestMoneyFieldSilverlight
 			input = "8 111 222 333 44 000.00".ToSpecificValue();
 			inputCaretPositionRef = 16;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -284,7 +283,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -297,31 +296,47 @@ namespace TestMoneyFieldSilverlight
 		}
 
 
+		/// <summary>
+		/// Partial & Del key behaviours.
+		/// </summary>
+		[TestMethod]
+		public void PartialAndDelKey()
+		{
+			String formatteValueOut;
+
+			var beforeInput = "45.72".ToSpecificValue();
+			var beforeInputCaretPosition = 2;
+			var input = "4572".ToSpecificValue();
+			var inputCaretPositionRef = 2;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 3);
+			Assert.IsTrue(formatteValueOut == "45.72".ToSpecificValue());
 
 
+			beforeInput = "45.72".ToSpecificValue();
+			beforeInputCaretPosition = 3;
+			input = "45.2".ToSpecificValue();
+			inputCaretPositionRef = 3;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 3);
+			Assert.IsTrue(formatteValueOut == "45.20".ToSpecificValue());
 
 
+			beforeInput = "45.72".ToSpecificValue();
+			beforeInputCaretPosition = 4;
+			input = "45.7".ToSpecificValue();
+			inputCaretPositionRef = 4;
 
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
+			Assert.IsTrue(inputCaretPositionRef == 4);
+			Assert.IsTrue(formatteValueOut == "45.70".ToSpecificValue());
+		}
 
-
-
-
-
-
-
-		// TODO.it3xl.com: The Del key.
-
-		// Нажатие Del перед запятой переводит позицию курсора после запятой, ничего не меняя.
-		// Есть ошибки:
-		// Если после запятой числа, то они попадают в целую часть.
-		// Если после запятой нули, то курсор скачет в нулевую позицию.
-
-		// Del. Обработка удаления после запятой работает аналогично обычного текстового ввода, поэтому примем следующие правила
-		// Удаление в позиции сразу после запятой удаляет первый символ после запятой передвигает на его метсто второй символ + оставляет курсор на прежнем месте.
-
-		// Протестировать поведение GroupSeparator в разных случаях.
-		// Протестировать поведение DecimalSeparator в разных случаях. Перенести сюда соответствующие тесты из DecimalSeparatorTest.
 
 	}
 }

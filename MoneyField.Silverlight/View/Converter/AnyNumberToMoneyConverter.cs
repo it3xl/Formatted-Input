@@ -1,13 +1,13 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Data;
-using MoneyField.Silverlight.NullAndEmptyHandling;
-
-namespace MoneyField.Silverlight.View.Converter
+﻿namespace MoneyField.Silverlight.View.Converter
 {
+	using System;
+	using System.Globalization;
+	using System.Linq;
+	using System.Windows.Data;
+	using NullAndEmptyHandling;
+
 	/// <summary>
-	/// 
+	/// The main logic of a formatting.
 	/// </summary>
 	public sealed class AnyNumberToMoneyConverter : IValueConverter
 	{

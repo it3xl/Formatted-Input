@@ -1,10 +1,6 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 // HowTo:
 // http://www.jeff.wilcox.name/2008/03/silverlight2-unit-testing/
 // Async HowTo:
@@ -13,7 +9,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class CuttingOrDeletionTest : SilverlightTest

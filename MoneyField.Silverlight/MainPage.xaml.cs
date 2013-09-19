@@ -66,7 +66,7 @@ namespace MoneyField.Silverlight
 			TestMoneyTexBox = TagetTestMoneyTexBox;
 
 			TagetTestMoneyTexBox.DecimalSeparator = ',';
-			TagetTestMoneyTexBox.AlternativeInputDecimalSeparator = '.';
+			TagetTestMoneyTexBox.AlternativeDecimalSeparator = '.';
 			TagetTestMoneyTexBox.GroupSeparator = ' ';
 		}
 

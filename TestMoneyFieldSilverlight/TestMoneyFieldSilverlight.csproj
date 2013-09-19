@@ -110,13 +110,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AlternateDecimalSeparatorTest.cs" />
     <Compile Include="CuttingOrDeletionTest.cs" />
     <Compile Include="PastingTest.cs" />
     <Compile Include="EmptyValueTest.cs" />
     <Compile Include="DummyTest.cs" />
     <Compile Include="GroupSeparatorTest.cs" />
     <Compile Include="BackspaceKeyTest.cs" />
-    <Compile Include="NullableTest.cs" />
     <Compile Include="PartialDigitsTest.cs" />
     <Compile Include="RoundingTest.cs" />
     <Compile Include="Utils\Scaffold.cs" />

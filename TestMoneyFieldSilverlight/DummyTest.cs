@@ -1,10 +1,6 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 // HowTo:
 // http://www.jeff.wilcox.name/2008/03/silverlight2-unit-testing/
 // Async HowTo:
@@ -13,7 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class DummyTest : SilverlightTest
@@ -36,22 +35,22 @@ namespace TestMoneyFieldSilverlight
 		[Asynchronous]
 		public void DummyParallelTesting()
 		{
-			_scaffold.TestBox_.Text = "0.00".ToSpecificValue();
-			_scaffold.TestBox_.SelectionStart = 1;
+			_scaffold.TestBox.Text = "0.00".ToSpecificValue();
+			_scaffold.TestBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
-			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox_.SelectionStart)));
-			EnqueueCallback(() => _scaffold.TestBox_.Text = "1.00".ToSpecificValue());
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox.SelectionStart)));
+			EnqueueCallback(() => _scaffold.TestBox.Text = "1.00".ToSpecificValue());
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
 			EnqueueCallback(() =>
 			{
-				Assert.IsTrue(_scaffold.TestBox_.Text == "1.00".ToSpecificValue());
-				Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 1, String.Format("Second Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox_.SelectionStart));
+				Assert.IsTrue(_scaffold.TestBox.Text == "1.00".ToSpecificValue());
+				Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("Second Step: must be 1, but TestBox.SelectionStart == .", _scaffold.TestBox.SelectionStart));
 			});
 			EnqueueTestComplete();
 		}

@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	/// <summary>
 	/// The testing of a integer part of number.
@@ -32,7 +31,7 @@ namespace TestMoneyFieldSilverlight
 		{
 			_scaffold.ViewModel.AmountDouble = 12345.000432;
 
-			Assert.IsTrue(_scaffold.TestBox_.Text == "12 345.00".ToSpecificValue());
+			Assert.IsTrue(_scaffold.TestBox.Text == "12 345.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -49,7 +48,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -60,9 +59,6 @@ namespace TestMoneyFieldSilverlight
 			Assert.IsTrue(inputCaretPositionRef == 4);
 			Assert.IsTrue(formatteValueOut == "23.18".ToSpecificValue());
 		}
-
-		// TODO.it3xl.com: Partial digits.
-		// Typing of the first digit sets the second to the 0. 
 
 	}
 }

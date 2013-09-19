@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class BackspaceKeyTest : SilverlightTest
@@ -34,7 +33,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -59,7 +58,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -86,7 +85,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -113,7 +112,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -138,7 +137,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -163,7 +162,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -190,7 +189,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -215,7 +214,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -240,7 +239,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -257,7 +256,7 @@ namespace TestMoneyFieldSilverlight
 			input = "8 111 222 333 444 00.00".ToSpecificValue();
 			inputCaretPositionRef = 18;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -285,7 +284,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -310,7 +309,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -324,17 +323,76 @@ namespace TestMoneyFieldSilverlight
 
 
 
+		/// <summary>
+		/// Partial & Backspacing behaviours.
+		/// </summary>
+		[TestMethod]
+		public void PartialAndBackspacing()
+		{
+			String formatteValueOut;
 
-		// TODO.it3xl.com: The Backspace key.
+			var beforeInput = "45.72".ToSpecificValue();
+			var beforeInputCaretPosition = 5;
+			var input = "45.7".ToSpecificValue();
+			var inputCaretPositionRef = 4;
 
-		// Backspace в дробной части.
-		// Должен отрабатывать, как стрелка влево с обнулением чисел.
-		// 0,00 - курсор должен оставаться в позиции 1 (т.е. Backspace должен отработать, как стрелка влево)
-		// 0,00 - если курсор в первой позиции и нажимется Backspace, то нужно ставить курсор в позицию 1.
-		// 0,00 - если курсор в 0 позиции и нажимется Backspace, то нужно ставить курсор в позицию 1.
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-		// Протестировать поведение GroupSeparator в разных случаях.
-		// Протестировать поведение DecimalSeparator в разных случаях. Перенести сюда соответствующие тесты из DecimalSeparatorTest.
+			Assert.IsTrue(inputCaretPositionRef == 4);
+			Assert.IsTrue(formatteValueOut == "45.70".ToSpecificValue());
+
+
+			beforeInput = "45.72".ToSpecificValue();
+			beforeInputCaretPosition = 4;
+			input = "45.2".ToSpecificValue();
+			inputCaretPositionRef = 3;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 3);
+			Assert.IsTrue(formatteValueOut == "45.20".ToSpecificValue());
+
+
+			beforeInput = "45.72".ToSpecificValue();
+			beforeInputCaretPosition = 3;
+			input = "4572".ToSpecificValue();
+			inputCaretPositionRef = 2;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 2);
+			Assert.IsTrue(formatteValueOut == "45.72".ToSpecificValue());
+		}
+
+		/// <summary>
+		/// Partial & Backspacing behaviours.
+		/// </summary>
+		[TestMethod]
+		public void ZeroAndBackspacing()
+		{
+			String formatteValueOut;
+
+			var beforeInput = "0.00".ToSpecificValue();
+			var beforeInputCaretPosition = 1;
+			var input = ".00".ToSpecificValue();
+			var inputCaretPositionRef = 0;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 1);
+			Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());
+
+
+			beforeInput = "0.00".ToSpecificValue();
+			beforeInputCaretPosition = 0;
+			input = "0.00".ToSpecificValue();
+			inputCaretPositionRef = 0;
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(inputCaretPositionRef == 0);
+			Assert.IsTrue(formatteValueOut == "0.00".ToSpecificValue());
+		}
 
 	}
 }

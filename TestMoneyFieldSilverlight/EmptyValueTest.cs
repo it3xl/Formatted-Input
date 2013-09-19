@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class EmptyValueTest : SilverlightTest
@@ -35,7 +34,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,

@@ -1,14 +1,13 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using System.Globalization;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using System.Globalization;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	[TestClass]
 	public class DecimalSeparatorTest : SilverlightTest
@@ -29,16 +28,16 @@ namespace TestMoneyFieldSilverlight
 		[Asynchronous]
 		public void SeparatorAddedFirstOnly()
 		{
-			_scaffold.TestBox_.Focus();
-			_scaffold.TestBox_.Text = _scaffold.TestBox_.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
-			_scaffold.TestBox_.SelectionStart = 1;
+			_scaffold.TestBox.Focus();
+			_scaffold.TestBox.Text = _scaffold.TestBox.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
+			_scaffold.TestBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 			//EnqueueDelay(TimeSpan.FromMilliseconds(500));
 			EnqueueCallback(() =>
 				{
-					Assert.IsTrue(_scaffold.TestBox_.Text == "0.00".ToSpecificValue());
-					Assert.IsTrue(_scaffold.TestBox_.SelectionStart == 2);
+					Assert.IsTrue(_scaffold.TestBox.Text == "0.00".ToSpecificValue());
+					Assert.IsTrue(_scaffold.TestBox.SelectionStart == 2);
 				}
 			);
 			EnqueueTestComplete();
@@ -64,7 +63,7 @@ namespace TestMoneyFieldSilverlight
 			input = "1..25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -81,7 +80,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 789..25".ToSpecificValue();
 			inputCaretPositionRef = 12;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -106,7 +105,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -132,7 +131,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -158,7 +157,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -190,7 +189,7 @@ namespace TestMoneyFieldSilverlight
 			input = "1.23 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -207,7 +206,7 @@ namespace TestMoneyFieldSilverlight
 			input = "12.3 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 3;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -224,7 +223,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123. 456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 4;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -241,7 +240,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 .456 789.25".ToSpecificValue();
 			inputCaretPositionRef = 5;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -258,7 +257,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 4.56 789.25".ToSpecificValue();
 			inputCaretPositionRef = 6;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -275,7 +274,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 45.6 789.25".ToSpecificValue();
 			inputCaretPositionRef = 7;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -292,7 +291,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456. 789.25".ToSpecificValue();
 			inputCaretPositionRef = 8;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -309,7 +308,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 .789.25".ToSpecificValue();
 			inputCaretPositionRef = 9;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -326,7 +325,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 7.89.25".ToSpecificValue();
 			inputCaretPositionRef = 10;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -343,7 +342,7 @@ namespace TestMoneyFieldSilverlight
 			input = "123 456 78.9.25".ToSpecificValue();
 			inputCaretPositionRef = 11;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -371,7 +370,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -382,11 +381,6 @@ namespace TestMoneyFieldSilverlight
 			Assert.IsTrue(inputCaretPositionRef == 2);
 			Assert.IsTrue(formatteValueOut == "0.12".ToSpecificValue());
 		}
-
-
-		// TODO.it3xl.com: Decimal separator.
-		// 0000123 inserting with caret at the 3. Decimal separator needing.
-
 
 	}
 

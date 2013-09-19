@@ -52,7 +52,7 @@ namespace MoneyField.Silverlight.View
 		/// <summary>
 		/// The additional decimal part's separator char, acceptable at the input or past time.
 		/// </summary>
-		public Char AlternativeInputDecimalSeparator
+		public Char AlternativeDecimalSeparator
 		{
 			get
 			{
@@ -92,7 +92,7 @@ namespace MoneyField.Silverlight.View
 				{
 					GroupSeparator = GroupSeparator,
 					DecimalSeparator = DecimalSeparator,
-					AlternativeInputDecimalSeparator = AlternativeInputDecimalSeparator,
+					AlternativeInputDecimalSeparator = AlternativeDecimalSeparator,
 				};
 
 			CorrectBinding(textBox, Converter);

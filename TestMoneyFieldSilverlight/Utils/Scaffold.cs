@@ -11,7 +11,7 @@
 	public class Scaffold
 	{
 		public static MoneyTextBox TestBoxStatic { get; set; }
-		public MoneyTextBox TestBox_ { get; set; }
+		public MoneyTextBox TestBox { get; set; }
 		public ViewModelForTests ViewModel { get; set; }
 
 		/// <summary>
@@ -22,7 +22,7 @@
 			var testPage = new MainPage();
 
 			ViewModel = testPage.DataContext as ViewModelForTests;
-			TestBox_ = testPage.TestMoneyTexBox;
+			TestBox = testPage.TestMoneyTexBox;
 
 			TestBoxStatic = testPage.TestMoneyTexBox;
 

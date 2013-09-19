@@ -1,13 +1,12 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
-using System;
-using Microsoft.Silverlight.Testing;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace TestMoneyFieldSilverlight
 {
-	using TestMoneyFieldSilverlight.Utils;
+	using System;
+	using Microsoft.Silverlight.Testing;
+	using Microsoft.VisualStudio.TestTools.UnitTesting;
+	using Utils;
 
 	/// <summary>
 	/// The testing of a integer part of number.
@@ -32,7 +31,7 @@ namespace TestMoneyFieldSilverlight
 		{
 			_scaffold.ViewModel.AmountDouble = 50;
 
-			Assert.IsTrue(_scaffold.TestBox_.Text == "50.00".ToSpecificValue());
+			Assert.IsTrue(_scaffold.TestBox.Text == "50.00".ToSpecificValue());
 		}
 
 		/// <summary>
@@ -48,7 +47,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -73,7 +72,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -98,7 +97,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -123,7 +122,7 @@ namespace TestMoneyFieldSilverlight
 
 			String formatteValueOut;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -140,7 +139,7 @@ namespace TestMoneyFieldSilverlight
 			input = "1 0.03".ToSpecificValue();
 			inputCaretPositionRef = 2;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -157,7 +156,7 @@ namespace TestMoneyFieldSilverlight
 			input = "1_ 8790.03".ToSpecificValue();
 			inputCaretPositionRef = 6;
 
-			_scaffold.TestBox_.Converter.FormatAndManageCaret(
+			_scaffold.TestBox.Converter.FormatAndManageCaret(
 				input,
 				beforeInput,
 				beforeInputCaretPosition,
@@ -169,16 +168,6 @@ namespace TestMoneyFieldSilverlight
 			Assert.IsTrue(formatteValueOut == "1 879.03".ToSpecificValue());
 		}
 
-
-
-
-
-
-		// TODO.it3xl.com: Как-то протестировать основные комбинации с основными разделителями и отступами в числах для Ru, En, Us.
-
-
 	}
-
-
 
 }
