@@ -27,47 +27,46 @@ namespace TestMoneyFieldSilverlight
 		[TestMethod]
 		public void DoubleRoundingIntegerPart()
 		{
+			Int32 expectedCaretPosition;
+
 			_scaffold.ViewModel.AmountDouble = 123456789123456789123456789.987654321;
 
-			Assert.IsTrue(
-				_scaffold.TestBox.Text == "123 456 789 123 457 000 000 000 000.00".ToSpecificValue()
-				);
+			Assert.IsTrue(_scaffold.TestBox.Text
+				== "123 456 789 123 457 000 000 000 000.00"
+					.ToSpecificValue(out expectedCaretPosition));
 		}
 
 		/// <summary>
 		/// Decimal part rounding test.
 		/// </summary>
 		[TestMethod]
-		public void DoubleRoundingPartialPart()
+		public void DoubleRoundingForPartialPart()
 		{
-			String formatteValueOut;
 
 			String beforeInput;
 			Int32 beforeInputCaretPosition;
 			String input;
 			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
 			// 1
-			beforeInput = "123 456 789 123 457 000.00".ToSpecificValue();
-			beforeInputCaretPosition = 24;
-			input = "123 456 789 123 457 000.200".ToSpecificValue();
-			inputCaretPositionRef = 25;
+			beforeInput = "123 456 789 123 457 000.|00".ToSpecificValue(out beforeInputCaretPosition);
+			input = "123 456 789 123 457 000.2|00".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 25);
-			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.0|0".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 			// 2
-			beforeInput = "123 456 789 123 457 000.00".ToSpecificValue();
-			beforeInputCaretPosition = 25;
-			input = "123 456 789 123 457 000.020".ToSpecificValue();
-			inputCaretPositionRef = 26;
+			beforeInput = "123 456 789 123 457 000.0|0".ToSpecificValue(out beforeInputCaretPosition);
+			input = "123 456 789 123 457 000.02|0".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(inputCaretPositionRef == 26);
-			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00".ToSpecificValue());
+			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 
