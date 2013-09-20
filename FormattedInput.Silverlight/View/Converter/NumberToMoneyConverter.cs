@@ -9,9 +9,9 @@ namespace It3xl.FormattedInput.View.Converter
 	/// <summary>
 	/// The main logic of a formatting.
 	/// </summary>
-	public sealed partial class AnyNumberToMoneyConverter : IValueConverter
+	public sealed partial class NumberToMoneyConverter : IValueConverter
 	{
-		private const Char NonBreakingSpaceChar = (Char)160;
+		public const Char NonBreakingSpaceChar = (Char)160;
 		private const Char BreakingSpaceChar = (Char)32;
 
 		private Char _groupSeparator;

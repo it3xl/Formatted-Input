@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Globalization;
 using It3xl.FormattedInput.NullAndEmptyHandling;
 using It3xl.FormattedInput.View;
+using It3xl.FormattedInput.View.Converter;
 
 namespace It3xl.Test.MoneyField.Silverlight.Utils
 {
@@ -9,6 +11,13 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 	/// </summary>
 	public static class TestLanguageTranslator
 	{
+		static TestLanguageTranslator()
+		{
+			LanguageCulture.NumberFormat
+				.NumberGroupSeparator = NumberToMoneyConverter
+					.NonBreakingSpaceChar.ToString(CultureInfo.InvariantCulture);
+		}
+
 		/// <summary>
 		/// Converts the the common testing language to the specific value for a test.<para/>
 		/// Replacements:<para/>
@@ -50,6 +59,11 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			return result;
 		}
+
+		/// <summary>
+		/// The Culture Info matched to the custom test language format.
+		/// </summary>
+		internal static readonly CultureInfo LanguageCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
 
 	}
 }

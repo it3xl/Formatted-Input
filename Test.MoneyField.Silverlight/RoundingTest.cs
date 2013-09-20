@@ -2,6 +2,7 @@
 // ReSharper disable JoinDeclarationAndInitializer
 
 using System;
+using System.Globalization;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,17 +43,14 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void DoubleRoundingForPartialPart()
 		{
-
-			String beforeInput;
 			Int32 beforeInputCaretPosition;
-			String input;
 			Int32 inputCaretPositionRef;
 			String formatteValueOut;
 			Int32 expectedCaretPosition;
 
 			// 1
-			beforeInput = "123 456 789 123 457 000.|00".ToSpecificValue(out beforeInputCaretPosition);
-			input = "123 456 789 123 457 000.2|00".ToSpecificValue(out inputCaretPositionRef);
+			var beforeInput = "123 456 789 123 457 000.|00".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "123 456 789 123 457 000.2|00".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
@@ -70,9 +68,39 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+		/// <summary>
+		/// <see cref="Double.MaxValue"/> rounding test.
+		/// </summary>
+		[TestMethod]
+		public void DoubleMaxValue()
+		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			var veryLargeDouble = Double.MaxValue / 10;
+			var testValue = "|" + veryLargeDouble
+				.ToString("n", TestLanguageTranslator.LanguageCulture);
+
+			// Cose the Double.TryParse can't parse the Double.MaxValue, I'll divide the Decimal.MaxValue by 10.
+			_scaffold.ViewModel.AmountDouble = veryLargeDouble;
+			Assert.IsTrue(_scaffold.TestBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
+
+
+			var beforeInput = testValue.ToSpecificValue(out beforeInputCaretPosition);
+			var input = testValue.ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.TestBox.Converter.FormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == testValue.ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+
+
 
 		// TODO.it3xl.com: Test
-		// Double.Max
 		// Decimal.Max
 	
 	

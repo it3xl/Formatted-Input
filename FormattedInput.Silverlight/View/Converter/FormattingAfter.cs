@@ -11,7 +11,7 @@
 		GroupPastingOrDeletion,
 
 		/// <summary>
-		/// It's the formatting after a call from the <see cref="AnyNumberToMoneyConverter.Convert"/> method.
+		/// It's the formatting after a call from the <see cref="NumberToMoneyConverter.Convert"/> method.
 		/// </summary>
 		EmptyStartValue,
 

@@ -12,7 +12,7 @@ namespace It3xl.FormattedInput.View
 	/// </summary>
 	public sealed class MoneyTextBox : TextBox
 	{
-		public AnyNumberToMoneyConverter Converter { get; private set; }
+		public NumberToMoneyConverter Converter { get; private set; }
 
 
 
@@ -87,7 +87,7 @@ namespace It3xl.FormattedInput.View
 		private void LoadedHandler(object sender, RoutedEventArgs routedEventArgs)
 		{
 			var textBox = this;
-			Converter = new AnyNumberToMoneyConverter
+			Converter = new NumberToMoneyConverter
 				{
 					GroupSeparator = GroupSeparator,
 					DecimalSeparator = DecimalSeparator,
@@ -105,7 +105,7 @@ namespace It3xl.FormattedInput.View
 		/// </summary>
 		/// <param name="textBox">The targer <see cref="TextBox"/>.</param>
 		/// <param name="converter">The converter with a custom formatting logic.</param>
-		private static void CorrectBinding(TextBox textBox, AnyNumberToMoneyConverter converter)
+		private static void CorrectBinding(TextBox textBox, NumberToMoneyConverter converter)
 		{
 			textBox
 				.GetBindingExpression(TextBox.TextProperty)
@@ -130,7 +130,7 @@ namespace It3xl.FormattedInput.View
 			var textBox = this;
 
 
-			AnyNumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+			NumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
 				textBox.SelectionStart,
 				textBox.SelectionLength,
 				textBox.Text)

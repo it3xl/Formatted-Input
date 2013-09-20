@@ -54,8 +54,8 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 		public MainPage()
 		{
 
-			AnyNumberToMoneyConverter.ShowExeptionAction = ex => MessageBox.Show(ex.ToString());
-			AnyNumberToMoneyConverter.WriteLogAction = AddLogItem;
+			NumberToMoneyConverter.ShowExeptionAction = ex => MessageBox.Show(ex.ToString());
+			NumberToMoneyConverter.WriteLogAction = AddLogItem;
 
 
 			InitializeComponent();
