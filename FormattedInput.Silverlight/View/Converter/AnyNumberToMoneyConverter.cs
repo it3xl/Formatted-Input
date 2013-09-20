@@ -9,7 +9,7 @@ namespace It3xl.FormattedInput.View.Converter
 	/// <summary>
 	/// The main logic of a formatting.
 	/// </summary>
-	public sealed class AnyNumberToMoneyConverter : IValueConverter
+	public sealed partial class AnyNumberToMoneyConverter : IValueConverter
 	{
 		private const Char NonBreakingSpaceChar = (Char)160;
 		private const Char BreakingSpaceChar = (Char)32;
@@ -128,12 +128,12 @@ namespace It3xl.FormattedInput.View.Converter
 
 		public static Action<Exception> ShowExeptionAction { get; set; }
 
-		private static readonly Action<string> WriteLogDummyAction = el => { };
-		private static Action<string> _writeLogAction;
+		private static readonly Action<Func<String>> WriteLogDummyAction = el => { };
+		private static Action<Func<String>> _writeLogAction;
 		/// <summary>
 		/// The simple debug log writer.
 		/// </summary>
-		public static Action<String> WriteLogAction
+		public static Action<Func<String>> WriteLogAction
 		{
 			get
 			{
@@ -161,7 +161,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			if (doubleNullableValue == null)
 			{
-				WriteLogAction(String.Format("Convert. return = {0}", "null"));
+				WriteLogAction(() => String.Format("Convert. return = {0}", "null"));
 
 				return String.Empty;
 			}
@@ -174,8 +174,8 @@ namespace It3xl.FormattedInput.View.Converter
 			var selectionStartDummy = 0;
 			FormatAndManageCaret(unformattedValue, null, 0, out formatteValue, ref selectionStartDummy);
 
-			WriteLogAction(String.Format("Convert. unformattedValue = {0}", unformattedValue));
-			WriteLogAction(String.Format("Convert. formattedValue = {0}", formatteValue));
+			WriteLogAction(() => String.Format("Convert. unformattedValue = {0}", unformattedValue));
+			WriteLogAction(() => String.Format("Convert. formattedValue = {0}", formatteValue));
 
 			return formatteValue;
 		}
@@ -194,7 +194,7 @@ namespace It3xl.FormattedInput.View.Converter
 			var stringValue = value as String;
 			if (String.IsNullOrEmpty(stringValue))
 			{
-				WriteLogAction(String.Format("ConvertBack. return = {0}", "null"));
+				WriteLogAction(() => String.Format("ConvertBack. return = {0}", "null"));
 
 				// Only a string is available.
 				return null;
@@ -682,7 +682,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		/// <param name="doubleValue"></param>
 		/// <returns></returns>
-		private String GetCustomSerialisationFromDouble(double doubleValue)
+		private String GetCustomSerialisationFromDouble(Double doubleValue)
 		{
 			const String numberStandartFormattingKey = "n";
 			var unformattedValue = doubleValue
@@ -737,7 +737,7 @@ namespace It3xl.FormattedInput.View.Converter
 					CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
 			}
 
-			WriteLogAction(String.Format("ConvertBack. return = {0}", cSharpDigitalSerialisation));
+			WriteLogAction(() => String.Format("ConvertBack. return = {0}", cSharpDigitalSerialisation));
 
 			Double doubleValue;
 			Double.TryParse(

@@ -33,8 +33,10 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 
 		private static DateTime _lastLogTime = DateTime.Now;
 
-		private static void AddLogItem(String logMessage)
+		private static void AddLogItem(Func<String> logMessageAction)
 		{
+			String logMessage = logMessageAction();
+
 			if (LogItems.Any()
 				&& LogItems.Last() != "_"
 				&& (TimeSpan.FromMilliseconds(100) < DateTime.Now - _lastLogTime)
@@ -71,8 +73,11 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
 		{
-			var random = (new Random().NextDouble() + 1) * 80000d;
-			TestingViewModel.AmountDouble = random;
+			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
+
+			TestingViewModel.AmountDouble = randomDouble;
+			TestingViewModel.AmountDecimal = (Decimal)randomDouble;
+
 		}
 
 		private void ClearLog_Click(object sender, RoutedEventArgs e)

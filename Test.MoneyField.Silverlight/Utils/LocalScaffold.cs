@@ -26,7 +26,5 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			testPanel.Children.Add(testPage);
 		}
-
-		// TODO.it3xl.com: Test the Decimal, Int32, UInt32
 	}
 }

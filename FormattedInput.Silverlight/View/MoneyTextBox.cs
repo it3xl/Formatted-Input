@@ -130,7 +130,7 @@ namespace It3xl.FormattedInput.View
 			var textBox = this;
 
 
-			AnyNumberToMoneyConverter.WriteLogAction(String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+			AnyNumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
 				textBox.SelectionStart,
 				textBox.SelectionLength,
 				textBox.Text)

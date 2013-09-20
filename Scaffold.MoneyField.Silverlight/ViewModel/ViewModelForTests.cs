@@ -28,6 +28,22 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 		}
 
 
+		private Decimal? _amountDecimal;
+		public Decimal? AmountDecimal
+		{
+			get
+			{
+				return _amountDecimal;
+			}
+			set
+			{
+				_amountDecimal = value;
+
+				RaisePropertyChanged(() => AmountDecimal);
+			}
+		}
+
+
 
 
 
