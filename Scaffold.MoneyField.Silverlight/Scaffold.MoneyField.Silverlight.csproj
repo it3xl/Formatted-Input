@@ -61,22 +61,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.Interactivity">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.Prism.Interactivity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.MefExtensions">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.Prism.MefExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Silverlight">
-      <HintPath>..\..\..\..\..\Projects\Prism.4.1\Bin\Silverlight\Microsoft.Practices.Unity.Silverlight.dll</HintPath>
+      <HintPath>..\!Libs\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
