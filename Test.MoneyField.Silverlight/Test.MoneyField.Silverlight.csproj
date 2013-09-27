@@ -95,7 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AlternateDecimalSeparatorTest.cs" />
+    <Compile Include="DecimalSeparatorAlternativeTest.cs" />
     <Compile Include="PartialPartDisabled.cs" />
     <Compile Include="NegativeValuesTest.cs" />
     <Compile Include="EmptyValueTest.cs" />

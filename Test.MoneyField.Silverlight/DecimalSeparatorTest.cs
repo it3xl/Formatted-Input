@@ -21,6 +21,10 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+
+		// TODO.it3xl.com: DecimalSeparator = '' must behave like DecimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.
+
+
 		/// <summary>
 		/// The decimal separator added first behavior.
 		/// </summary>

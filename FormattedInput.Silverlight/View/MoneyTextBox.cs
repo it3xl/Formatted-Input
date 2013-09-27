@@ -51,7 +51,7 @@ namespace It3xl.FormattedInput.View
 		/// <summary>
 		/// The additional decimal part's separator char, acceptable at the input or past time.
 		/// </summary>
-		public Char AlternativeDecimalSeparator
+		public Char DecimalSeparatorAlternative
 		{
 			get
 			{
@@ -91,10 +91,10 @@ namespace It3xl.FormattedInput.View
 				{
 					GroupSeparator = GroupSeparator,
 					DecimalSeparator = DecimalSeparator,
-					AlternativeInputDecimalSeparator = AlternativeDecimalSeparator,
+					AlternativeInputDecimalSeparator = DecimalSeparatorAlternative,
 				};
 
-			CorrectBinding(textBox, Converter);
+			CorrectBinding(Converter);
 
 			textBox.TextChanged += textBox_TextChanged;
 			textBox.SelectionChanged += textBox_SelectionChanged;
@@ -103,12 +103,10 @@ namespace It3xl.FormattedInput.View
 		/// <summary>
 		/// Проверит и настроит биндинг свойства <see cref="TextBox.TextProperty"/>, чтоб удовлетворял логике форматирования.
 		/// </summary>
-		/// <param name="textBox">The targer <see cref="TextBox"/>.</param>
 		/// <param name="converter">The converter with a custom formatting logic.</param>
-		private static void CorrectBinding(TextBox textBox, NumberToMoneyConverter converter)
+		private void CorrectBinding(NumberToMoneyConverter converter)
 		{
-			textBox
-				.GetBindingExpression(TextBox.TextProperty)
+			GetBindingExpression(TextProperty)
 				.InvokeNotNull(el =>
 				{
 					var binding = new Binding(el.ParentBinding)
@@ -121,7 +119,10 @@ namespace It3xl.FormattedInput.View
 						Converter = converter,
 					};
 
-					textBox.SetBinding(TextBox.TextProperty, binding);
+					SetBinding(TextProperty, binding);
+
+					// TODO.it3xl.com: Cover lack of next row by a test when start value from ViewModel is 0.
+					LastText = Text;
 				});
 		}
 

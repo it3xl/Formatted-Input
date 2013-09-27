@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.MoneyField.Silverlight
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scaffold.MoneyField.Silverlight", "Scaffold.MoneyField.Silverlight\Scaffold.MoneyField.Silverlight.csproj", "{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedInput.JavaScript", "FormattedInput.JavaScript\FormattedInput.JavaScript.csproj", "{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1F5E959-BD7C-4113-BACC-E4FCB19DC801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

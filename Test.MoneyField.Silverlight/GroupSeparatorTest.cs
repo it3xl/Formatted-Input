@@ -20,6 +20,12 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+		// TODO.it3xl.com: GroupSeparator = ' ' must be equal the GroupSeparator = @The nonbreaking spase@
+		// TODO.it3xl.com: GroupSeparator = '' must be equal the GroupSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator
+		// TODO.it3xl.com: Test all cases for the GroupSeparator = ''.
+
+
+
 		/// <summary>
 		/// The group delimiter test.
 		/// </summary>

@@ -65,7 +65,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			TestMoneyTexBox = TagetTestMoneyTexBox;
 
 			TagetTestMoneyTexBox.DecimalSeparator = ',';
-			TagetTestMoneyTexBox.AlternativeDecimalSeparator = '.';
+			TagetTestMoneyTexBox.DecimalSeparatorAlternative = '.';
 			TagetTestMoneyTexBox.GroupSeparator = ' ';
 		}
 

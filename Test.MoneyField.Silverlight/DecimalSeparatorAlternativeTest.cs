@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace It3xl.Test.MoneyField.Silverlight
 {
 	[TestClass]
-	public class AlternateDecimalSeparatorTest : SilverlightTest
+	public class DecimalSeparatorAlternativeTest : SilverlightTest
 	{
 		private readonly LocalScaffold _scaffold = new LocalScaffold();
 
@@ -22,12 +22,12 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 		/// <summary>
-		/// The common behaviours for the AlternativeDecimalSeparator.
+		/// The common behaviours for the DecimalSeparatorAlternative.
 		/// </summary>
 		[TestMethod]
 		public void CommonBehaviours()
 		{
-			_scaffold.TestBox.AlternativeDecimalSeparator = '.';
+			_scaffold.TestBox.DecimalSeparatorAlternative = '.';
 			_scaffold.TestBox.DecimalSeparator = ',';
 			_scaffold.TestBox.GroupSeparator = ' ';
 

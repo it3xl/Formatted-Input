@@ -24,7 +24,7 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		/// "." - current <see cref="MoneyTextBox.DecimalSeparator"/><para/>
 		/// " " - current <see cref="MoneyTextBox.GroupSeparator"/><para/>
 		/// "|" - caret/cursor position mark<para/>
-		/// "." - current <see cref="MoneyTextBox.AlternativeDecimalSeparator"/><para/>
+		/// "." - current <see cref="MoneyTextBox.DecimalSeparatorAlternative"/><para/>
 		/// </summary>
 		/// <param name="commonValue"></param>
 		/// <param name="caretPosition">The result caret position.</param>
@@ -41,9 +41,9 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			result = result.Replace('.', LocalScaffold.TestBoxStatic.DecimalSeparator);
 
-			if (LocalScaffold.TestBoxStatic.AlternativeDecimalSeparator.IsDefault() == false)
+			if (LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative.IsDefault() == false)
 			{
-				result = result.Replace('_', LocalScaffold.TestBoxStatic.AlternativeDecimalSeparator);
+				result = result.Replace('_', LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative);
 			}
 
 			if (LocalScaffold.TestBoxStatic.GroupSeparator.IsDefault() == false)
