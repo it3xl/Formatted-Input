@@ -10,7 +10,7 @@ namespace It3xl.FormattedInput.View
 	/// <summary>
 	/// The TextBox with build-in money input-formatting.
 	/// </summary>
-	public sealed class MoneyTextBox : TextBox
+	public class MoneyTextBox : TextBox
 	{
 		public NumberToMoneyConverter Converter { get; private set; }
 
@@ -125,7 +125,7 @@ namespace It3xl.FormattedInput.View
 				});
 		}
 
-		void textBox_TextChanged(object sender, TextChangedEventArgs e)
+		private void textBox_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			var textBox = this;
 
@@ -151,7 +151,7 @@ namespace It3xl.FormattedInput.View
 			}
 		}
 
-		void textBox_SelectionChanged(object sender, RoutedEventArgs e)
+		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
 		{
 			// It watchs for the caret position changed by user.
 			LastSelectionStart = SelectionStart;
