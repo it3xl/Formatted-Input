@@ -11,6 +11,11 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 	/// </summary>
 	public static class TestLanguageTranslator
 	{
+		private const Char DecimalSeparator = '.';
+		private const Char DecimalSeparatorAlternative = '^';
+		private const Char GroupSeparator = ' ';
+		private const String CursorChar = "|";
+
 		static TestLanguageTranslator()
 		{
 			LanguageCulture.NumberFormat
@@ -24,7 +29,7 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		/// "." - current <see cref="MoneyTextBox.DecimalSeparator"/><para/>
 		/// " " - current <see cref="MoneyTextBox.GroupSeparator"/><para/>
 		/// "|" - caret/cursor position mark<para/>
-		/// "." - current <see cref="MoneyTextBox.DecimalSeparatorAlternative"/><para/>
+		/// "^" - current <see cref="MoneyTextBox.DecimalSeparatorAlternative"/><para/>
 		/// </summary>
 		/// <param name="commonValue"></param>
 		/// <param name="caretPosition">The result caret position.</param>
@@ -39,22 +44,22 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			var result = commonValue;
 
-			result = result.Replace('.', LocalScaffold.TestBoxStatic.DecimalSeparator);
+			result = result.Replace(DecimalSeparator, LocalScaffold.TestBoxStatic.DecimalSeparator);
 
 			if (LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative.IsDefault() == false)
 			{
-				result = result.Replace('_', LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative);
+				result = result.Replace(DecimalSeparatorAlternative, LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative);
 			}
 
 			if (LocalScaffold.TestBoxStatic.GroupSeparator.IsDefault() == false)
 			{
-				result = result.Replace(' ', LocalScaffold.TestBoxStatic.GroupSeparator);
+				result = result.Replace(GroupSeparator, LocalScaffold.TestBoxStatic.GroupSeparator);
 			}
 
-			if (commonValue.Contains("|"))
+			if (commonValue.Contains(CursorChar))
 			{
-				caretPosition = result.IndexOf('|');
-				result = result.Replace("|", String.Empty);
+				caretPosition = result.IndexOf(CursorChar);
+				result = result.Replace(CursorChar, String.Empty);
 			}
 
 			return result;

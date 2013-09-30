@@ -58,6 +58,10 @@
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\!Libs\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
@@ -79,6 +83,7 @@
     <Compile Include="View\Converter\FormatterState.cs" />
     <Compile Include="View\Converter\FormattingAfter.cs" />
     <Compile Include="View\MoneyTextBox.cs" />
+    <Compile Include="View\MoneyTextBoxBehaviour.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="it3xl.com.snk" />

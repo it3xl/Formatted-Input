@@ -77,23 +77,23 @@ namespace It3xl.FormattedInput.View.Converter
 
 		/// <summary>
 		/// Replaces an alternate Decimal Separator.
-		/// <see cref="AlternativeInputDecimalSeparator"/>
+		/// <see cref="DecimalSeparatorAlternative"/>
 		/// </summary>
 		/// <param name="state"></param>
 		private void DecimalSeparatorAlternatingReplacing(FormatterState state)
 		{
-			if (AlternativeInputDecimalSeparator.IsDefault())
+			if (DecimalSeparatorAlternative.IsDefault())
 			{
 				return;
 			}
 
-			if (AlternativeInputDecimalSeparator == DecimalSeparator)
+			if (DecimalSeparatorAlternative == DecimalSeparator)
 			{
 				return;
 			}
 
 			state.FormattedValue = state.FormattedValue
-				.Replace(AlternativeInputDecimalSeparator, DecimalSeparator);
+				.Replace(DecimalSeparatorAlternative, DecimalSeparator);
 		}
 	}
 }

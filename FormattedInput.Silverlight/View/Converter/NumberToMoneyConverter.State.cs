@@ -7,7 +7,7 @@ namespace It3xl.FormattedInput.View.Converter
 	public sealed partial class NumberToMoneyConverter
 	{
 		public const Char NonBreakingSpaceChar = (Char)160;
-		private const Char BreakingSpaceChar = (Char)32;
+		public const Char BreakingSpaceChar = (Char)32;
 
 		/// <summary>
 		/// Will be executed in case of a exception.
@@ -124,21 +124,21 @@ namespace It3xl.FormattedInput.View.Converter
 
 
 		/// <summary>
-		/// See <see cref="AlternativeInputDecimalSeparator"/>.
+		/// See <see cref="DecimalSeparatorAlternative"/>.
 		/// </summary>
-		private char _alternativeInputDecimalSeparator;
+		private char _decimalSeparatorAlternative;
 		/// <summary>
 		/// The additional decimal part's separator char, acceptable at the input or past time.
 		/// </summary>
-		public Char AlternativeInputDecimalSeparator
+		public Char DecimalSeparatorAlternative
 		{
 			get
 			{
-				return _alternativeInputDecimalSeparator;
+				return _decimalSeparatorAlternative;
 			}
 			set
 			{
-				_alternativeInputDecimalSeparator = value;
+				_decimalSeparatorAlternative = value;
 
 				ConvertSpaceToNonBreaking(ref _groupSeparator);
 			}

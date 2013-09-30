@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,7 +17,6 @@ namespace It3xl.FormattedInput.View
 		public NumberToMoneyConverter Converter { get; private set; }
 
 
-
 		/// <summary>
 		/// The desirable Group Separator char for a view.
 		/// </summary>
@@ -23,16 +24,15 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.GetSafe(el => el.GroupSeparator);
+				return Converter.GroupSeparator;
 			}
 			set
 			{
-				Converter.SetSafe(el => el.GroupSeparator = value);
+				Converter.GroupSeparator = value;
 			}
 		}
 
-
-
+		private Char? _decimalSeparator;
 		/// <summary>
 		/// The desirable Decimal Separator char for a view.
 		/// </summary>
@@ -40,11 +40,11 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.GetSafe(el => el.DecimalSeparator);
+				return Converter.DecimalSeparator;
 			}
 			set
 			{
-				Converter.SetSafe(el => el.DecimalSeparator = value);
+				Converter.DecimalSeparator = value;
 			}
 		}
 
@@ -55,11 +55,11 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.GetSafe(el => el.AlternativeInputDecimalSeparator);
+				return Converter.DecimalSeparatorAlternative;
 			}
 			set
 			{
-				Converter.SetSafe(el => el.AlternativeInputDecimalSeparator = value);
+				Converter.DecimalSeparatorAlternative = value;
 			}
 		}
 
@@ -80,22 +80,17 @@ namespace It3xl.FormattedInput.View
 
 		public MoneyTextBox()
 		{
+			Converter = new NumberToMoneyConverter();
+
 			Loaded += LoadedHandler;
 			Unloaded += UnloadedHandler;
 		}
 
 		private void LoadedHandler(object sender, RoutedEventArgs routedEventArgs)
 		{
-			var textBox = this;
-			Converter = new NumberToMoneyConverter
-				{
-					GroupSeparator = GroupSeparator,
-					DecimalSeparator = DecimalSeparator,
-					AlternativeInputDecimalSeparator = DecimalSeparatorAlternative,
-				};
-
 			CorrectBinding(Converter);
 
+			var textBox = this;
 			textBox.TextChanged += textBox_TextChanged;
 			textBox.SelectionChanged += textBox_SelectionChanged;
 		}
@@ -201,8 +196,6 @@ namespace It3xl.FormattedInput.View
 
 		private void UnloadedHandler(object sender, RoutedEventArgs e)
 		{
-			Converter = null;
-
 			var textBox = this;
 			// Unsubscribe from all events for sake of leaks.
 			textBox.TextChanged -= textBox_TextChanged;
