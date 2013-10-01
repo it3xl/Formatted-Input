@@ -26,22 +26,24 @@ namespace It3xl.FormattedInput.View.Converter
 			ref Int32 caretPosition)
 		{
 			TextBeforeChanging = textBeforeChanging;
-			FormatAndManageCaret(unformattedValue, lastCaretPosition, out resultingFormattedValue, ref caretPosition);
+			CaretPositionBeforeTextChanging = lastCaretPosition;
+
+			FormatAndManageCaret(unformattedValue, out resultingFormattedValue, ref caretPosition);
 		}
 
 		/// <summary>
 		/// The entry pont of the formatting and the caret management.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
-		/// <param name="lastCaretPosition"></param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
 		public void FormatAndManageCaret(
 			String unformattedValue,
-			Int32 lastCaretPosition,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
+			var lastCaretPosition = CaretPositionBeforeTextChanging;
+
 			resultingFormattedValue = unformattedValue;
 
 			try
@@ -61,6 +63,19 @@ namespace It3xl.FormattedInput.View.Converter
 				FormatAndManageCaretRaw(state);
 
 				resultingFormattedValue = state.FormattedValue;
+
+				if (state.CaretPosition < 0)
+				{
+					// It's definetly an error.
+					// Fix the impossible negative caret position for sake of the unwanted exception.
+					state.CaretPosition = 0;
+				}
+				if (resultingFormattedValue.Length < state.CaretPosition)
+				{
+					// It's definetly an error.
+					state.CaretPosition = resultingFormattedValue.Length;
+				}
+
 				caretPosition = state.CaretPosition;
 			}
 			catch (Exception ex)
@@ -74,6 +89,7 @@ namespace It3xl.FormattedInput.View.Converter
 			finally
 			{
 				TextBeforeChanging = resultingFormattedValue;
+				CaretPositionBeforeTextChanging = caretPosition;
 			}
 		}
 

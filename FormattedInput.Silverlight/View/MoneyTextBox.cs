@@ -59,11 +59,6 @@ namespace It3xl.FormattedInput.View
 			}
 		}
 
-		/// <summary>
-		/// The text that was before the TextChanged event.
-		/// </summary>
-		private Int32 LastSelectionStart { get; set; }
-
 
 		public MoneyTextBox()
 		{
@@ -116,7 +111,7 @@ namespace It3xl.FormattedInput.View
 			);
 
 			Boolean textFormatted;
-			FormatTextAndManageCaretRecursion(out textFormatted);
+			FormatTextAndManageCaretInRecursion(out textFormatted);
 
 			// Helps to ignore the excessive TextChanged event triggered by formatting.
 			// It breaks the recursion.
@@ -130,15 +125,15 @@ namespace It3xl.FormattedInput.View
 
 		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
 		{
-			// It watchs for the caret position changed by user.
-			LastSelectionStart = SelectionStart;
+			// It watchs for the caret position changed by an user.
+			Converter.SetCaretPositionBeforeTextChanging(SelectionStart);
 		}
 
 		/// <summary>
 		/// Formats the text and manages the caret's position.<para/>
 		/// Starts a recursion if it invoked from the TextChangent event handler.
 		/// </summary>
-		private void FormatTextAndManageCaretRecursion(out Boolean textFormatted)
+		private void FormatTextAndManageCaretInRecursion(out Boolean textFormatted)
 		{
 			var textBox = this;
 
@@ -146,30 +141,15 @@ namespace It3xl.FormattedInput.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formatteValue;
-			Converter.FormatAndManageCaret(unformattedValue, LastSelectionStart, out formatteValue, ref selectionStart);
-
-			LastSelectionStart = selectionStart;
+			Converter.FormatAndManageCaret(unformattedValue, out formatteValue, ref selectionStart);
 
 			textFormatted = unformattedValue != formatteValue;
 			if (textFormatted)
 			{
+				// It starts the recursion.
 				textBox.Text = formatteValue;
 
-				// Fix the impossible negative caret's position for sake of the unwanted exception.
-				var correctedPosition = Math.Max(selectionStart, 0);
-
-				// For debug purposes.
-				if (selectionStart < 0)
-				{
-					// For the negative caret's position will throw an exception.
-				}
-				// For debug purposes.
-				if (formatteValue.Length < selectionStart)
-				{
-					// The caret's position that more than a value's length will be changed to the end position.
-				}
-
-				textBox.SelectionStart = correctedPosition;
+				textBox.SelectionStart = selectionStart;
 			}
 		}
 

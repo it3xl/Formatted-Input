@@ -152,9 +152,22 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		/// <summary>
-		/// The text that was before current formatting.
+		/// The text that was before the formatting.
 		/// </summary>
 		public String TextBeforeChanging { get; private set; }
+
+		/// <summary>
+		/// The last caret position before the formatting.
+		/// </summary>
+		private Int32 CaretPositionBeforeTextChanging { get; set; }
+		/// <summary>
+		/// Sets the <see cref="CaretPositionBeforeTextChanging"/>
+		/// </summary>
+		/// <param name="caretPosition">The caret position.</param>
+		public void SetCaretPositionBeforeTextChanging(Int32 caretPosition)
+		{
+			CaretPositionBeforeTextChanging = caretPosition;
+		}
 
 		/// <summary>
 		/// Available chars of a number of a custom format.
