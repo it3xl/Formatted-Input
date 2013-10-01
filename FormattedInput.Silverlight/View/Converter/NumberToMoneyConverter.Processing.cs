@@ -122,22 +122,20 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		private string IntegerPartProcessingWithCaret(FormatterState state)
 		{
-			// TODO.it3xl.com: Remove the magic constants! Here and around.
-
 			var number = state.FormattedValue.Split(DecimalSeparator);
 
 			// Integral part processing.
 			var integer = number.First();
 
 			if (1 < integer.Length
-				&& state.PreviousInteger == "0"
-				&& integer.Last() == '0')
+				&& state.PreviousInteger == ZeroString
+				&& integer.Last() == ZeroChar)
 			{
 				integer = integer.Remove(integer.Length - 1, 1);
 			}
 
 			// Leading zeros' processing.
-			while (1 < integer.Length && integer.First() == '0')
+			while (1 < integer.Length && integer.First() == ZeroChar)
 			{
 				integer = integer.Remove(0, 1);
 				if (0 < state.CaretPosition)
@@ -149,7 +147,7 @@ namespace It3xl.FormattedInput.View.Converter
 			// Before decimal separator should be the 0, if it's the first.
 			if (integer.Length == 0)
 			{
-				integer = "0";
+				integer = ZeroString;
 
 				state.CaretPosition++;
 			}
@@ -216,11 +214,11 @@ namespace It3xl.FormattedInput.View.Converter
 			// After the decimal point should be two digits.
 			if (partial.Length == 0)
 			{
-				partial = "00";
+				partial = ZeroPartialString;
 			}
 			else if (partial.Length == 1)
 			{
-				partial += "0";
+				partial += ZeroString;
 			}
 			else if (2 < partial.Length)
 			{

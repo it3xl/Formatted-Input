@@ -9,6 +9,13 @@ namespace It3xl.FormattedInput.View.Converter
 		public const Char NonBreakingSpaceChar = (Char)160;
 		public const Char BreakingSpaceChar = (Char)32;
 
+		private const String ZeroString = "0";
+		private const Char ZeroChar = '0';
+		private const String ZeroPartialString = "00";
+
+		const String NumberStandartFormattingKey = "n";
+
+
 		/// <summary>
 		/// Will be executed in case of a exception.
 		/// </summary>

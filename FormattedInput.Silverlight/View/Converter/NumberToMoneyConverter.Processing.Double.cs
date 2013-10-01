@@ -13,9 +13,8 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		private String GetCustomSerialisationFromDouble(Double doubleValue)
 		{
-			const String numberStandartFormattingKey = "n";
 			var unformattedValue = doubleValue
-				.ToString(numberStandartFormattingKey, CultureInfo.InvariantCulture);
+				.ToString(NumberStandartFormattingKey, CultureInfo.InvariantCulture);
 
 			// The order is important! The GroupSeparatorChar replacing must go before the DecimalSeparatorChar replacing.
 			if (GroupSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator)
