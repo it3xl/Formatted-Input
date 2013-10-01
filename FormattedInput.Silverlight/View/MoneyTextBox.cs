@@ -14,7 +14,6 @@ namespace It3xl.FormattedInput.View
 	{
 		public NumberToMoneyConverter Converter { get; private set; }
 
-
 		/// <summary>
 		/// The desirable Group Separator char for a view.
 		/// </summary>
@@ -30,7 +29,6 @@ namespace It3xl.FormattedInput.View
 			}
 		}
 
-		private Char? _decimalSeparator;
 		/// <summary>
 		/// The desirable Decimal Separator char for a view.
 		/// </summary>
@@ -64,16 +62,7 @@ namespace It3xl.FormattedInput.View
 		/// <summary>
 		/// The text that was before the TextChanged event.
 		/// </summary>
-		private String LastText { get; set; }
-
-		/// <summary>
-		/// The text that was before the TextChanged event.
-		/// </summary>
 		private Int32 LastSelectionStart { get; set; }
-
-
-
-
 
 
 		public MoneyTextBox()
@@ -94,7 +83,7 @@ namespace It3xl.FormattedInput.View
 		}
 
 		/// <summary>
-		/// Проверит и настроит биндинг свойства <see cref="TextBox.TextProperty"/>, чтоб удовлетворял логике форматирования.
+		/// Checks and sets a data binding for the <see cref="TextBox.TextProperty"/>.
 		/// </summary>
 		/// <param name="converter">The converter with a custom formatting logic.</param>
 		private void CorrectBinding(NumberToMoneyConverter converter)
@@ -104,18 +93,15 @@ namespace It3xl.FormattedInput.View
 				{
 					var binding = new Binding(el.ParentBinding)
 					{
-						// it3xl.com: Только сами определяем, когда обновлять источник.
+						// it3xl.com: Update Source Trigger is our job.
 						UpdateSourceTrigger = UpdateSourceTrigger.Explicit,
 						Mode = BindingMode.TwoWay,
 
-						// it3xl.com: Биндинг правильно может работать только с нашим конвертером.
+						// it3xl.com: Only our converter is appropriate. It's the main logic out here.
 						Converter = converter,
 					};
 
 					SetBinding(TextProperty, binding);
-
-					// TODO.it3xl.com: Cover lack of next row by a test when start value from ViewModel is 0.
-					LastText = Text;
 				});
 		}
 
@@ -123,24 +109,21 @@ namespace It3xl.FormattedInput.View
 		{
 			var textBox = this;
 
-
 			NumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
 				textBox.SelectionStart,
 				textBox.SelectionLength,
 				textBox.Text)
 			);
 
-
 			Boolean textFormatted;
 			FormatTextAndManageCaretRecursion(out textFormatted);
 
+			// Helps to ignore the excessive TextChanged event triggered by formatting.
+			// It breaks the recursion.
 			if (textFormatted == false)
 			{
-				// Если текст изменен из-за форматировани, то вызывать обновление не нужно,
-				//  т.к. следом будет повторное событие TextChanged и в нем обновим источник.
-
 				textBox
-					.GetBindingExpression(TextBox.TextProperty)
+					.GetBindingExpression(TextProperty)
 					.InvokeNotNull(el => el.UpdateSource());
 			}
 		}
@@ -152,8 +135,8 @@ namespace It3xl.FormattedInput.View
 		}
 
 		/// <summary>
-		/// Отформатируем значение и выставим каретку куросора в правильное положение.
-		/// ! Внимание, этот метод вызывает рекурсию, если текст в нем менялся через событие TextChanged.
+		/// Formats the text and manages the caret's position.<para/>
+		/// Starts a recursion if it invoked from the TextChangent event handler.
 		/// </summary>
 		private void FormatTextAndManageCaretRecursion(out Boolean textFormatted)
 		{
@@ -163,9 +146,8 @@ namespace It3xl.FormattedInput.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formatteValue;
-			Converter.FormatAndManageCaret(unformattedValue, LastText, LastSelectionStart, out formatteValue, ref selectionStart);
+			Converter.FormatAndManageCaret(unformattedValue, LastSelectionStart, out formatteValue, ref selectionStart);
 
-			LastText = formatteValue;
 			LastSelectionStart = selectionStart;
 
 			textFormatted = unformattedValue != formatteValue;

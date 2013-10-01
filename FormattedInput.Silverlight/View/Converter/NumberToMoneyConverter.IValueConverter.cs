@@ -31,7 +31,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			String formatteValue;
 			var selectionStartDummy = 0;
-			FormatAndManageCaret(unformattedValue, null, 0, out formatteValue, ref selectionStartDummy);
+			FormatAndManageCaret(unformattedValue, 0, out formatteValue, ref selectionStartDummy);
 
 			WriteLogAction(() => String.Format("Convert. unformattedValue = {0}", unformattedValue));
 			WriteLogAction(() => String.Format("Convert. formattedValue = {0}", formatteValue));

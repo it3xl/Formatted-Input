@@ -152,6 +152,11 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		/// <summary>
+		/// The text that was before current formatting.
+		/// </summary>
+		public String TextBeforeChanging { get; private set; }
+
+		/// <summary>
 		/// Available chars of a number of a custom format.
 		/// </summary>
 		private Char[] CustomSerialilzationChars

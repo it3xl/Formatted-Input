@@ -11,6 +11,8 @@ using System.Globalization;
 using System.Threading;
 using It3xl.FormattedInput.View;
 using It3xl.FormattedInput.View.Converter;
+using It3xl.Scaffold.MoneyField.Silverlight;
+using It3xl.Scaffold.MoneyField.Silverlight.ViewModel;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using Microsoft.Silverlight.Testing;
@@ -54,6 +56,34 @@ namespace It3xl.Test.MoneyField.Silverlight
 			Assert.AreEqual(textBox.GroupSeparator, NumberToMoneyConverter.NonBreakingSpaceChar);
 
 			Thread.CurrentThread.CurrentCulture = lastCulture;
+		}
+
+		/// <summary>
+		/// Tests the correct work of the <see cref="NumberToMoneyConverter.TextBeforeChanging"/> on the start.
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		public void TextBeforeChangingInitedOnStart()
+		{
+			var viewModel = new ViewModelForTests
+				{
+					AmountDouble = 0
+				};
+			var testPage = new MainPage{DataContext = viewModel};
+			TestPanel.Children.Add(testPage);
+
+			EnqueueCallback(() =>
+				{
+					Int32 expectedCaretPosition;
+
+					Assert.AreEqual(
+						"|0.00".ToSpecificValue(out expectedCaretPosition),
+						testPage.TestMoneyTexBox.Converter.TextBeforeChanging
+					);
+					Assert.AreEqual(expectedCaretPosition, testPage.TestMoneyTexBox.SelectionStart);
+				});
+
+			EnqueueTestComplete();
 		}
 
 	

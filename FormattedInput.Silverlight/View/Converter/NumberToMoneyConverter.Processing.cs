@@ -7,7 +7,8 @@ namespace It3xl.FormattedInput.View.Converter
 	public sealed partial class NumberToMoneyConverter
 	{
 		/// <summary>
-		/// The entry pont of the formatting and the caret management.
+		/// Helpful method for tests.
+		/// <seealso cref="FormatAndManageCaret"/>
 		/// </summary>
 		/// <param name="unformattedValue"></param>
 		/// <param name="textBeforeChanging">
@@ -17,17 +18,34 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="lastCaretPosition"></param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
-		public void FormatAndManageCaret(
+		public void TestFormatAndManageCaret(
 			String unformattedValue,
 			String textBeforeChanging,
 			Int32 lastCaretPosition,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
+			TextBeforeChanging = textBeforeChanging;
+			FormatAndManageCaret(unformattedValue, lastCaretPosition, out resultingFormattedValue, ref caretPosition);
+		}
+
+		/// <summary>
+		/// The entry pont of the formatting and the caret management.
+		/// </summary>
+		/// <param name="unformattedValue"></param>
+		/// <param name="lastCaretPosition"></param>
+		/// <param name="resultingFormattedValue"></param>
+		/// <param name="caretPosition"></param>
+		public void FormatAndManageCaret(
+			String unformattedValue,
+			Int32 lastCaretPosition,
+			out String resultingFormattedValue,
+			ref Int32 caretPosition)
+		{
+			resultingFormattedValue = unformattedValue;
+
 			try
 			{
-				resultingFormattedValue = unformattedValue;
-
 				if (NeedStopProcessing(unformattedValue))
 				{
 					return;
@@ -35,7 +53,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 				var state = InitProcessingStates(
 					unformattedValue,
-					textBeforeChanging,
+					TextBeforeChanging,
 					lastCaretPosition,
 					resultingFormattedValue,
 					caretPosition);
@@ -53,7 +71,10 @@ namespace It3xl.FormattedInput.View.Converter
 				resultingFormattedValue = String.Empty;
 				caretPosition = 0;
 			}
-
+			finally
+			{
+				TextBeforeChanging = resultingFormattedValue;
+			}
 		}
 
 		private static bool NeedStopProcessing(string unformattedValue)
