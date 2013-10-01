@@ -49,7 +49,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// See <see cref="GroupSeparator"/>.
 		/// </summary>
-		private Char _groupSeparator;
+		private Char? _groupSeparator;
 		/// <summary>
 		/// The desirable Group Separator char for a view.
 		/// </summary>
@@ -57,7 +57,7 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			get
 			{
-				if (_groupSeparator == Char.MinValue)
+				if (_groupSeparator == null)
 				{
 					return CultureInfo.CurrentCulture.NumberFormat
 						.NumberGroupSeparator
@@ -65,13 +65,13 @@ namespace It3xl.FormattedInput.View.Converter
 						.First();
 				}
 
-				return _groupSeparator;
+				return _groupSeparator.Value;
 			}
 			set
 			{
-				_groupSeparator = value;
+				ConvertSpaceToNonBreaking(ref value);
 
-				ConvertSpaceToNonBreaking(ref _groupSeparator);
+				_groupSeparator = value;
 			}
 		}
 		/// <summary>
@@ -113,9 +113,9 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 			set
 			{
-				_decimalSeparator = value;
+				ConvertSpaceToNonBreaking(ref value);
 
-				ConvertSpaceToNonBreaking(ref _groupSeparator);
+				_decimalSeparator = value;
 			}
 		}
 		/// <summary>
@@ -145,9 +145,9 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 			set
 			{
-				_decimalSeparatorAlternative = value;
+				ConvertSpaceToNonBreaking(ref value);
 
-				ConvertSpaceToNonBreaking(ref _groupSeparator);
+				_decimalSeparatorAlternative = value;
 			}
 		}
 

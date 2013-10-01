@@ -11,6 +11,11 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 	/// </summary>
 	public static class TestLanguageTranslator
 	{
+		/// <summary>
+		/// The Culture Info matched to the custom test language format.
+		/// </summary>
+		internal static readonly CultureInfo LanguageCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
+
 		private const Char DecimalSeparator = '.';
 		private const Char DecimalSeparatorAlternative = '^';
 		private const Char GroupSeparator = ' ';
@@ -64,11 +69,6 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			return result;
 		}
-
-		/// <summary>
-		/// The Culture Info matched to the custom test language format.
-		/// </summary>
-		internal static readonly CultureInfo LanguageCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
 
 	}
 }

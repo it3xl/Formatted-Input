@@ -1,6 +1,10 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
+using System.Globalization;
+using System.Threading;
+using It3xl.FormattedInput.View;
+using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using Microsoft.Silverlight.Testing;
@@ -20,9 +24,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
-		// TODO.it3xl.com: GroupSeparator = ' ' must be equal the GroupSeparator = @The nonbreaking spase@
-		// TODO.it3xl.com: GroupSeparator = '' must be equal the GroupSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberGroupSeparator
-		// TODO.it3xl.com: Test all cases for the GroupSeparator = ''.
+		// TODO.it3xl.com: Test all existed cases with the GroupSeparator = Char.MinValue.
 
 
 
@@ -44,6 +46,20 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			Assert.IsTrue(formatteValueOut == "123 456 7|89.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// Tests allowable of the empty value.
+		/// </summary>
+		[TestMethod]
+		public void EmptyValueSupport()
+		{
+			var textBox = new MoneyTextBox
+				{
+					GroupSeparator = Char.MinValue
+				};
+
+			Assert.AreEqual(textBox.GroupSeparator, Char.MinValue);
 		}
 	
 	}
