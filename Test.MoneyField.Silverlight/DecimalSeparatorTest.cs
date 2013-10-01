@@ -1,6 +1,8 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
+using System.Threading;
+using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using System.Globalization;
@@ -19,10 +21,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			_scaffold.TestInitialize(TestPanel);
 		}
-
-
-
-		// TODO.it3xl.com: DecimalSeparator = '' must behave like DecimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator.
 
 
 		/// <summary>
@@ -272,6 +270,21 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			Assert.IsTrue(formatteValueOut == "0.|12".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+
+		/// <summary>
+		/// Some initiating settings for the <see cref="NumberToMoneyConverter.DecimalSeparator"/>.
+		/// </summary>
+		[TestMethod]
+		public void InitiatingSettings()
+		{
+			var converter = new NumberToMoneyConverter
+				{
+					DecimalSeparator = Char.MinValue,
+				};
+
+			Assert.IsTrue(converter.DecimalSeparator.ToString() == Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 		}
 
 

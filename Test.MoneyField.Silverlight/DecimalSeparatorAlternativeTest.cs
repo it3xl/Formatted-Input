@@ -1,8 +1,11 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
+using System.Threading;
+using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
+using System.Linq;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -98,6 +101,25 @@ namespace It3xl.Test.MoneyField.Silverlight
 			Assert.IsTrue(formatteValueOut == "12 345.67|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
+
+
+		/// <summary>
+		/// Some initiating settings for the <see cref="NumberToMoneyConverter.DecimalSeparatorAlternative"/>.
+		/// </summary>
+		[TestMethod]
+		public void InitiatingSettings()
+		{
+			var separator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharArray().First();
+			var converter = new NumberToMoneyConverter
+			{
+				DecimalSeparator = separator,
+				DecimalSeparatorAlternative = separator,
+			};
+
+			// It's allowable but not important behaviour.
+			Assert.IsTrue(converter.DecimalSeparatorAlternative == converter.DecimalSeparator);
+		}
+
 
 
 	}
