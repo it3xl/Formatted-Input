@@ -69,7 +69,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			state.FormattedValue = state.FormattedValue.Insert(state.CaretPosition, DecimalSeparatorChar);
 
-			if (state.DeletionType == DeletionDirection.DeleteButton)
+			if (state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
 			{
 				state.CaretPosition++;
 			}

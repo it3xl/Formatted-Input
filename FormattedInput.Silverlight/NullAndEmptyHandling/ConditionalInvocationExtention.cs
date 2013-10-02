@@ -9,7 +9,7 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 	public static partial class ConditionalInvocationExtention
 	{
 	
-		// TODO.it3xl.ru: Move it to the target project.
+		// TODO.it3xl.com: Move it to the target project.
 
 		/// <summary>
 		/// Defines that parameter equals to its type's default value.

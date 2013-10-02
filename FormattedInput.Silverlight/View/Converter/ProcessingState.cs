@@ -57,7 +57,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// Type of the deletion for the <see cref="FormattingType"/>
 		///  == <see cref="FormattingAfter"/>.<see cref="FormattingAfter.OneSymbolDeleted"/>.
 		/// </summary>
-		internal DeletionDirection? DeletionType { get; set; }
+		internal DeletionDirection? OneSymbolDeletionType { get; set; }
 
 		/// <summary>
 		/// The sign that the Group Separator has been deleted.
@@ -73,12 +73,22 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// The previous integer part.
 		/// </summary>
-		internal string PreviousInteger { get; set; }
+		internal string IntegerPrevious { get; set; }
+
+		/// <summary>
+		/// The formatted integer part.
+		/// </summary>
+		internal string IntegerFormatted { get; set; }
 
 		/// <summary>
 		/// The previous partial part.
 		/// </summary>
-		internal string PreviousParatial { get; set; }
+		internal string PartialPrevious { get; set; }
+
+		/// <summary>
+		/// The formatted partial part.
+		/// </summary>
+		internal string PartialFormatted { get; set; }
 
 		/// <summary>
 		/// Requires to move the caret to the end of the integer's part position.

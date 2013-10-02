@@ -123,16 +123,19 @@ namespace It3xl.FormattedInput.View.Converter
 
 			NotDigitCharsProcessingWithCaret(state);
 
-			var integer = IntegerPartProcessingWithCaret(state);
+			var number = state.FormattedValue.Split(DecimalSeparator);
+			state.IntegerFormatted = number.First();
+			state.PartialFormatted = number.Last();
 
-			var partial = PartialPartProcessingWithCaret(state, integer.Length);
+			IntegerPartProcessingWithCaret(state);
+			PartialPartProcessingWithCaret(state);
 
-			var preliminatyFormattedValue = integer + DecimalSeparator + partial;
+			var preliminatyFormattedValue = state.IntegerFormatted + DecimalSeparator + state.PartialFormatted;
 			state.FormattedValue = FormatByPrecisionForDouble(preliminatyFormattedValue);
 
 			if(state.JumpCaretToEndOfInteger)
 			{
-				state.CaretPosition = integer.Length;
+				state.CaretPosition = state.IntegerFormatted.Length;
 			}
 		}
 
@@ -166,24 +169,19 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
-		private string IntegerPartProcessingWithCaret(ProcessingState state)
+		private void IntegerPartProcessingWithCaret(ProcessingState state)
 		{
-			var number = state.FormattedValue.Split(DecimalSeparator);
-
-			// Integral part processing.
-			var integer = number.First();
-
-			if (1 < integer.Length
-				&& state.PreviousInteger == ZeroString
-				&& integer.Last() == ZeroChar)
+			if (1 < state.IntegerFormatted.Length
+				&& state.IntegerPrevious == ZeroString
+				&& state.IntegerFormatted.Last() == ZeroChar)
 			{
-				integer = integer.Remove(integer.Length - 1, 1);
+				state.IntegerFormatted = state.IntegerFormatted.Remove(state.IntegerFormatted.Length - 1, 1);
 			}
 
 			// Leading zeros' processing.
-			while (1 < integer.Length && integer.First() == ZeroChar)
+			while (1 < state.IntegerFormatted.Length && state.IntegerFormatted.First() == ZeroChar)
 			{
-				integer = integer.Remove(0, 1);
+				state.IntegerFormatted = state.IntegerFormatted.Remove(0, 1);
 				if (0 < state.CaretPosition)
 				{
 					state.CaretPosition--;
@@ -191,23 +189,23 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			// Before decimal separator should be the 0, if it's the first.
-			if (integer.Length == 0)
+			if (state.IntegerFormatted.Length == 0)
 			{
-				integer = ZeroString;
+				state.IntegerFormatted = ZeroString;
 
 				state.CaretPosition++;
 			}
 
 			if (GroupSeparator.IsDefault())
 			{
-				return integer;
+				return;
 			}
 
 			// The group separator processing.
-			var lengthWithoutSeparator = integer.Length;
+			var lengthWithoutSeparator = state.IntegerFormatted.Length;
 			var caretPositionWithoutSeparator = state.CaretPosition;
 
-			var integerInvert = String.Join(null, integer.Reverse());
+			var integerInvert = String.Join(null, state.IntegerFormatted.Reverse());
 			for (var i = 0; i < lengthWithoutSeparator; i++)
 			{
 				if (i == 0)
@@ -225,7 +223,7 @@ namespace It3xl.FormattedInput.View.Converter
 				state.CaretPosition++;
 			}
 
-			integer = String.Join(null, integerInvert.Reverse());
+			state.IntegerFormatted = String.Join(null, integerInvert.Reverse());
 
 			// Actualizes caret position.
 			var digitsAfterCaretWithoutSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutSeparator);
@@ -234,7 +232,7 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				separarotAmountAfterCaret--;
 			}
-			if (state.DeletionType == DeletionDirection.BackspaceButton
+			if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
 				&& 0 < digitsAfterCaretWithoutSeparator
 				&& digitsAfterCaretWithoutSeparator % 3 == 0)
 			{
@@ -242,44 +240,62 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			state.CaretPosition -= separarotAmountAfterCaret;
-
-			return integer;
 		}
 
 		/// <summary>
 		/// Processing of the partial part of a number.
 		/// </summary>
 		/// <param name="state"></param>
-		/// <param name="integerLength"></param>
 		/// <returns></returns>
-		private string PartialPartProcessingWithCaret(ProcessingState state, int integerLength)
+		private void PartialPartProcessingWithCaret(ProcessingState state)
 		{
-			var number = state.FormattedValue.Split(DecimalSeparator);
-			// Processing of the fractional part of a number.
-			var partial = number.Last();
-			// After the decimal point should be two digits.
-			if (partial.Length == 0)
+			// After the decimal separator should be two digits.
+			if (state.PartialFormatted.Length == 0)
 			{
-				partial = ZeroPartialString;
+				state.PartialFormatted = ZeroPartialString;
 			}
-			else if (partial.Length == 1)
+			else if (state.PartialFormatted.Length == 1)
 			{
-				partial += ZeroString;
+
+
+
+
+
+
+				if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
+					&& state.PartialPrevious.InvokeNotNull(el => el.Length == 2))
+				{
+					
+				}
+				
+				
+				
+				
+				
+				
+				
+				state.PartialFormatted += ZeroString;
 			}
-			else if (2 < partial.Length)
+			else if (2 < state.PartialFormatted.Length)
 			{
-				var positionAfterFirstPartialDigit = integerLength + 1 + partial.Length - 2 == state.CaretPosition;
-				var needCutSecondPartialDigit = partial.Length == 3 && positionAfterFirstPartialDigit;
+				// TODO.it3xl.com: refactor the positionAfterFirstPartialDigit
+
+				var positionAfterFirstPartialDigit = 
+					state.IntegerFormatted.InvokeNotNull(el => el.Length)
+					+ 1
+					+ state.PartialFormatted.Length
+					- 2
+						== state.CaretPosition;
+				var needCutSecondPartialDigit = state.PartialFormatted.Length == 3 && positionAfterFirstPartialDigit;
 				if (needCutSecondPartialDigit)
 				{
-					partial = partial.Remove(1, 1);
+					state.PartialFormatted = state.PartialFormatted.Remove(1, 1);
 				}
 				else
 				{
-					partial = partial.Substring(0, 2);
+					state.PartialFormatted = state.PartialFormatted.Substring(0, 2);
 				}
 			}
-			return partial;
 		}
 
 	}

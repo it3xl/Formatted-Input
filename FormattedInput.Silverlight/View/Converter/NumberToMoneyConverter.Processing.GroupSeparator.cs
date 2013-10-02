@@ -13,7 +13,7 @@
 				return;
 			}
 
-			switch (state.DeletionType)
+			switch (state.OneSymbolDeletionType)
 			{
 				case DeletionDirection.BackspaceButton:
 					state.CaretPosition--;

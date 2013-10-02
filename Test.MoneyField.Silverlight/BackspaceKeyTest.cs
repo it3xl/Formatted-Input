@@ -300,7 +300,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
-		/// Partial & Backspacing behaviours.
+		/// Zero & Backspacing behaviours.
 		/// </summary>
 		[TestMethod]
 		public void ZeroAndBackspacing()
@@ -325,6 +325,26 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "|0.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// Backspacing before the first partial digit.
+		/// </summary>
+		[TestMethod]
+		public void BackspacingBeforeFirstPartialDigit()
+		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			var beforeInput = "1.2|3".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "1.|3".ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == "1.|03".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 

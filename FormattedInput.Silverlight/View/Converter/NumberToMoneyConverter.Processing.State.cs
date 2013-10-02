@@ -38,7 +38,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 			{
-				state.DeletionType = state.CaretPosition < lastCaretPosition
+				state.OneSymbolDeletionType = state.CaretPosition < lastCaretPosition
 					? DeletionDirection.BackspaceButton
 					: DeletionDirection.DeleteButton;
 
@@ -131,8 +131,8 @@ namespace It3xl.FormattedInput.View.Converter
 
 			var number = state.TextBeforeChanging.Split(DecimalSeparator);
 
-			state.PreviousInteger = number.First();
-			state.PreviousParatial = number.Last();
+			state.IntegerPrevious = number.First();
+			state.PartialPrevious = number.Last();
 		}
 
 		private Boolean? GetStateGroupSeparatorDeleted(ProcessingState state)
