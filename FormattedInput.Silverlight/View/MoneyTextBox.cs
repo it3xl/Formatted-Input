@@ -65,7 +65,6 @@ namespace It3xl.FormattedInput.View
 			Converter = new NumberToMoneyConverter();
 
 			Loaded += LoadedHandler;
-			Unloaded += UnloadedHandler;
 		}
 
 		private void LoadedHandler(object sender, RoutedEventArgs routedEventArgs)
@@ -152,16 +151,6 @@ namespace It3xl.FormattedInput.View
 				textBox.SelectionStart = selectionStart;
 			}
 		}
-
-
-		private void UnloadedHandler(object sender, RoutedEventArgs e)
-		{
-			var textBox = this;
-			// Unsubscribe from all events for sake of leaks.
-			textBox.TextChanged -= textBox_TextChanged;
-			textBox.SelectionChanged -= textBox_SelectionChanged;
-		}
-
 
 
 	}
