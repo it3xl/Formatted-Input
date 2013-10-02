@@ -100,8 +100,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 
-		// TODO.it3xl.com: Test
-		// Decimal.Max
+		// TODO.it3xl.com: Test the rounding for the Decimal.Max.
 	
 	
 	}

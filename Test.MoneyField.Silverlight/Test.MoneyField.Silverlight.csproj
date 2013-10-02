@@ -97,7 +97,7 @@
     </Compile>
     <Compile Include="InitializationTest.cs" />
     <Compile Include="DecimalSeparatorAlternativeTest.cs" />
-    <Compile Include="PartialPartDisabled.cs" />
+    <Compile Include="PartialPartDisabledTest.cs" />
     <Compile Include="NegativeValuesTest.cs" />
     <Compile Include="EmptyValueTest.cs" />
     <Compile Include="DummyTest.cs" />

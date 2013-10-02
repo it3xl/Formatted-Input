@@ -15,7 +15,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace It3xl.Test.MoneyField.Silverlight
 {
 	[TestClass]
-	public class PartialPartDisabled : SilverlightTest
+	public class PartialPartDisabledTest : SilverlightTest
 	{
 		private readonly LocalScaffold _scaffold = new LocalScaffold();
 
@@ -26,7 +26,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
-		// TODO.it3xl.com: 
+		// TODO.it3xl.com: PartialPartDisabledTest
 		// Test main behaviours.
 	
 	}
