@@ -1,6 +1,7 @@
 ﻿// ReSharper disable ConvertToConstant.Local
 // ReSharper disable JoinDeclarationAndInitializer
 
+using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using Microsoft.Silverlight.Testing;
@@ -51,7 +52,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "23.|98".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "23.1|98".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "23.1|8".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);

@@ -16,29 +16,33 @@ namespace It3xl.FormattedInput.View.Converter
 		/// Must have the null value if it is the call from the <see cref="Convert"/> method.
 		/// </param>
 		/// <param name="lastCaretPosition"></param>
+		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
 		public void TestFormatAndManageCaret(
 			String unformattedValue,
 			String textBeforeChanging,
 			Int32 lastCaretPosition,
+			FocusEnum focusState,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
 			TextBeforeChanging = textBeforeChanging;
 			CaretPositionBeforeTextChanging = lastCaretPosition;
 
-			FormatAndManageCaret(unformattedValue, out resultingFormattedValue, ref caretPosition);
+			FormatAndManageCaret(unformattedValue, focusState, out resultingFormattedValue, ref caretPosition);
 		}
 
 		/// <summary>
 		/// The entry pont of the formatting and the caret management.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
+		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
 		public void FormatAndManageCaret(
 			String unformattedValue,
+			FocusEnum focusState,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
@@ -57,7 +61,7 @@ namespace It3xl.FormattedInput.View.Converter
 					unformattedValue,
 					TextBeforeChanging,
 					lastCaretPosition,
-					resultingFormattedValue,
+					focusState,
 					caretPosition);
 
 				FormatAndManageCaretRaw(state);
@@ -108,7 +112,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// The lower implementation of a formatting.
 		/// </summary>
 		/// <param name="state"></param>
-		private void FormatAndManageCaretRaw(FormatterState state)
+		private void FormatAndManageCaretRaw(ProcessingState state)
 		{
 			DecimalSeparatorAlternatingReplacing(state);
 			DecimalSeparatorDeletedProcessingWithCaret(state);
@@ -131,7 +135,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// Deleting not gigit chars with caret management.
 		/// </summary>
 		/// <param name="state"></param>
-		private void NotDigitCharsProcessingWithCaret(FormatterState state)
+		private void NotDigitCharsProcessingWithCaret(ProcessingState state)
 		{
 			var stringForIteraction = state.FormattedValue;
 			foreach (var @char in stringForIteraction)
@@ -157,7 +161,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
-		private string IntegerPartProcessingWithCaret(FormatterState state)
+		private string IntegerPartProcessingWithCaret(ProcessingState state)
 		{
 			var number = state.FormattedValue.Split(DecimalSeparator);
 
@@ -243,7 +247,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		/// <param name="integerLength"></param>
 		/// <returns></returns>
-		private string PartialPartProcessingWithCaret(FormatterState state, int integerLength)
+		private string PartialPartProcessingWithCaret(ProcessingState state, int integerLength)
 		{
 			var number = state.FormattedValue.Split(DecimalSeparator);
 			// Processing of the fractional part of a number.

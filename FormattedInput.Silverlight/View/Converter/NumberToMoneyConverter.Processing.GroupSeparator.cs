@@ -6,7 +6,7 @@
 		/// Manage and format for the Group Separator.
 		/// </summary>
 		/// <param name="state"></param>
-		private void GroupSeparatorProcessingWithCaret(FormatterState state)
+		private void GroupSeparatorProcessingWithCaret(ProcessingState state)
 		{
 			if (state.GroupSeparatorDeleted != true)
 			{

@@ -46,7 +46,7 @@ namespace It3xl.FormattedInput.View.Converter
 			var cSharpDigitalSerialisation = stringValue;
 
 			// Remove the group delimiter.
-			GroupSeparator.InvokeIfNotDefault(el =>
+			GroupSeparator.InvokeNotDefault(el =>
 			{
 				if (GroupSeparator == NonBreakingSpaceChar)
 				{

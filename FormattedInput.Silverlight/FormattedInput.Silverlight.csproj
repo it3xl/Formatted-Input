@@ -60,9 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NullAndEmptyHandling\NotNullNotDefaultExecutionExtention.cs" />
+    <Compile Include="NullAndEmptyHandling\ConditionalInvocationExtention.Func.cs" />
+    <Compile Include="NullAndEmptyHandling\ConditionalInvocationExtention.Action.cs" />
+    <Compile Include="NullAndEmptyHandling\ConditionalInvocationExtention.cs" />
     <Compile Include="NullAndEmptyHandling\NullingExtention.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Converter\FocusEnum.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.GroupSeparator.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.DecimalSeparator.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Utils.cs" />
@@ -73,7 +76,7 @@
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.Double.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.Decimal.cs" />
     <Compile Include="View\Converter\DeletionDirection.cs" />
-    <Compile Include="View\Converter\FormatterState.cs" />
+    <Compile Include="View\Converter\ProcessingState.cs" />
     <Compile Include="View\Converter\FormattingAfter.cs" />
     <Compile Include="View\MoneyTextBox.cs" />
     <Compile Include="View\MoneyTextBoxBehaviour_NotImplemented.cs" />

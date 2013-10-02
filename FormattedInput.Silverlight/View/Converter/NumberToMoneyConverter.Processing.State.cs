@@ -12,24 +12,28 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="unformattedValue"></param>
 		/// <param name="textBeforeChanging"></param>
 		/// <param name="lastCaretPosition"></param>
-		/// <param name="resultingFormattedValue"></param>
+		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="caretPosition"></param>
 		/// <returns></returns>
-		private FormatterState InitProcessingStates(
+		private ProcessingState InitProcessingStates(
 			String unformattedValue,
 			String textBeforeChanging,
 			Int32 lastCaretPosition,
-			String resultingFormattedValue,
+			FocusEnum focusState,
 			Int32 caretPosition)
 		{
-			var state = new FormatterState
-			{
-				FormattedValue = resultingFormattedValue,
-				CaretPosition = caretPosition,
-				FormattingType = SetFormattingType(unformattedValue, textBeforeChanging),
-			};
+			var state = new ProcessingState
+				{
+					UnformattedValue = unformattedValue,
+					FormattedValue = unformattedValue,
+					TextBeforeChanging = textBeforeChanging,
+					CaretPosition = caretPosition,
+				};
 
-			SetPreviousStates(state, textBeforeChanging);
+			SetFormattingType(state);
+			SetJumpCaretToDefaultPosition(focusState, state);
+
+			SetPreviousStates(state);
 
 			if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 			{
@@ -39,7 +43,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			}
 
-			state.GroupSeparatorDeleted = GetStateGroupSeparatorDeleted(state.FormattingType, unformattedValue, textBeforeChanging);
+			state.GroupSeparatorDeleted = GetStateGroupSeparatorDeleted(state);
 
 			return state;
 		}
@@ -47,69 +51,93 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// Defines the formatting type <see cref="FormattingAfter"/>.
 		/// </summary>
-		/// <param name="unformattedValue"></param>
-		/// <param name="textBeforeChanging"></param>
+		/// <param name="state"> </param>
 		/// <returns>The value of the  <see cref="FormattingAfter"/></returns>
-		private static FormattingAfter SetFormattingType(String unformattedValue, String textBeforeChanging)
+		private static void SetFormattingType(ProcessingState state)
 		{
 			FormattingAfter formattingAfter;
-			if (String.IsNullOrEmpty(textBeforeChanging))
+			if (String.IsNullOrEmpty(state.TextBeforeChanging))
 			{
 				formattingAfter = FormattingAfter.EmptyStartValue;
 			}
-			else if (Math.Abs(unformattedValue.Length - textBeforeChanging.Length) != 1)
+			else if (Math.Abs(state.UnformattedValue.Length - state.TextBeforeChanging.Length) != 1)
 			{
 				formattingAfter = FormattingAfter.GroupPastingOrDeletion;
 			}
 			else
 			{
-				var subtraction = unformattedValue.Length - textBeforeChanging.Length;
+				var subtraction = state.UnformattedValue.Length - state.TextBeforeChanging.Length;
 				formattingAfter = 0 < subtraction
 					? FormattingAfter.OneSymbolAdded
 					: FormattingAfter.OneSymbolDeleted;
 			}
 
-			return formattingAfter;
+			state.FormattingType = formattingAfter;
+		}
+
+		/// <summary>
+		/// Sets the requirements to move the caret to a default position.
+		/// </summary>
+		/// <param name="focusState"></param>
+		/// <param name="state"></param>
+		private void SetJumpCaretToDefaultPosition(FocusEnum focusState, ProcessingState state)
+		{
+			state.JumpCaretToDefaultPosition = false;
+
+			if(focusState != FocusEnum.JustGotten)
+			{
+				return;
+			}
+			if(state.FormattingType == FormattingAfter.EmptyStartValue)
+			{
+				return;
+			}
+			if (state.UnformattedValue
+				.InvokeNotNull(el => el.Length != state.CaretPosition))
+			{
+				return;
+			}
+
+			state.JumpCaretToDefaultPosition = true;
 		}
 
 		/// <summary>
 		/// Sets the previous number states.
 		/// </summary>
 		/// <param name="state"></param>
-		/// <param name="textBeforeChanging"></param>
-		private void SetPreviousStates(FormatterState state, string textBeforeChanging)
+		private void SetPreviousStates(ProcessingState state)
 		{
-			if (textBeforeChanging.IsNullOrEmpty())
+			if (state.TextBeforeChanging.IsNullOrEmpty())
 			{
 				return;
 			}
 
-			if (textBeforeChanging.Contains(DecimalSeparator) == false)
+			if (state.TextBeforeChanging.Contains(DecimalSeparator) == false)
 			{
 				return;
 			}
 
-			var number = textBeforeChanging.Split(DecimalSeparator);
+			var number = state.TextBeforeChanging.Split(DecimalSeparator);
 
 			state.PreviousInteger = number.First();
 			state.PreviousParatial = number.Last();
 		}
 
-		private Boolean? GetStateGroupSeparatorDeleted(FormattingAfter formattingType, String unformattedValue, String textBeforeChanging)
+		private Boolean? GetStateGroupSeparatorDeleted(ProcessingState state)
 		{
-			if (formattingType != FormattingAfter.OneSymbolDeleted)
+			if (state.FormattingType != FormattingAfter.OneSymbolDeleted)
 			{
 				return null;
 			}
 
-			for (var i = 0; i < unformattedValue.Length; i++)
+			for (var i = 0; i < state.UnformattedValue.Length; i++)
 			{
-				if (unformattedValue[i] == textBeforeChanging[i])
+				if (state.UnformattedValue[i] == state.TextBeforeChanging[i])
 				{
 					continue;
 				}
 
-				return textBeforeChanging[i] == GroupSeparator;
+				return state.TextBeforeChanging[i] == GroupSeparator;
 			}
 
 			return false;

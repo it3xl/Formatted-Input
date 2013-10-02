@@ -74,6 +74,7 @@ namespace It3xl.FormattedInput.View
 			var textBox = this;
 			textBox.TextChanged += textBox_TextChanged;
 			textBox.SelectionChanged += textBox_SelectionChanged;
+			textBox.GotFocus += textBox_GotFocus;
 		}
 
 		/// <summary>
@@ -109,8 +110,28 @@ namespace It3xl.FormattedInput.View
 				textBox.Text)
 			);
 
+			ProcessText(FocusEnum.HasNoState);
+		}
+
+		void textBox_GotFocus(object sender, RoutedEventArgs e)
+		{
+			var textBox = this;
+
+			NumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+				textBox.SelectionStart,
+				textBox.SelectionLength,
+				textBox.Text)
+			);
+
+			ProcessText(FocusEnum.JustGotten);
+		}
+
+		private void ProcessText(FocusEnum focusState)
+		{
+			var textBox = this;
+
 			Boolean textFormatted;
-			FormatTextAndManageCaretInRecursion(out textFormatted);
+			FormatTextAndManageCaretInRecursion(focusState, out textFormatted);
 
 			// Helps to ignore the excessive TextChanged event triggered by formatting.
 			// It breaks the recursion.
@@ -122,17 +143,11 @@ namespace It3xl.FormattedInput.View
 			}
 		}
 
-		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
-		{
-			// It watchs for the caret position changed by an user.
-			Converter.SetCaretPositionBeforeTextChanging(SelectionStart);
-		}
-
 		/// <summary>
 		/// Formats the text and manages the caret's position.<para/>
 		/// Starts a recursion if it invoked from the TextChangent event handler.
 		/// </summary>
-		private void FormatTextAndManageCaretInRecursion(out Boolean textFormatted)
+		private void FormatTextAndManageCaretInRecursion(FocusEnum focusState, out Boolean textFormatted)
 		{
 			var textBox = this;
 
@@ -140,7 +155,7 @@ namespace It3xl.FormattedInput.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formatteValue;
-			Converter.FormatAndManageCaret(unformattedValue, out formatteValue, ref selectionStart);
+			Converter.FormatAndManageCaret(unformattedValue, focusState, out formatteValue, ref selectionStart);
 
 			textFormatted = unformattedValue != formatteValue;
 			if (textFormatted)
@@ -150,6 +165,12 @@ namespace It3xl.FormattedInput.View
 
 				textBox.SelectionStart = selectionStart;
 			}
+		}
+
+		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
+		{
+			// It watchs for the caret position changed by an user.
+			Converter.SetCaretPositionBeforeTextChanging(SelectionStart);
 		}
 
 

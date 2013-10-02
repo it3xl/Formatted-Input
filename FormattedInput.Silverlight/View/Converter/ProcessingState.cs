@@ -4,7 +4,10 @@ using System;
 
 namespace It3xl.FormattedInput.View.Converter
 {
-	internal sealed class FormatterState
+	/// <summary>
+	/// The state for a processing of a text and a caret position.
+	/// </summary>
+	internal sealed class ProcessingState
 	{
 		private string _formattedValue;
 		private int _caretPosition;
@@ -23,6 +26,11 @@ namespace It3xl.FormattedInput.View.Converter
 				_formattedValue = value;
 			}
 		}
+
+		/// <summary>
+		/// A text that was before current processing.
+		/// </summary>
+		public string TextBeforeChanging { get; set; }
 
 		/// <summary>
 		/// The caret (cursor) position.
@@ -71,5 +79,11 @@ namespace It3xl.FormattedInput.View.Converter
 		/// The previous partial part.
 		/// </summary>
 		internal string PreviousParatial { get; set; }
+
+		/// <summary>
+		/// Requires to move the caret to a default position.
+		/// </summary>
+		public Boolean JumpCaretToDefaultPosition { get; set; }
+
 	}
 }

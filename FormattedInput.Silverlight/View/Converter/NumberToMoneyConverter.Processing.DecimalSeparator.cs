@@ -11,7 +11,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// With caret managment.
 		/// </summary>
 		/// <param name="state"></param>
-		private void DecimalSeparatorExcessiveProcessingWithCaret(FormatterState state)
+		private void DecimalSeparatorExcessiveProcessingWithCaret(ProcessingState state)
 		{
 			var separatorCount = state.FormattedValue.Count(el => el == DecimalSeparator);
 			if (separatorCount < 2)
@@ -36,7 +36,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <seealso cref="DecimalSeparatorDeletedProcessingWithCaret"/> 
 		/// </summary>
 		/// <param name="state"></param>
-		private void DecimalSeparatorMissed(FormatterState state)
+		private void DecimalSeparatorMissed(ProcessingState state)
 		{
 			var separatorCountV = state.FormattedValue.Count(el => el == DecimalSeparator);
 			if (0 < separatorCountV)
@@ -52,7 +52,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <seealso cref="DecimalSeparatorMissed"/> 
 		/// </summary>
 		/// <param name="state"></param>
-		private void DecimalSeparatorDeletedProcessingWithCaret(FormatterState state)
+		private void DecimalSeparatorDeletedProcessingWithCaret(ProcessingState state)
 		{
 			if (state.FormattingType != FormattingAfter.OneSymbolDeleted)
 			{
@@ -80,7 +80,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <see cref="DecimalSeparatorAlternative"/>
 		/// </summary>
 		/// <param name="state"></param>
-		private void DecimalSeparatorAlternatingReplacing(FormatterState state)
+		private void DecimalSeparatorAlternatingReplacing(ProcessingState state)
 		{
 			if (DecimalSeparatorAlternative.IsDefault())
 			{
