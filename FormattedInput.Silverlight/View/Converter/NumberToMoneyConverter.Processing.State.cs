@@ -32,6 +32,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			SetFormattingType(state);
 			SetJumpCaretToEndOfInteger(focusState, state);
+			SetNeedHighlightInput(state);
 
 			SetPreviousStates(state);
 
@@ -99,6 +100,17 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			state.JumpCaretToEndOfInteger = true;
+		}
+
+		/// <summary>
+		/// Sets state that required fire a custom hilighting of an input.
+		/// </summary>
+		/// <param name="state"></param>
+		private void SetNeedHighlightInput(ProcessingState state)
+		{
+			// TODO.it3xl.com: SetNeedHighlightInput.
+			// JumpCaretToEndOfInteger
+			// Input at the end of the partial's part.
 		}
 
 		/// <summary>
