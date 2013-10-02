@@ -81,9 +81,9 @@ namespace It3xl.FormattedInput.View.Converter
 		internal string PreviousParatial { get; set; }
 
 		/// <summary>
-		/// Requires to move the caret to a default position.
+		/// Requires to move the caret to the end of the integer's part position.
 		/// </summary>
-		public Boolean JumpCaretToDefaultPosition { get; set; }
+		public Boolean JumpCaretToEndOfInteger { get; set; }
 
 	}
 }

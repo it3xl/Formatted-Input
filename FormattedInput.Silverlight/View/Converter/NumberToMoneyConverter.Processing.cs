@@ -7,7 +7,7 @@ namespace It3xl.FormattedInput.View.Converter
 	public sealed partial class NumberToMoneyConverter
 	{
 		/// <summary>
-		/// Helpful method for tests.
+		/// Helpful method for tests of the <see cref="FormatAndManageCaret"/> method.
 		/// <seealso cref="FormatAndManageCaret"/>
 		/// </summary>
 		/// <param name="unformattedValue"></param>
@@ -129,6 +129,11 @@ namespace It3xl.FormattedInput.View.Converter
 
 			var preliminatyFormattedValue = integer + DecimalSeparator + partial;
 			state.FormattedValue = FormatByPrecisionForDouble(preliminatyFormattedValue);
+
+			if(state.JumpCaretToEndOfInteger)
+			{
+				state.CaretPosition = integer.Length;
+			}
 		}
 
 		/// <summary>

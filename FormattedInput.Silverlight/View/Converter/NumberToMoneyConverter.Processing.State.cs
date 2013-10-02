@@ -31,7 +31,7 @@ namespace It3xl.FormattedInput.View.Converter
 				};
 
 			SetFormattingType(state);
-			SetJumpCaretToDefaultPosition(focusState, state);
+			SetJumpCaretToEndOfInteger(focusState, state);
 
 			SetPreviousStates(state);
 
@@ -76,13 +76,13 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		/// <summary>
-		/// Sets the requirements to move the caret to a default position.
+		/// Sets the requirements to move the caret to the end of the integer's part position.
 		/// </summary>
 		/// <param name="focusState"></param>
 		/// <param name="state"></param>
-		private void SetJumpCaretToDefaultPosition(FocusEnum focusState, ProcessingState state)
+		private void SetJumpCaretToEndOfInteger(FocusEnum focusState, ProcessingState state)
 		{
-			state.JumpCaretToDefaultPosition = false;
+			state.JumpCaretToEndOfInteger = false;
 
 			if(focusState != FocusEnum.JustGotten)
 			{
@@ -98,7 +98,7 @@ namespace It3xl.FormattedInput.View.Converter
 				return;
 			}
 
-			state.JumpCaretToDefaultPosition = true;
+			state.JumpCaretToEndOfInteger = true;
 		}
 
 		/// <summary>

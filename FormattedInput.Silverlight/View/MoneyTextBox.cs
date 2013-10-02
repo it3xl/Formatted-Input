@@ -162,9 +162,9 @@ namespace It3xl.FormattedInput.View
 			{
 				// It starts the recursion.
 				textBox.Text = formatteValue;
-
-				textBox.SelectionStart = selectionStart;
 			}
+
+			textBox.SelectionStart = selectionStart;
 		}
 
 		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)
