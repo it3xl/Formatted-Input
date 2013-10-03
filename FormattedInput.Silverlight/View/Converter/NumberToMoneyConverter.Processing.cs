@@ -266,10 +266,22 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 			else if (state.PartialFormatted.Length == 1)
 			{
-				if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
-					&& state.CaretPosition == decimalSeparatorPosition)
+				if (state.CaretPosition == decimalSeparatorPosition
+					&& state.OneSymbolDeletionType == DeletionDirection.BackspaceButton)
 				{
 					state.PartialFormatted = ZeroString + state.PartialFormatted;
+				}
+				else if (state.CaretPosition == decimalSeparatorPosition
+					&& state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
+				{
+					if(state.PartialPrevious.StartsWith(ZeroString))
+					{
+						state.PartialFormatted = ZeroPartialString;
+					}
+					else
+					{
+						state.PartialFormatted = ZeroString + state.PartialFormatted;
+					}
 				}
 				else
 				{

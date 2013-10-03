@@ -264,7 +264,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(formatteValueOut == "45.|20".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(formatteValueOut == "45.|02".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 
@@ -274,6 +274,35 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "45.7|0".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// Tests double deletion before the partial.
+		/// </summary>
+		[TestMethod]
+		public void DeletionBeforePartial()
+		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			var beforeInput = "45.|72".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "45.|2".ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == "45.|02".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+
+			beforeInput = "45.|02".ToSpecificValue(out beforeInputCaretPosition);
+			input = "45.|2".ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == "45.|00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
