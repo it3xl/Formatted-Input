@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
+using It3xl.FormattedInput.View.Controller;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -57,12 +58,16 @@ namespace It3xl.FormattedInput.View.Converter
 					return;
 				}
 
-				var state = InitProcessingStates(
-					unformattedValue,
-					TextBeforeChanging,
-					lastCaretPosition,
-					focusState,
-					caretPosition);
+				var state = new StateController(
+						DecimalSeparator,
+						GroupSeparator,
+						TextBeforeChanging,
+						unformattedValue
+					)
+					.GetProcessingStates(
+						lastCaretPosition,
+						focusState,
+						caretPosition);
 
 				FormatAndManageCaretRaw(state);
 

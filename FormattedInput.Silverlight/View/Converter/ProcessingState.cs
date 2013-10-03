@@ -28,11 +28,6 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		/// <summary>
-		/// A text that was before current processing.
-		/// </summary>
-		public string TextBeforeChanging { get; set; }
-
-		/// <summary>
 		/// The caret (cursor) position.
 		/// </summary>
 		internal Int32 CaretPosition
@@ -63,12 +58,6 @@ namespace It3xl.FormattedInput.View.Converter
 		/// The sign that the Group Separator has been deleted.
 		/// </summary>
 		internal Boolean? GroupSeparatorDeleted { get; set; }
-
-		/// <summary>
-		/// The value before formatting.
-		/// </summary>
-		internal String UnformattedValue { get; set; }
-
 
 		/// <summary>
 		/// The previous integer part.

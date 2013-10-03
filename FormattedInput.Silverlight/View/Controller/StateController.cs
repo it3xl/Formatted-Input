@@ -1,32 +1,50 @@
 ﻿using System;
 using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
+using It3xl.FormattedInput.View.Converter;
 
-namespace It3xl.FormattedInput.View.Converter
+namespace It3xl.FormattedInput.View.Controller
 {
-	public sealed partial class NumberToMoneyConverter
+	/// <summary>
+	/// 
+	/// </summary>
+	internal sealed class StateController
 	{
+		private readonly Char _decimalSeparator;
+		private readonly Char _groupSeparator;
+		/// <summary>
+		/// A text that was before current processing.
+		/// </summary>
+		private readonly String _textBeforeChanging;
+		/// <summary>
+		/// The value before formatting.
+		/// </summary>
+		private readonly String _unformattedValue;
+
+
+		internal StateController(char decimalSeparator, char groupSeparator, String textBeforeChanging, String unformattedValue)
+		{
+			_decimalSeparator = decimalSeparator;
+			_groupSeparator = groupSeparator;
+			_textBeforeChanging = textBeforeChanging;
+			_unformattedValue = unformattedValue;
+		}
+
 		/// <summary>
 		/// Initializes states for formatting.
 		/// </summary>
-		/// <param name="unformattedValue"></param>
-		/// <param name="textBeforeChanging"></param>
 		/// <param name="lastCaretPosition"></param>
 		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="caretPosition"></param>
 		/// <returns></returns>
-		private ProcessingState InitProcessingStates(
-			String unformattedValue,
-			String textBeforeChanging,
+		internal ProcessingState GetProcessingStates(
 			Int32 lastCaretPosition,
 			FocusEnum focusState,
 			Int32 caretPosition)
 		{
 			var state = new ProcessingState
 				{
-					UnformattedValue = unformattedValue,
-					FormattedValue = unformattedValue,
-					TextBeforeChanging = textBeforeChanging,
+					FormattedValue = _unformattedValue,
 					CaretPosition = caretPosition,
 				};
 
@@ -39,8 +57,8 @@ namespace It3xl.FormattedInput.View.Converter
 			if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 			{
 				state.OneSymbolDeletionType = state.CaretPosition < lastCaretPosition
-					? DeletionDirection.BackspaceButton
-					: DeletionDirection.DeleteButton;
+					                              ? DeletionDirection.BackspaceButton
+					                              : DeletionDirection.DeleteButton;
 
 			}
 
@@ -54,23 +72,23 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		/// <param name="state"> </param>
 		/// <returns>The value of the  <see cref="FormattingAfter"/></returns>
-		private static void SetFormattingType(ProcessingState state)
+		private void SetFormattingType(ProcessingState state)
 		{
 			FormattingAfter formattingAfter;
-			if (String.IsNullOrEmpty(state.TextBeforeChanging))
+			if (String.IsNullOrEmpty(_textBeforeChanging))
 			{
 				formattingAfter = FormattingAfter.EmptyStartValue;
 			}
-			else if (Math.Abs(state.UnformattedValue.Length - state.TextBeforeChanging.Length) != 1)
+			else if (Math.Abs(_unformattedValue.Length - _textBeforeChanging.Length) != 1)
 			{
 				formattingAfter = FormattingAfter.GroupPastingOrDeletion;
 			}
 			else
 			{
-				var subtraction = state.UnformattedValue.Length - state.TextBeforeChanging.Length;
+				var subtraction = _unformattedValue.Length - _textBeforeChanging.Length;
 				formattingAfter = 0 < subtraction
-					? FormattingAfter.OneSymbolAdded
-					: FormattingAfter.OneSymbolDeleted;
+					                  ? FormattingAfter.OneSymbolAdded
+					                  : FormattingAfter.OneSymbolDeleted;
 			}
 
 			state.FormattingType = formattingAfter;
@@ -85,15 +103,15 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			state.JumpCaretToEndOfInteger = false;
 
-			if(focusState != FocusEnum.JustGotten)
+			if (focusState != FocusEnum.JustGotten)
 			{
 				return;
 			}
-			if(state.FormattingType == FormattingAfter.EmptyStartValue)
+			if (state.FormattingType == FormattingAfter.EmptyStartValue)
 			{
 				return;
 			}
-			if (state.UnformattedValue
+			if (_unformattedValue
 				.InvokeNotNull(el => el.Length != state.CaretPosition))
 			{
 				return;
@@ -119,17 +137,17 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void SetPreviousStates(ProcessingState state)
 		{
-			if (state.TextBeforeChanging.IsNullOrEmpty())
+			if (_textBeforeChanging.IsNullOrEmpty())
 			{
 				return;
 			}
 
-			if (state.TextBeforeChanging.Contains(DecimalSeparator) == false)
+			if (_textBeforeChanging.Contains(_decimalSeparator) == false)
 			{
 				return;
 			}
 
-			var number = state.TextBeforeChanging.Split(DecimalSeparator);
+			var number = _textBeforeChanging.Split(_decimalSeparator);
 
 			state.IntegerPrevious = number.First();
 			state.PartialPrevious = number.Last();
@@ -142,14 +160,14 @@ namespace It3xl.FormattedInput.View.Converter
 				return null;
 			}
 
-			for (var i = 0; i < state.UnformattedValue.Length; i++)
+			for (var i = 0; i < _unformattedValue.Length; i++)
 			{
-				if (state.UnformattedValue[i] == state.TextBeforeChanging[i])
+				if (_unformattedValue[i] == _textBeforeChanging[i])
 				{
 					continue;
 				}
 
-				return state.TextBeforeChanging[i] == GroupSeparator;
+				return _textBeforeChanging[i] == _groupSeparator;
 			}
 
 			return false;
