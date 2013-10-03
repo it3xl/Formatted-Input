@@ -57,8 +57,8 @@ namespace It3xl.FormattedInput.View.Controller
 			if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 			{
 				state.OneSymbolDeletionType = state.CaretPosition < lastCaretPosition
-					                              ? DeletionDirection.BackspaceButton
-					                              : DeletionDirection.DeleteButton;
+					? DeletionDirection.BackspaceButton
+					: DeletionDirection.DeleteButton;
 
 			}
 
@@ -87,8 +87,8 @@ namespace It3xl.FormattedInput.View.Controller
 			{
 				var subtraction = _unformattedValue.Length - _textBeforeChanging.Length;
 				formattingAfter = 0 < subtraction
-					                  ? FormattingAfter.OneSymbolAdded
-					                  : FormattingAfter.OneSymbolDeleted;
+					? FormattingAfter.OneSymbolAdded
+					: FormattingAfter.OneSymbolDeleted;
 			}
 
 			state.FormattingType = formattingAfter;
@@ -129,6 +129,9 @@ namespace It3xl.FormattedInput.View.Controller
 			// TODO.it3xl.com: SetNeedHighlightInput.
 			// JumpCaretToEndOfInteger
 			// Input at the end of the partial's part.
+			// Invalid Input.
+			// Invalid input to the empty field.
+			// Integer input exceeding the bitness of the integer part.
 		}
 
 		/// <summary>
