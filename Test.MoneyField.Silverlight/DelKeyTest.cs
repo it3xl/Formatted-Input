@@ -1,7 +1,4 @@
-﻿// ReSharper disable ConvertToConstant.Local
-// ReSharper disable JoinDeclarationAndInitializer
-
-using It3xl.FormattedInput.View.Converter;
+﻿using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using Microsoft.Silverlight.Testing;

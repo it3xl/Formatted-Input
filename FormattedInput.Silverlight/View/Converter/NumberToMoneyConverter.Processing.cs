@@ -176,6 +176,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		private void IntegerPartProcessingWithCaret(ProcessingState state)
 		{
+			// Deletion of the 0 in the integer part if a input started from the 0 value.
 			if (1 < state.IntegerFormatted.Length
 				&& state.IntegerPrevious == ZeroString
 				&& state.IntegerFormatted.Last() == ZeroChar)
@@ -199,6 +200,20 @@ namespace It3xl.FormattedInput.View.Converter
 				state.IntegerFormatted = ZeroString;
 
 				state.CaretPosition++;
+			}
+
+			if(IntegerBitness.HasValue)
+			{
+				var bitness = IntegerBitness.Value;
+				if (
+					false
+					&&
+					bitness < state.IntegerFormatted.Length)
+				{
+					// Process the caret somehow.
+
+					state.IntegerFormatted = state.IntegerFormatted.Substring(0, bitness);
+				}
 			}
 
 			if (GroupSeparator.IsDefault())

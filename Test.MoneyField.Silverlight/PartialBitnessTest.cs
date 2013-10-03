@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace It3xl.Test.MoneyField.Silverlight
 {
 	[TestClass]
-	public class NegativeValuesTest : SilverlightTest
+	public class PartialBitnessTest : SilverlightTest
 	{
 		private readonly LocalScaffold _scaffold = new LocalScaffold();
 
@@ -16,14 +16,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+		// TODO.it3xl.com: It's a grate TODO. Defenetly, I am not planning to do it now.
 
-		// TODO.it3x.com: Test negative values.
-
-		// Double behaviours.
-		// The Double Min value
-
-		// Decimal behaviours.
-		// The Decimal Min value
-	
+		
 	}
 }

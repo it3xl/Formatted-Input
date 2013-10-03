@@ -12,7 +12,7 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 		// TODO.it3xl.com: Move it to the target project.
 
 		/// <summary>
-		/// Defines that parameter equals to its type's default value.
+		/// Defines that value type parameter equals to its type's default value.
 		/// </summary>
 		/// <typeparam name="TTarget"></typeparam>
 		/// <param name="target"></param>

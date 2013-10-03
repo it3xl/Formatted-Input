@@ -59,6 +59,21 @@ namespace It3xl.FormattedInput.View
 			}
 		}
 
+		/// <summary>
+		/// The bitness of the integer part.
+		/// </summary>
+		public UInt16? IntegerBitness
+		{
+			get
+			{
+				return Converter.IntegerBitness;
+			}
+			set
+			{
+				Converter.IntegerBitness = value;
+			}
+		}
+
 
 		public MoneyTextBox()
 		{
@@ -128,6 +143,8 @@ namespace It3xl.FormattedInput.View
 
 		private void ProcessText(FocusEnum focusState)
 		{
+			// TODO.it3xl.com: Check a whip out recursion and break it up.
+
 			var textBox = this;
 
 			Boolean textFormatted;

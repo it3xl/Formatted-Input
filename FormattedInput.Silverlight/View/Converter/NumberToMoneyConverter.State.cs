@@ -179,5 +179,10 @@ namespace It3xl.FormattedInput.View.Converter
 				return new[] { DecimalSeparator, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 			}
 		}
+
+		/// <summary>
+		/// The bitness of the integer part.
+		/// </summary>
+		public UInt16? IntegerBitness { get; set; }
 	}
 }

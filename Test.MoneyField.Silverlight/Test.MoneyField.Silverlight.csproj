@@ -97,6 +97,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaretTest.cs" />
+    <Compile Include="IntegerBitnessTest.cs" />
+    <Compile Include="PartialBitnessTest.cs" />
     <Compile Include="InitializationTest.cs" />
     <Compile Include="DecimalSeparatorAlternativeTest.cs" />
     <Compile Include="PartialPartDisabledTest.cs" />
