@@ -41,7 +41,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.TestBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
-
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
 			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart)));

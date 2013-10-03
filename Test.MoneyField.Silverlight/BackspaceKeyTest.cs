@@ -286,7 +286,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(formatteValueOut == "45.|20".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(formatteValueOut == "45.|02".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 
 

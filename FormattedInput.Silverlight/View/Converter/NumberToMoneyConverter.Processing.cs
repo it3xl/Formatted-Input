@@ -255,43 +255,31 @@ namespace It3xl.FormattedInput.View.Converter
 		private void PartialPartProcessingWithCaret(ProcessingState state)
 		{
 			// After the decimal separator should be two digits.
+
+			var decimalSeparatorPosition = 
+				state.IntegerFormatted.InvokeNotNull(el => el.Length)
+				+ DecimalSeparatorChar.Length;
+
 			if (state.PartialFormatted.Length == 0)
 			{
 				state.PartialFormatted = ZeroPartialString;
 			}
 			else if (state.PartialFormatted.Length == 1)
 			{
-
-
-
-
-
-
 				if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
-					&& state.PartialPrevious.InvokeNotNull(el => el.Length == 2))
+					&& state.CaretPosition == decimalSeparatorPosition)
 				{
-					
+					state.PartialFormatted = ZeroString + state.PartialFormatted;
 				}
-				
-				
-				
-				
-				
-				
-				
-				state.PartialFormatted += ZeroString;
+				else
+				{
+					state.PartialFormatted = state.PartialFormatted + ZeroString;
+				}
 			}
 			else if (2 < state.PartialFormatted.Length)
 			{
-				// TODO.it3xl.com: refactor the positionAfterFirstPartialDigit
-
-				var positionAfterFirstPartialDigit = 
-					state.IntegerFormatted.InvokeNotNull(el => el.Length)
-					+ 1
-					+ state.PartialFormatted.Length
-					- 2
-						== state.CaretPosition;
-				var needCutSecondPartialDigit = state.PartialFormatted.Length == 3 && positionAfterFirstPartialDigit;
+				var needCutSecondPartialDigit = state.PartialFormatted.Length == 3
+					&& state.CaretPosition == (decimalSeparatorPosition + 1);
 				if (needCutSecondPartialDigit)
 				{
 					state.PartialFormatted = state.PartialFormatted.Remove(1, 1);
