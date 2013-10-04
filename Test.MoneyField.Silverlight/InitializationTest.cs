@@ -69,9 +69,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 					Assert.AreEqual(
 						"|0.00".ToSpecificValue(out expectedCaretPosition),
-						testPage.TestMoneyTexBox.Converter.TextBeforeChanging
+						testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChanging
 					);
-					Assert.AreEqual(expectedCaretPosition, testPage.TestMoneyTexBox.SelectionStart);
+					Assert.AreEqual(expectedCaretPosition, testPage.DoubleNullableMoneyTexBox.SelectionStart);
 				});
 
 			EnqueueTestComplete();

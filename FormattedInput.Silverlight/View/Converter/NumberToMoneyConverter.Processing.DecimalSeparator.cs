@@ -7,7 +7,7 @@ namespace It3xl.FormattedInput.View.Converter
 	public sealed partial class NumberToMoneyConverter
 	{
 		/// <summary>
-		/// Excessive Decimal Separator's processing.
+		/// Processing for the excessive Decimal Separators.<para/>
 		/// With caret managment.
 		/// </summary>
 		/// <param name="state"></param>
@@ -38,8 +38,8 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void DecimalSeparatorMissed(ProcessingState state)
 		{
-			var separatorCountV = state.FormattedValue.Count(el => el == DecimalSeparator);
-			if (0 < separatorCountV)
+			var separatorCount = state.FormattedValue.Count(el => el == DecimalSeparator);
+			if (0 < separatorCount)
 			{
 				return;
 			}

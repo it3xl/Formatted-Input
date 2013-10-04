@@ -22,14 +22,17 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/* Test cases:
 		 * 
 		0
+		0.76
 		0|.76
 		0.|76
 		 * 
 		0
+		0.76
 		|0.76
 		0.|76
 		 * 
 		0
+		0.76
 		0.76|
 		0.|76
 		 * 
@@ -86,8 +89,27 @@ namespace It3xl.Test.MoneyField.Silverlight
 		1234|5.12
 		 * 
 		*/
-
-
+		/* Test cases for Nullable<Double>:
+		 * 
+		 * IntegerBitness == 0
+		 * |
+		 * sdfl7slkej|
+		 * 0.|00
+		 * 
+		 * IntegerBitness == 0
+		 * |
+		 * sdl4kf.ls3dfj|
+		 * 0.3|0
+		 * 
+		 */
+		/* Test cases for Double:
+		 * 
+		 * IntegerBitness == 0
+		 * 0.|00
+		 * |
+		 * 0.|00
+		 * 
+		 */
 
 	}
 }

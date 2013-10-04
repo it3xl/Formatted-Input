@@ -18,6 +18,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 		// TODO.it3xl.com: PartialPartDisabledTest:
 
+		// Test of the ignoring of partial values from ViewModel on a get and on a set. 
 		// Test main behaviours.
 
 		/* Test cases for:

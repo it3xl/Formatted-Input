@@ -121,6 +121,14 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			DecimalSeparatorAlternatingReplacing(state);
 			DecimalSeparatorDeletedProcessingWithCaret(state);
+			// Cutching a first digit input and ingnore others.
+			if(state.FormattedValue.Any(el => CustomSerialilzationChars.Contains(el)) == false)
+			{
+				state.FormattedValue = String.Empty;
+				state.CaretPosition = 0;
+
+				return;
+			}
 			DecimalSeparatorMissed(state);
 			DecimalSeparatorExcessiveProcessingWithCaret(state);
 

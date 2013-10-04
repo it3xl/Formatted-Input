@@ -97,14 +97,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaretTest.cs" />
-    <Compile Include="DefaultValueTest.cs" />
+    <Compile Include="DefaultAndEmptyValueTest.cs" />
     <Compile Include="IntegerBitnessTest.cs" />
     <Compile Include="PartialBitnessTest.cs" />
     <Compile Include="InitializationTest.cs" />
     <Compile Include="DecimalSeparatorAlternativeTest.cs" />
     <Compile Include="PartialPartDisabledTest.cs" />
     <Compile Include="NegativeValuesTest.cs" />
-    <Compile Include="EmptyValueTest.cs" />
     <Compile Include="DummyTest.cs" />
     <Compile Include="GroupSeparatorTest.cs" />
     <Compile Include="BackspaceKeyTest.cs" />

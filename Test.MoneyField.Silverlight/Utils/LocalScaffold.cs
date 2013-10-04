@@ -20,9 +20,9 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 			var testPage = new MainPage();
 
 			ViewModel = testPage.DataContext as ViewModelForTests;
-			TestBox = testPage.TestMoneyTexBox;
+			TestBox = testPage.DoubleNullableMoneyTexBox;
 
-			TestBoxStatic = testPage.TestMoneyTexBox;
+			TestBoxStatic = testPage.DoubleNullableMoneyTexBox;
 
 			testPanel.Children.Add(testPage);
 		}

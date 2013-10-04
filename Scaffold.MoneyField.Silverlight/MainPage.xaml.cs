@@ -11,7 +11,10 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 {
 	public partial class MainPage
 	{
-		public MoneyTextBox TestMoneyTexBox { get; private set; }
+		public MoneyTextBox DoubleNullableMoneyTexBox { get; private set; }
+		public MoneyTextBox DoubleMoneyTexBox { get; private set; }
+		public MoneyTextBox DecimalNullableMoneyTexBox { get; private set; }
+		public MoneyTextBox DecimalMoneyTexBox { get; private set; }
 
 		public ViewModelForTests TestingViewModel
 		{
@@ -62,7 +65,10 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			LogItemsControl.ItemsSource = new ObservableCollection<String>();
 			_logItemsControl = LogItemsControl;
 
-			TestMoneyTexBox = AmountDoubleNullableMoneyTexBox;
+			DoubleNullableMoneyTexBox = AmountDoubleNullableMoneyTexBox;
+			DoubleMoneyTexBox = AmountDoubleMoneyTexBox;
+			DecimalNullableMoneyTexBox = AmountDecimalNullableMoneyTexBox;
+			DecimalMoneyTexBox = AmountDecimalMoneyTexBox;
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
@@ -70,7 +76,9 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
 
 			TestingViewModel.AmountDoubleNullable = randomDouble;
+			TestingViewModel.AmountDouble = randomDouble;
 			TestingViewModel.AmountDecimalNullable = (Decimal)randomDouble;
+			TestingViewModel.AmountDecimal = (Decimal)randomDouble;
 
 		}
 

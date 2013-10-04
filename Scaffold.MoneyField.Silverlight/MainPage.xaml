@@ -27,35 +27,99 @@
 
 		<StackPanel>
 
-			<TextBox Margin="10" Text="{Binding AmountDoubleNullable, Mode=TwoWay}"/>
+			<Border BorderThickness="5" BorderBrush="LightSteelBlue" Background="Lavender" Margin="5" Padding="5">
+				<StackPanel>
+					<TextBlock Text="Double" FontWeight="Bold"/>
+					
+					<Grid Margin="5"/>
+					
+					<TextBlock Text="TextBox + Nullable{Double}"/>
+					<TextBox Margin="5" Text="{Binding AmountDoubleNullable, Mode=TwoWay}"/>
 
-			<View:MoneyTextBox
-				Text="{Binding AmountDouble}"
+					<TextBlock Text="MoneyTextBox + Nullable{Double}"/>
+					<View:MoneyTextBox
+						Text="{Binding AmountDoubleNullable}"
 				
-				x:Name="AmountDoubleMoneyTexBox"
-				Margin="10"
-				BorderBrush="LightSteelBlue"
-				BorderThickness="5"
-			/>
+						DecimalSeparatorChar = ','
+						DecimalSeparatorAlternativeChar = '.'
+						GroupSeparatorChar = ' '
+				
+						x:Name="AmountDoubleNullableMoneyTexBox"
+						Margin="5"
+						BorderBrush="LightSteelBlue"
+						BorderThickness="5"
+					/>
+					
+					<Grid Margin="5"/>
+					
+					<TextBlock Text="TextBox + Double"/>
+					<TextBox Margin="5" Text="{Binding AmountDouble, Mode=TwoWay}"/>
 
-			<View:MoneyTextBox
-				Text="{Binding AmountDoubleNullable}"
+					<TextBlock Text="MoneyTextBox + Double"/>
+					<View:MoneyTextBox
+						Text="{Binding AmountDouble}"
 				
-				DecimalSeparatorChar = ','
-				DecimalSeparatorAlternativeChar = '.'
-				GroupSeparatorChar = ' '
+						DecimalSeparatorChar = ','
+						DecimalSeparatorAlternativeChar = '.'
+						GroupSeparatorChar = ' '
 				
-				x:Name="AmountDoubleNullableMoneyTexBox"
-				Margin="10"
-				BorderBrush="LightBlue"
-				BorderThickness="5"
-			/>
+						x:Name="AmountDoubleMoneyTexBox"
+						Margin="5"
+						BorderBrush="SteelBlue"
+						BorderThickness="5"
+					/>
+				</StackPanel>
+			</Border>
 
+
+			<Border BorderThickness="5" BorderBrush="LightGreen" Background="LightYellow" Margin="5" Padding="5">
+				<StackPanel>
+					<TextBlock Text="Decimal" FontWeight="Bold"/>
+
+					<Grid Margin="5"/>
+
+					<TextBlock Text="TextBox + Nullable{Decimal}"/>
+					<TextBox Margin="5" Text="{Binding AmountDecimalNullable, Mode=TwoWay}"/>
+
+					<TextBlock Text="MoneyTextBox + Nullable{Decimal}"/>
+					<View:MoneyTextBox
+						Text="{Binding AmountDecimalNullable}"
+				
+						DecimalSeparatorChar = ','
+						DecimalSeparatorAlternativeChar = '.'
+						GroupSeparatorChar = ' '
+				
+						x:Name="AmountDecimalNullableMoneyTexBox"
+						Margin="5"
+						BorderBrush="LightSteelBlue"
+						BorderThickness="5"
+					/>
+
+					<Grid Margin="5"/>
+
+					<TextBlock Text="TextBox + Decimal"/>
+					<TextBox Margin="5" Text="{Binding AmountDecimal, Mode=TwoWay}"/>
+
+					<TextBlock Text="MoneyTextBox + Decimal"/>
+					<View:MoneyTextBox
+						Text="{Binding AmountDecimal}"
+				
+						DecimalSeparatorChar = ','
+						DecimalSeparatorAlternativeChar = '.'
+						GroupSeparatorChar = ' '
+				
+						x:Name="AmountDecimalMoneyTexBox"
+						Margin="5"
+						BorderBrush="SteelBlue"
+						BorderThickness="5"
+					/>
+				</StackPanel>
+			</Border>
 			
-			<Button Margin="10" Content="Set Randov Value Button" Click="SetAmountRandomValueButton_Click" />
-			<Button Margin="10" Content="Clear Log Button" Click="ClearLog_Click" />
+			<Button Margin="5" Content="Set Randov Value Button" Click="SetAmountRandomValueButton_Click" />
+			<Button Margin="5" Content="Clear Log Button" Click="ClearLog_Click" />
 
-			<ItemsControl Margin="10" x:Name="LogItemsControl"/>
+			<ItemsControl Margin="5" x:Name="LogItemsControl"/>
 			
 		</StackPanel>
 		

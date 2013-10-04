@@ -23,8 +23,8 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			}
 		}
 
-		private Double? _amountDouble;
-		public Double? AmountDouble
+		private Double _amountDouble;
+		public Double AmountDouble
 		{
 			get
 			{
@@ -54,8 +54,8 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			}
 		}
 
-		private Decimal? _amountDecimal;
-		public Decimal? AmountDecimal
+		private Decimal _amountDecimal;
+		public Decimal AmountDecimal
 		{
 			get
 			{
