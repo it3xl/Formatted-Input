@@ -58,7 +58,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			var viewModel = new ViewModelForTests
 				{
-					AmountDouble = 0
+					AmountDoubleNullable = 0
 				};
 			var testPage = new MainPage{DataContext = viewModel};
 			TestPanel.Children.Add(testPage);

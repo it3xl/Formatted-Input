@@ -60,6 +60,11 @@ namespace It3xl.FormattedInput.View
 		}
 
 		/// <summary>
+		/// The default value for the <see cref="MoneyTextBox"/>.
+		/// </summary>
+		public DefaultValue DefaultValue { get; set; }
+
+		/// <summary>
 		/// The bitness of the integer part.
 		/// </summary>
 		public UInt16? IntegerBitness

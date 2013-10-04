@@ -79,6 +79,7 @@
     <Compile Include="View\Converter\DeletionDirection.cs" />
     <Compile Include="View\Converter\ProcessingState.cs" />
     <Compile Include="View\Converter\FormattingAfter.cs" />
+    <Compile Include="View\DefaultValue.cs" />
     <Compile Include="View\MoneyTextBox.cs" />
     <Compile Include="View\MoneyTextBoxBehaviour_NotImplemented.cs" />
   </ItemGroup>

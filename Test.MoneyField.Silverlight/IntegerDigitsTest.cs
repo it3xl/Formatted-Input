@@ -27,7 +27,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void AddTwoZeroForInteger()
 		{
-			_scaffold.ViewModel.AmountDouble = 50;
+			_scaffold.ViewModel.AmountDoubleNullable = 50;
 
 			Int32 expectedCaretPosition;
 			Assert.IsTrue(_scaffold.TestBox.Text == "|50.00".ToSpecificValue(out expectedCaretPosition));

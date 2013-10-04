@@ -62,19 +62,19 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			LogItemsControl.ItemsSource = new ObservableCollection<String>();
 			_logItemsControl = LogItemsControl;
 
-			TestMoneyTexBox = TagetTestMoneyTexBox;
+			TestMoneyTexBox = AmountDoubleNullableMoneyTexBox;
 
-			TagetTestMoneyTexBox.DecimalSeparator = ',';
-			TagetTestMoneyTexBox.DecimalSeparatorAlternative = '.';
-			TagetTestMoneyTexBox.GroupSeparator = ' ';
+			AmountDoubleNullableMoneyTexBox.DecimalSeparator = ',';
+			AmountDoubleNullableMoneyTexBox.DecimalSeparatorAlternative = '.';
+			AmountDoubleNullableMoneyTexBox.GroupSeparator = ' ';
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
 		{
 			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
 
-			TestingViewModel.AmountDouble = randomDouble;
-			TestingViewModel.AmountDecimal = (Decimal)randomDouble;
+			TestingViewModel.AmountDoubleNullable = randomDouble;
+			TestingViewModel.AmountDecimalNullable = (Decimal)randomDouble;
 
 		}
 

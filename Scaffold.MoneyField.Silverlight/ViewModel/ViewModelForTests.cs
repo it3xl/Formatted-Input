@@ -8,6 +8,21 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 	/// </summary>
 	public class ViewModelForTests : NotificationObject
 	{
+		private Double? _amountDoubleNullable;
+		public Double? AmountDoubleNullable
+		{
+			get
+			{
+				return _amountDoubleNullable;
+			}
+			set
+			{
+				_amountDoubleNullable = value;
+
+				RaisePropertyChanged(() => AmountDoubleNullable);
+			}
+		}
+
 		private Double? _amountDouble;
 		public Double? AmountDouble
 		{
@@ -23,6 +38,21 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			}
 		}
 
+
+		private Decimal? _amountDecimalNullable;
+		public Decimal? AmountDecimalNullable
+		{
+			get
+			{
+				return _amountDecimalNullable;
+			}
+			set
+			{
+				_amountDecimalNullable = value;
+
+				RaisePropertyChanged(() => AmountDecimalNullable);
+			}
+		}
 
 		private Decimal? _amountDecimal;
 		public Decimal? AmountDecimal

@@ -27,7 +27,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void PartialPartCutting()
 		{
-			_scaffold.ViewModel.AmountDouble = 12345.000432;
+			_scaffold.ViewModel.AmountDoubleNullable = 12345.000432;
 
 			Int32 expectedCaretPosition;
 			Assert.IsTrue(_scaffold.TestBox.Text == "|12 345.00".ToSpecificValue(out expectedCaretPosition));

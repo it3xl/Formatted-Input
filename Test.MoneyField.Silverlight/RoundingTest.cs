@@ -27,7 +27,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			Int32 expectedCaretPosition;
 
-			_scaffold.ViewModel.AmountDouble = 123456789123456789123456789.987654321;
+			_scaffold.ViewModel.AmountDoubleNullable = 123456789123456789123456789.987654321;
 
 			Assert.IsTrue(_scaffold.TestBox.Text
 				== "123 456 789 123 457 000 000 000 000.00"
@@ -81,7 +81,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 				.ToString("n", TestLanguageTranslator.LanguageCulture);
 
 			// Cose the Double.TryParse can't parse the Double.MaxValue, I'll divide the Decimal.MaxValue by 10.
-			_scaffold.ViewModel.AmountDouble = veryLargeDouble;
+			_scaffold.ViewModel.AmountDoubleNullable = veryLargeDouble;
 			Assert.IsTrue(_scaffold.TestBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
 
 
