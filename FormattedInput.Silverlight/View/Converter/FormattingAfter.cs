@@ -11,9 +11,14 @@
 		GroupPastingOrDeletion,
 
 		/// <summary>
-		/// It's the formatting after a call from the <see cref="NumberToMoneyConverter.Convert"/> method.
+		/// It's the first formatting after a call from the <see cref="NumberToMoneyConverter.Convert"/> method.
 		/// </summary>
 		EmptyStartValue,
+
+		/// <summary>
+		/// It's the formatting of focus. Also if rises just after <see cref="EmptyStartValue"/>, in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
+		/// </summary>
+		Resetting,
 
 		/// <summary>
 		/// The input or pasting of a one sybmol.

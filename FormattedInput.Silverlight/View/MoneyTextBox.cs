@@ -172,14 +172,14 @@ namespace It3xl.FormattedInput.View
 			var selectionStart = textBox.SelectionStart;
 			var unformattedValue = textBox.Text ?? String.Empty;
 
-			String formatteValue;
-			Converter.FormatAndManageCaret(unformattedValue, focusState, out formatteValue, ref selectionStart);
+			String formattedValue;
+			Converter.FormatAndManageCaret(unformattedValue, focusState, out formattedValue, ref selectionStart);
 
-			textFormatted = unformattedValue != formatteValue;
+			textFormatted = unformattedValue != formattedValue;
 			if (textFormatted)
 			{
 				// It starts the recursion.
-				textBox.Text = formatteValue;
+				textBox.Text = formattedValue;
 			}
 
 			textBox.SelectionStart = selectionStart;

@@ -23,7 +23,7 @@
 	</UserControl.Resources>
 	
 
-	<Grid x:Name="LayoutRoot">
+	<Grid>
 
 		<StackPanel>
 
@@ -34,17 +34,17 @@
 					<Grid Margin="5"/>
 					
 					<TextBlock Text="TextBox + Nullable{Double}"/>
-					<TextBox Margin="5" Text="{Binding AmountDoubleNullable, Mode=TwoWay}"/>
+					<TextBox Margin="5" Text="{Binding DoubleNullableMoney, Mode=TwoWay}"/>
 
 					<TextBlock Text="MoneyTextBox + Nullable{Double}"/>
 					<View:MoneyTextBox
-						Text="{Binding AmountDoubleNullable}"
+						Text="{Binding DoubleNullableMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
 				
-						x:Name="AmountDoubleNullableMoneyTexBox"
+						x:Name="DoubleNullableMoney"
 						Margin="5"
 						BorderBrush="LightSteelBlue"
 						BorderThickness="5"
@@ -53,17 +53,17 @@
 					<Grid Margin="5"/>
 					
 					<TextBlock Text="TextBox + Double"/>
-					<TextBox Margin="5" Text="{Binding AmountDouble, Mode=TwoWay}"/>
+					<TextBox Margin="5" Text="{Binding DoubleMoney, Mode=TwoWay}"/>
 
 					<TextBlock Text="MoneyTextBox + Double"/>
 					<View:MoneyTextBox
-						Text="{Binding AmountDouble}"
+						Text="{Binding DoubleMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
 				
-						x:Name="AmountDoubleMoneyTexBox"
+						x:Name="DoubleMoney"
 						Margin="5"
 						BorderBrush="SteelBlue"
 						BorderThickness="5"
@@ -79,17 +79,17 @@
 					<Grid Margin="5"/>
 
 					<TextBlock Text="TextBox + Nullable{Decimal}"/>
-					<TextBox Margin="5" Text="{Binding AmountDecimalNullable, Mode=TwoWay}"/>
+					<TextBox Margin="5" Text="{Binding DecimalNullableMoney, Mode=TwoWay}"/>
 
 					<TextBlock Text="MoneyTextBox + Nullable{Decimal}"/>
 					<View:MoneyTextBox
-						Text="{Binding AmountDecimalNullable}"
+						Text="{Binding DecimalNullableMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
 				
-						x:Name="AmountDecimalNullableMoneyTexBox"
+						x:Name="DecimalNullableMoney"
 						Margin="5"
 						BorderBrush="LightSteelBlue"
 						BorderThickness="5"
@@ -98,17 +98,17 @@
 					<Grid Margin="5"/>
 
 					<TextBlock Text="TextBox + Decimal"/>
-					<TextBox Margin="5" Text="{Binding AmountDecimal, Mode=TwoWay}"/>
+					<TextBox Margin="5" Text="{Binding DecimalMoney, Mode=TwoWay}"/>
 
 					<TextBlock Text="MoneyTextBox + Decimal"/>
 					<View:MoneyTextBox
-						Text="{Binding AmountDecimal}"
+						Text="{Binding DecimalMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
 				
-						x:Name="AmountDecimalMoneyTexBox"
+						x:Name="DecimalMoney"
 						Margin="5"
 						BorderBrush="SteelBlue"
 						BorderThickness="5"

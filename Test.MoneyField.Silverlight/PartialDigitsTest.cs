@@ -27,11 +27,11 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void PartialPartCutting()
 		{
-			_scaffold.ViewModel.AmountDoubleNullable = 12345.000432;
+			_scaffold.ViewModel.DoubleNullableMoney = 12345.000432;
 
 			Int32 expectedCaretPosition;
-			Assert.IsTrue(_scaffold.TestBox.Text == "|12 345.00".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(_scaffold.TestBox.SelectionStart == expectedCaretPosition);
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "|12 345.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
 		}
 
 		/// <summary>
@@ -49,7 +49,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "23.|98".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "23.1|98".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "23.1|8".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);

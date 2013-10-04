@@ -50,16 +50,16 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			var result = commonValue;
 
-			result = result.Replace(DecimalSeparatorChar, LocalScaffold.TestBoxStatic.DecimalSeparatorChar);
+			result = result.Replace(DecimalSeparatorChar, LocalScaffold.CurrentTestBox.DecimalSeparatorChar);
 
-			if (LocalScaffold.TestBoxStatic.DecimalSeparatorAlternativeChar.ToCharFromFirst().IsDefault() == false)
+			if (LocalScaffold.CurrentTestBox.DecimalSeparatorAlternativeChar.ToCharFromFirst().IsDefault() == false)
 			{
-				result = result.Replace(DecimalSeparatorAlternativeChar, LocalScaffold.TestBoxStatic.DecimalSeparatorAlternativeChar);
+				result = result.Replace(DecimalSeparatorAlternativeChar, LocalScaffold.CurrentTestBox.DecimalSeparatorAlternativeChar);
 			}
 
-			if (LocalScaffold.TestBoxStatic.GroupSeparatorChar.ToCharFromFirst().IsDefault() == false)
+			if (LocalScaffold.CurrentTestBox.GroupSeparatorChar.ToCharFromFirst().IsDefault() == false)
 			{
-				result = result.Replace(GroupSeparatorChar, LocalScaffold.TestBoxStatic.GroupSeparatorChar);
+				result = result.Replace(GroupSeparatorChar, LocalScaffold.CurrentTestBox.GroupSeparatorChar);
 			}
 
 			if (commonValue.Contains(CursorChar))

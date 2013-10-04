@@ -36,22 +36,22 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			Int32 expectedCaretPosition;
 
-			_scaffold.TestBox.Text = "0.00".ToSpecificValue(out expectedCaretPosition);
-			_scaffold.TestBox.SelectionStart = 1;
+			_scaffold.DoubleNullableMoneyTexBox.Text = "0.00".ToSpecificValue(out expectedCaretPosition);
+			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
-			EnqueueCallback(() => Assert.IsTrue(_scaffold.TestBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart)));
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == 1, String.Format("First Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.DoubleNullableMoneyTexBox.SelectionStart)));
 
-			EnqueueCallback(() => _scaffold.TestBox.Text = "1.00".ToSpecificValue(out expectedCaretPosition));
+			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Text = "1.00".ToSpecificValue(out expectedCaretPosition));
 
 			//EnqueueDelay(TimeSpan.FromSeconds(5));
 
 			EnqueueCallback(() =>
 			{
-				Assert.IsTrue(_scaffold.TestBox.Text == "1.00".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(_scaffold.TestBox.SelectionStart == 0, String.Format("Second Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.TestBox.SelectionStart));
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "1.00".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == 0, String.Format("Second Step: must be 1, but TestBox.SelectionStart == {0}", _scaffold.DoubleNullableMoneyTexBox.SelectionStart));
 			});
 
 			EnqueueTestComplete();

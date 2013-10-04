@@ -27,11 +27,11 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void AddTwoZeroForInteger()
 		{
-			_scaffold.ViewModel.AmountDoubleNullable = 50;
+			_scaffold.ViewModel.DoubleNullableMoney = 50;
 
 			Int32 expectedCaretPosition;
-			Assert.IsTrue(_scaffold.TestBox.Text == "|50.00".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(_scaffold.TestBox.SelectionStart == expectedCaretPosition);
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "|50.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "0|.00".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "01|.00".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "1|.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -68,7 +68,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "4|".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "4|.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -88,7 +88,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "|234.00".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "0|234.00".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "|234.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -108,7 +108,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "|0.03".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "1|0.03".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "1|.03".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -117,7 +117,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			beforeInput = "|0.03".ToSpecificValue(out beforeInputCaretPosition);
 			input = "1 |0.03".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "1|.03".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -126,7 +126,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			beforeInput = "|0.03".ToSpecificValue(out beforeInputCaretPosition);
 			input = "1_ 879|0.03".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "1 879|.03".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);

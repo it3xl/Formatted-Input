@@ -53,21 +53,21 @@ namespace It3xl.FormattedInput.View.Converter
 
 			try
 			{
-				if (NeedStopProcessing(unformattedValue))
-				{
-					return;
-				}
+				//if (NeedStopProcessing(unformattedValue))
+				//{
+				//	return;
+				//}
 
 				var state = new StateController(
 						DecimalSeparator,
 						GroupSeparator,
-						TextBeforeChanging,
-						unformattedValue
+						TextBeforeChanging
 					)
 					.GetProcessingStates(
 						lastCaretPosition,
 						focusState,
-						caretPosition);
+						caretPosition,
+						unformattedValue);
 
 				FormatAndManageCaretRaw(state);
 
@@ -119,14 +119,24 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void FormatAndManageCaretRaw(ProcessingState state)
 		{
+			if(state.FormattingType == FormattingAfter.Resetting
+				&& state.CaretPosition == 0)
+			{
+				state.CaretPosition = state.FormattedValue.IndexOf(DecimalSeparator);
+
+
+			}
+
 			DecimalSeparatorAlternatingReplacing(state);
 			DecimalSeparatorDeletedProcessingWithCaret(state);
 			// Cutching a first digit input and ingnore others.
-			if(state.FormattedValue.Any(el => CustomSerialilzationChars.Contains(el)) == false)
+			if(0 < state.UnformattedValue.Length
+				&& state.FormattedValue.Any(el => CustomSerialilzationChars.Contains(el)) == false)
 			{
 				state.FormattedValue = String.Empty;
 				state.CaretPosition = 0;
 
+				// !!!
 				return;
 			}
 			DecimalSeparatorMissed(state);

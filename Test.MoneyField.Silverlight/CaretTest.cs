@@ -25,9 +25,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 		public void MoveCaretFromPartialEndToIntegerEndOnFocus()
 		{
 			Int32 beforeInputCaretPosition;
-			_scaffold.TestBox.Text = "12 334.52|".ToSpecificValue(out beforeInputCaretPosition);
-			_scaffold.TestBox.SelectionStart = beforeInputCaretPosition;
-			_scaffold.TestBox.Focus();
+			_scaffold.DoubleNullableMoneyTexBox.Text = "12 334.52|".ToSpecificValue(out beforeInputCaretPosition);
+			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = beforeInputCaretPosition;
+			_scaffold.DoubleNullableMoneyTexBox.Focus();
 
 			//EnqueueConditional(() => true);
 			//EnqueueDelay(TimeSpan.FromMilliseconds(500));
@@ -35,8 +35,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 			{
 				Int32 expectedCaretPosition;
 
-				Assert.IsTrue(_scaffold.TestBox.Text == "12 334|.52".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(_scaffold.TestBox.SelectionStart == expectedCaretPosition);
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 334|.52".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
 			}
 			);
 			EnqueueTestComplete();

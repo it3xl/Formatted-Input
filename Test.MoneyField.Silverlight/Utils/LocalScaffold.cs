@@ -8,9 +8,14 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 	public class LocalScaffold
 	{
-		public static MoneyTextBox TestBoxStatic { get; set; }
-		public MoneyTextBox TestBox { get; set; }
+		public static MoneyTextBox CurrentTestBox { get; set; }
+
 		public ViewModelForTests ViewModel { get; set; }
+
+		public MoneyTextBox DoubleNullableMoneyTexBox { get; set; }
+		public MoneyTextBox DoubleMoneyTexBox { get; set; }
+		public MoneyTextBox DecimalNullableMoneyTexBox { get; set; }
+		public MoneyTextBox DecimalMoneyTexBox { get; set; }
 
 		/// <summary>
 		/// Initialization of any test method.
@@ -19,10 +24,15 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		{
 			var testPage = new MainPage();
 
-			ViewModel = testPage.DataContext as ViewModelForTests;
-			TestBox = testPage.DoubleNullableMoneyTexBox;
+			CurrentTestBox = testPage.DoubleNullableMoneyTexBox;
 
-			TestBoxStatic = testPage.DoubleNullableMoneyTexBox;
+			ViewModel = testPage.DataContext as ViewModelForTests;
+
+			DoubleNullableMoneyTexBox = testPage.DoubleNullableMoneyTexBox;
+			DoubleMoneyTexBox = testPage.DoubleMoneyTexBox;
+
+			DecimalNullableMoneyTexBox = testPage.DecimalNullableMoneyTexBox;
+			DecimalMoneyTexBox = testPage.DecimalMoneyTexBox;
 
 			testPanel.Children.Add(testPage);
 		}

@@ -8,64 +8,64 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 	/// </summary>
 	public class ViewModelForTests : NotificationObject
 	{
-		private Double? _amountDoubleNullable;
-		public Double? AmountDoubleNullable
+		private Double? _doubleNullableMoney;
+		public Double? DoubleNullableMoney
 		{
 			get
 			{
-				return _amountDoubleNullable;
+				return _doubleNullableMoney;
 			}
 			set
 			{
-				_amountDoubleNullable = value;
+				_doubleNullableMoney = value;
 
-				RaisePropertyChanged(() => AmountDoubleNullable);
+				RaisePropertyChanged(() => DoubleNullableMoney);
 			}
 		}
 
-		private Double _amountDouble;
-		public Double AmountDouble
+		private Double _doubleMoney;
+		public Double DoubleMoney
 		{
 			get
 			{
-				return _amountDouble;
+				return _doubleMoney;
 			}
 			set
 			{
-				_amountDouble = value;
+				_doubleMoney = value;
 
-				RaisePropertyChanged(() => AmountDouble);
+				RaisePropertyChanged(() => DoubleMoney);
 			}
 		}
 
 
-		private Decimal? _amountDecimalNullable;
-		public Decimal? AmountDecimalNullable
+		private Decimal? _decimalNullableMoney;
+		public Decimal? DecimalNullableMoney
 		{
 			get
 			{
-				return _amountDecimalNullable;
+				return _decimalNullableMoney;
 			}
 			set
 			{
-				_amountDecimalNullable = value;
+				_decimalNullableMoney = value;
 
-				RaisePropertyChanged(() => AmountDecimalNullable);
+				RaisePropertyChanged(() => DecimalNullableMoney);
 			}
 		}
 
-		private Decimal _amountDecimal;
-		public Decimal AmountDecimal
+		private Decimal _decimalMoney;
+		public Decimal DecimalMoney
 		{
 			get
 			{
-				return _amountDecimal;
+				return _decimalMoney;
 			}
 			set
 			{
-				_amountDecimal = value;
+				_decimalMoney = value;
 
-				RaisePropertyChanged(() => AmountDecimal);
+				RaisePropertyChanged(() => DecimalMoney);
 			}
 		}
 

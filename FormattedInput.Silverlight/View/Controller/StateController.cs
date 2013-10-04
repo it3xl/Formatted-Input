@@ -16,18 +16,12 @@ namespace It3xl.FormattedInput.View.Controller
 		/// A text that was before current processing.
 		/// </summary>
 		private readonly String _textBeforeChanging;
-		/// <summary>
-		/// The value before formatting.
-		/// </summary>
-		private readonly String _unformattedValue;
 
-
-		internal StateController(char decimalSeparator, char groupSeparator, String textBeforeChanging, String unformattedValue)
+		internal StateController(char decimalSeparator, char groupSeparator, String textBeforeChanging)
 		{
 			_decimalSeparator = decimalSeparator;
 			_groupSeparator = groupSeparator;
 			_textBeforeChanging = textBeforeChanging;
-			_unformattedValue = unformattedValue;
 		}
 
 		/// <summary>
@@ -40,11 +34,11 @@ namespace It3xl.FormattedInput.View.Controller
 		internal ProcessingState GetProcessingStates(
 			Int32 lastCaretPosition,
 			FocusEnum focusState,
-			Int32 caretPosition)
+			Int32 caretPosition,
+			String unformattedValue)
 		{
-			var state = new ProcessingState
+			var state = new ProcessingState(unformattedValue)
 				{
-					FormattedValue = _unformattedValue,
 					CaretPosition = caretPosition,
 				};
 
@@ -79,13 +73,17 @@ namespace It3xl.FormattedInput.View.Controller
 			{
 				formattingAfter = FormattingAfter.EmptyStartValue;
 			}
-			else if (Math.Abs(_unformattedValue.Length - _textBeforeChanging.Length) != 1)
+			else if (state.UnformattedValue == _textBeforeChanging)
+			{
+				formattingAfter = FormattingAfter.Resetting;
+			}
+			else if (Math.Abs(state.UnformattedValue.Length - _textBeforeChanging.Length) != 1)
 			{
 				formattingAfter = FormattingAfter.GroupPastingOrDeletion;
 			}
 			else
 			{
-				var subtraction = _unformattedValue.Length - _textBeforeChanging.Length;
+				var subtraction = state.UnformattedValue.Length - _textBeforeChanging.Length;
 				formattingAfter = 0 < subtraction
 					? FormattingAfter.OneSymbolAdded
 					: FormattingAfter.OneSymbolDeleted;
@@ -111,7 +109,7 @@ namespace It3xl.FormattedInput.View.Controller
 			{
 				return;
 			}
-			if (_unformattedValue
+			if (state.UnformattedValue
 				.InvokeNotNull(el => el.Length != state.CaretPosition))
 			{
 				return;
@@ -163,9 +161,9 @@ namespace It3xl.FormattedInput.View.Controller
 				return null;
 			}
 
-			for (var i = 0; i < _unformattedValue.Length; i++)
+			for (var i = 0; i < state.UnformattedValue.Length; i++)
 			{
-				if (_unformattedValue[i] == _textBeforeChanging[i])
+				if (state.UnformattedValue[i] == _textBeforeChanging[i])
 				{
 					continue;
 				}

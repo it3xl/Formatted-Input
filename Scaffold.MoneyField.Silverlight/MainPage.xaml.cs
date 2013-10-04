@@ -65,20 +65,21 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			LogItemsControl.ItemsSource = new ObservableCollection<String>();
 			_logItemsControl = LogItemsControl;
 
-			DoubleNullableMoneyTexBox = AmountDoubleNullableMoneyTexBox;
-			DoubleMoneyTexBox = AmountDoubleMoneyTexBox;
-			DecimalNullableMoneyTexBox = AmountDecimalNullableMoneyTexBox;
-			DecimalMoneyTexBox = AmountDecimalMoneyTexBox;
+			DoubleNullableMoneyTexBox = DoubleNullableMoney;
+			DoubleMoneyTexBox = DoubleMoney;
+
+			DecimalNullableMoneyTexBox = DecimalNullableMoney;
+			DecimalMoneyTexBox = DecimalMoney;
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
 		{
 			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
 
-			TestingViewModel.AmountDoubleNullable = randomDouble;
-			TestingViewModel.AmountDouble = randomDouble;
-			TestingViewModel.AmountDecimalNullable = (Decimal)randomDouble;
-			TestingViewModel.AmountDecimal = (Decimal)randomDouble;
+			TestingViewModel.DoubleNullableMoney = randomDouble;
+			TestingViewModel.DoubleMoney = randomDouble;
+			TestingViewModel.DecimalNullableMoney = (Decimal)randomDouble;
+			TestingViewModel.DecimalMoney = (Decimal)randomDouble;
 
 		}
 

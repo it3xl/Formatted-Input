@@ -27,9 +27,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			Int32 expectedCaretPosition;
 
-			_scaffold.ViewModel.AmountDoubleNullable = 123456789123456789123456789.987654321;
+			_scaffold.ViewModel.DoubleNullableMoney = 123456789123456789123456789.987654321;
 
-			Assert.IsTrue(_scaffold.TestBox.Text
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text
 				== "123 456 789 123 457 000 000 000 000.00"
 					.ToSpecificValue(out expectedCaretPosition));
 		}
@@ -49,7 +49,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "123 456 789 123 457 000.|00".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "123 456 789 123 457 000.2|00".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.0|0".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -58,7 +58,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			beforeInput = "123 456 789 123 457 000.0|0".ToSpecificValue(out beforeInputCaretPosition);
 			input = "123 456 789 123 457 000.02|0".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -81,14 +81,14 @@ namespace It3xl.Test.MoneyField.Silverlight
 				.ToString("n", TestLanguageTranslator.LanguageCulture);
 
 			// Cose the Double.TryParse can't parse the Double.MaxValue, I'll divide the Decimal.MaxValue by 10.
-			_scaffold.ViewModel.AmountDoubleNullable = veryLargeDouble;
-			Assert.IsTrue(_scaffold.TestBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
+			_scaffold.ViewModel.DoubleNullableMoney = veryLargeDouble;
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
 
 
 			var beforeInput = testValue.ToSpecificValue(out beforeInputCaretPosition);
 			var input = testValue.ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.TestBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == testValue.ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);

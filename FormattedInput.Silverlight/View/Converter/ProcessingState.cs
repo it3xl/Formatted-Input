@@ -13,6 +13,17 @@ namespace It3xl.FormattedInput.View.Converter
 		private int _caretPosition;
 
 		/// <summary>
+		/// The value before formatting.
+		/// </summary>
+		public readonly String UnformattedValue;
+
+		public ProcessingState(String unformattedValue)
+		{
+			UnformattedValue = unformattedValue;
+			FormattedValue = unformattedValue;
+		}
+
+		/// <summary>
 		/// The money representation.
 		/// </summary>
 		internal String FormattedValue
