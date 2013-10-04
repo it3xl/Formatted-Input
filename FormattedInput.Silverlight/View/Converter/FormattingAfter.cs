@@ -16,9 +16,10 @@
 		EmptyStartValue,
 
 		/// <summary>
-		/// It's the formatting of focus. Also if rises just after <see cref="EmptyStartValue"/>, in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
+		/// It's the formatting of focus. Also it rises just after <see cref="EmptyStartValue"/>,
+		///  in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
 		/// </summary>
-		Resetting,
+		CorrectValueResetting,
 
 		/// <summary>
 		/// The input or pasting of a one sybmol.

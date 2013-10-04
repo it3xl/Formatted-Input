@@ -317,11 +317,12 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 			beforeInput = "|0.00".ToSpecificValue(out beforeInputCaretPosition);
+			// An imitation of the focus.
 			input = "|0.00".ToSpecificValue(out inputCaretPositionRef);
 
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(formatteValueOut == "|0.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(formatteValueOut == "0|.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 

@@ -76,21 +76,29 @@ namespace It3xl.Test.MoneyField.Silverlight
 			String formatteValueOut;
 			Int32 expectedCaretPosition;
 
-			var veryLargeDouble = Double.MaxValue / 10;
-			var testValue = "|" + veryLargeDouble
-				.ToString("n", TestLanguageTranslator.LanguageCulture);
-
 			// Cose the Double.TryParse can't parse the Double.MaxValue, I'll divide the Decimal.MaxValue by 10.
+			const double veryLargeDouble = Double.MaxValue / 10;
+
+			var valueBase = veryLargeDouble.ToString("n", TestLanguageTranslator.LanguageCulture);
+
+			// Imitation insertion from a ViewMode by the Conver method.
+			var testValue = "|" + valueBase;
+
+			var resultValue = valueBase.Replace(".", "|.");
+
 			_scaffold.ViewModel.DoubleNullableMoney = veryLargeDouble;
 			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
-
+			// It has the sense just in a parallel testing. Here, it's always equals the Zero.
+			//Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == <> );
 
 			var beforeInput = testValue.ToSpecificValue(out beforeInputCaretPosition);
-			var input = testValue.ToSpecificValue(out inputCaretPositionRef);
+			// Imitation of the TextBox's focus.
+			var input = beforeInput;
+			inputCaretPositionRef = beforeInputCaretPosition;
 
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
 
-			Assert.IsTrue(formatteValueOut == testValue.ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(formatteValueOut == resultValue.ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 

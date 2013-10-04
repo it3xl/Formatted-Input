@@ -75,7 +75,7 @@ namespace It3xl.FormattedInput.View.Controller
 			}
 			else if (state.UnformattedValue == _textBeforeChanging)
 			{
-				formattingAfter = FormattingAfter.Resetting;
+				formattingAfter = FormattingAfter.CorrectValueResetting;
 			}
 			else if (Math.Abs(state.UnformattedValue.Length - _textBeforeChanging.Length) != 1)
 			{
