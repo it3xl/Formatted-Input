@@ -1,8 +1,8 @@
 ﻿using System.Threading;
+using It3xl.FormattedInput.NullAndEmptyHandling;
 using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
-using System.Linq;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -27,9 +27,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void CommonBehaviours()
 		{
-			_scaffold.TestBox.DecimalSeparatorAlternative = '.';
-			_scaffold.TestBox.DecimalSeparator = ',';
-			_scaffold.TestBox.GroupSeparator = ' ';
+			_scaffold.TestBox.DecimalSeparatorAlternativeChar = ".";
+			_scaffold.TestBox.DecimalSeparatorChar = ",";
+			_scaffold.TestBox.GroupSeparatorChar = " ";
 
 			Int32 beforeInputCaretPosition;
 			Int32 inputCaretPositionRef;
@@ -106,7 +106,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void InitiatingSettings()
 		{
-			var separator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharArray().First();
+			var separator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator.ToCharFromFirst();
 			var converter = new NumberToMoneyConverter
 			{
 				DecimalSeparator = separator,

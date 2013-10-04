@@ -28,7 +28,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		public void SeparatorAddedFirstOnly()
 		{
 			_scaffold.TestBox.Focus();
-			_scaffold.TestBox.Text = _scaffold.TestBox.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
+			_scaffold.TestBox.Text = _scaffold.TestBox.DecimalSeparatorChar.ToString(CultureInfo.InvariantCulture);
 			_scaffold.TestBox.SelectionStart = 1;
 
 			//EnqueueConditional(() => true);

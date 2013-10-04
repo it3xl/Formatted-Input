@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
+using It3xl.FormattedInput.NullAndEmptyHandling;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -61,8 +61,7 @@ namespace It3xl.FormattedInput.View.Converter
 				{
 					return CultureInfo.CurrentCulture.NumberFormat
 						.NumberGroupSeparator
-						.ToCharArray()
-						.First();
+						.ToCharFromFirst();
 				}
 
 				return _groupSeparator.Value;
@@ -105,8 +104,7 @@ namespace It3xl.FormattedInput.View.Converter
 				{
 					return CultureInfo.CurrentCulture.NumberFormat
 						.NumberDecimalSeparator
-						.ToCharArray()
-						.First();
+						.ToCharFromFirst();
 				}
 
 				return _decimalSeparator;

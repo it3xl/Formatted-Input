@@ -1,4 +1,6 @@
-﻿using It3xl.FormattedInput.View;
+﻿using System.Globalization;
+using It3xl.FormattedInput.NullAndEmptyHandling;
+using It3xl.FormattedInput.View;
 using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
@@ -51,10 +53,10 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			var textBox = new MoneyTextBox
 				{
-					GroupSeparator = Char.MinValue
+					GroupSeparatorChar = Char.MinValue.ToString(CultureInfo.InvariantCulture)
 				};
 
-			Assert.AreEqual(textBox.GroupSeparator, Char.MinValue);
+			Assert.IsTrue(textBox.GroupSeparatorChar.ToCharFromFirst() == Char.MinValue);
 		}
 	
 	}

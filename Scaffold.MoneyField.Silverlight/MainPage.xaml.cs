@@ -63,10 +63,6 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			_logItemsControl = LogItemsControl;
 
 			TestMoneyTexBox = AmountDoubleNullableMoneyTexBox;
-
-			AmountDoubleNullableMoneyTexBox.DecimalSeparator = ',';
-			AmountDoubleNullableMoneyTexBox.DecimalSeparatorAlternative = '.';
-			AmountDoubleNullableMoneyTexBox.GroupSeparator = ' ';
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)

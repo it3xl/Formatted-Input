@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace It3xl.FormattedInput.NullAndEmptyHandling
 {
-	public static partial class ConditionalInvocationExtention
+	public static partial class ConditionalInvocationExtension
 	{
 		/// <summary>
 		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>

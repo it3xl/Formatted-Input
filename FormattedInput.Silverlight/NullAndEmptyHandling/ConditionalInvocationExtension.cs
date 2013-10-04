@@ -6,7 +6,7 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 	/// <summary>
 	/// The extension for conditional invocations. 
 	/// </summary>
-	public static partial class ConditionalInvocationExtention
+	public static partial class ConditionalInvocationExtension
 	{
 	
 		// TODO.it3xl.com: Move it to the target project.

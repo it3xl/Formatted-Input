@@ -31,7 +31,6 @@
 
 			<View:MoneyTextBox
 				Text="{Binding AmountDouble}"
-				DefaultValue="Empty"
 				
 				x:Name="AmountDoubleMoneyTexBox"
 				Margin="10"
@@ -41,7 +40,10 @@
 
 			<View:MoneyTextBox
 				Text="{Binding AmountDoubleNullable}"
-				DefaultValue="Empty"
+				
+				DecimalSeparatorChar = ','
+				DecimalSeparatorAlternativeChar = '.'
+				GroupSeparatorChar = ' '
 				
 				x:Name="AmountDoubleNullableMoneyTexBox"
 				Margin="10"

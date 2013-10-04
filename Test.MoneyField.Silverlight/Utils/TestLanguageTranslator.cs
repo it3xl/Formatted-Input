@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
 using It3xl.FormattedInput.View;
 using It3xl.FormattedInput.View.Converter;
@@ -16,9 +17,9 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		/// </summary>
 		internal static readonly CultureInfo LanguageCulture = (CultureInfo)CultureInfo.InvariantCulture.Clone();
 
-		private const Char DecimalSeparator = '.';
-		private const Char DecimalSeparatorAlternative = '^';
-		private const Char GroupSeparator = ' ';
+		private const String DecimalSeparatorChar = ".";
+		private const String DecimalSeparatorAlternativeChar = "^";
+		private const String GroupSeparatorChar = " ";
 		private const String CursorChar = "|";
 
 		static TestLanguageTranslator()
@@ -31,10 +32,10 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		/// <summary>
 		/// Converts the the common testing language to the specific value for a test.<para/>
 		/// Replacements:<para/>
-		/// "." - current <see cref="MoneyTextBox.DecimalSeparator"/><para/>
-		/// " " - current <see cref="MoneyTextBox.GroupSeparator"/><para/>
+		/// "." - current <see cref="MoneyTextBox.DecimalSeparatorChar"/><para/>
+		/// " " - current <see cref="MoneyTextBox.GroupSeparatorChar"/><para/>
 		/// "|" - caret/cursor position mark<para/>
-		/// "^" - current <see cref="MoneyTextBox.DecimalSeparatorAlternative"/><para/>
+		/// "^" - current <see cref="MoneyTextBox.DecimalSeparatorAlternativeChar"/><para/>
 		/// </summary>
 		/// <param name="commonValue"></param>
 		/// <param name="caretPosition">The result caret position.</param>
@@ -49,16 +50,16 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			var result = commonValue;
 
-			result = result.Replace(DecimalSeparator, LocalScaffold.TestBoxStatic.DecimalSeparator);
+			result = result.Replace(DecimalSeparatorChar, LocalScaffold.TestBoxStatic.DecimalSeparatorChar);
 
-			if (LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative.IsDefault() == false)
+			if (LocalScaffold.TestBoxStatic.DecimalSeparatorAlternativeChar.ToCharFromFirst().IsDefault() == false)
 			{
-				result = result.Replace(DecimalSeparatorAlternative, LocalScaffold.TestBoxStatic.DecimalSeparatorAlternative);
+				result = result.Replace(DecimalSeparatorAlternativeChar, LocalScaffold.TestBoxStatic.DecimalSeparatorAlternativeChar);
 			}
 
-			if (LocalScaffold.TestBoxStatic.GroupSeparator.IsDefault() == false)
+			if (LocalScaffold.TestBoxStatic.GroupSeparatorChar.ToCharFromFirst().IsDefault() == false)
 			{
-				result = result.Replace(GroupSeparator, LocalScaffold.TestBoxStatic.GroupSeparator);
+				result = result.Replace(GroupSeparatorChar, LocalScaffold.TestBoxStatic.GroupSeparatorChar);
 			}
 
 			if (commonValue.Contains(CursorChar))

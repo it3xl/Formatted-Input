@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,52 +18,47 @@ namespace It3xl.FormattedInput.View
 		/// <summary>
 		/// The desirable Group Separator char for a view.
 		/// </summary>
-		public Char GroupSeparator
+		public String GroupSeparatorChar
 		{
 			get
 			{
-				return Converter.GroupSeparator;
+				return Converter.GroupSeparator.ToString(CultureInfo.InvariantCulture);
 			}
 			set
 			{
-				Converter.GroupSeparator = value;
+				Converter.GroupSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
 			}
 		}
 
 		/// <summary>
 		/// The desirable Decimal Separator char for a view.
 		/// </summary>
-		public Char DecimalSeparator
+		public String DecimalSeparatorChar
 		{
 			get
 			{
-				return Converter.DecimalSeparator;
+				return Converter.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
 			}
 			set
 			{
-				Converter.DecimalSeparator = value;
+				Converter.DecimalSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
 			}
 		}
 
 		/// <summary>
 		/// The additional decimal part's separator char, acceptable at the input or past time.
 		/// </summary>
-		public Char DecimalSeparatorAlternative
+		public String DecimalSeparatorAlternativeChar
 		{
 			get
 			{
-				return Converter.DecimalSeparatorAlternative;
+				return Converter.DecimalSeparatorAlternative.ToString(CultureInfo.InvariantCulture);
 			}
 			set
 			{
-				Converter.DecimalSeparatorAlternative = value;
+				Converter.DecimalSeparatorAlternative = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
 			}
 		}
-
-		/// <summary>
-		/// The default value for the <see cref="MoneyTextBox"/>.
-		/// </summary>
-		public DefaultValue DefaultValue { get; set; }
 
 		/// <summary>
 		/// The bitness of the integer part.

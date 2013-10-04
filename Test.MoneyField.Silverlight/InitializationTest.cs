@@ -34,17 +34,17 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var lastCulture = Thread.CurrentThread.CurrentCulture;
 			Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
 
-			Assert.AreEqual(textBox.DecimalSeparator, '.');
-			Assert.AreEqual(textBox.DecimalSeparatorAlternative, Char.MinValue);
-			Assert.AreEqual(textBox.GroupSeparator, ',');
+			Assert.IsTrue(textBox.DecimalSeparatorChar == ".");
+			Assert.IsTrue(textBox.DecimalSeparatorAlternativeChar == Char.MinValue.ToString(CultureInfo.InvariantCulture));
+			Assert.IsTrue(textBox.GroupSeparatorChar == ",");
 
-			textBox.DecimalSeparator = ',';
-			textBox.DecimalSeparatorAlternative = '.';
-			textBox.GroupSeparator = NumberToMoneyConverter.BreakingSpaceChar;
+			textBox.DecimalSeparatorChar = ",";
+			textBox.DecimalSeparatorAlternativeChar = ".";
+			textBox.GroupSeparatorChar = NumberToMoneyConverter.BreakingSpaceChar.ToString(CultureInfo.InvariantCulture);
 
-			Assert.AreEqual(textBox.DecimalSeparator, ',');
-			Assert.AreEqual(textBox.DecimalSeparatorAlternative, '.');
-			Assert.AreEqual(textBox.GroupSeparator, NumberToMoneyConverter.NonBreakingSpaceChar);
+			Assert.IsTrue(textBox.DecimalSeparatorChar == ",");
+			Assert.IsTrue(textBox.DecimalSeparatorAlternativeChar == ".");
+			Assert.IsTrue(textBox.GroupSeparatorChar == NumberToMoneyConverter.NonBreakingSpaceChar.ToString(CultureInfo.InvariantCulture));
 
 			Thread.CurrentThread.CurrentCulture = lastCulture;
 		}
