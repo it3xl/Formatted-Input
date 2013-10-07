@@ -74,6 +74,7 @@ namespace It3xl.FormattedInput.View.Converter
 				CultureInfo.InvariantCulture,
 				out doubleValue
 				);
+
 			return doubleValue;
 		}
 

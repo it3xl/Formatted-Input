@@ -17,8 +17,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 
-		// TODO.it3xl.com: IntegerBitnessTest
-
+		// it3xl.com: I decided that the integer bitness it's the matter of the MVVM validation.
+		// Just in case I change my minde I left the test cases here.
 		/* Test cases:
 		 * 
 		0

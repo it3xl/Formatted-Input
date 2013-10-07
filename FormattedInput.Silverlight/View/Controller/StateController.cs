@@ -11,17 +11,20 @@ namespace It3xl.FormattedInput.View.Controller
 	internal sealed class StateController
 	{
 		private readonly Char _decimalSeparator;
+		private readonly Boolean _partialDisabled;
 		private readonly Char _groupSeparator;
 		/// <summary>
 		/// A text that was before current processing.
 		/// </summary>
 		private readonly String _textBeforeChanging;
 
-		internal StateController(char decimalSeparator, char groupSeparator, String textBeforeChanging)
+		internal StateController(Char decimalSeparator, Boolean partialDisabled, Char groupSeparator, String textBeforeChanging)
 		{
 			_decimalSeparator = decimalSeparator;
+			_partialDisabled = partialDisabled;
 			_groupSeparator = groupSeparator;
 			_textBeforeChanging = textBeforeChanging;
+
 		}
 
 		/// <summary>
@@ -30,6 +33,7 @@ namespace It3xl.FormattedInput.View.Controller
 		/// <param name="lastCaretPosition"></param>
 		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="caretPosition"></param>
+		/// <param name="unformattedValue"></param>
 		/// <returns></returns>
 		internal ProcessingState GetProcessingStates(
 			Int32 lastCaretPosition,
@@ -37,7 +41,7 @@ namespace It3xl.FormattedInput.View.Controller
 			Int32 caretPosition,
 			String unformattedValue)
 		{
-			var state = new ProcessingState(unformattedValue)
+			var state = new ProcessingState(unformattedValue, _decimalSeparator, _partialDisabled)
 				{
 					CaretPosition = caretPosition,
 				};

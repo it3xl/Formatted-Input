@@ -17,17 +17,34 @@ namespace It3xl.FormattedInput.View.Converter
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var doubleNullableValue = value as Double?;
+			var decimalNullableValue = value as Decimal?;
 
-			if (doubleNullableValue == null)
+			if (doubleNullableValue == null && decimalNullableValue == null)
 			{
 				WriteLogAction(() => String.Format("Convert. return = {0}", "null"));
 
 				return String.Empty;
 			}
 
-			var doubleValue = doubleNullableValue.Value;
+			String unformattedValue;
+			if(doubleNullableValue.HasValue)
+			{
+				unformattedValue = GetCustomSerialisationFromDouble(doubleNullableValue.Value);
+			}
+			// ReSharper disable ConditionIsAlwaysTrueOrFalse
+			// ReSharper disable HeuristicUnreachableCode
+			else if(decimalNullableValue.HasValue)
+			{
+				unformattedValue = GetCustomSerialisationFromDecimal(decimalNullableValue.Value);
+			}
+			else
+			{
+				WriteLogAction(() => String.Format("Convert. Unsupported data type - {0}", value.GetType().Name));
 
-			var unformattedValue = GetCustomSerialisationFromDouble(doubleValue);
+				return String.Empty;
+			}
+			// ReSharper restore ConditionIsAlwaysTrueOrFalse
+			// ReSharper restore HeuristicUnreachableCode
 
 			String formatteValue;
 			var selectionStartDummy = 0;
@@ -60,9 +77,23 @@ namespace It3xl.FormattedInput.View.Converter
 				return null;
 			}
 
-			var doubleValue = GetDoubleFromCustomSerialisation(stringValue);
+			if(targetType == _typeDouble 
+				|| targetType == _typeDoubleNullabe)
+			{
+				Double doubleValue = GetDoubleFromCustomSerialisation(stringValue);
 
-			return doubleValue;
+				return doubleValue;
+			}
+
+			if(targetType == _typeDecimal 
+				|| targetType == _typeDecimalNullabe)
+			{
+				Decimal decimalValue = GetDecimalFromCustomSerialisation(stringValue);
+
+				return decimalValue;
+			}
+
+			return null;
 		}
 	}
 }

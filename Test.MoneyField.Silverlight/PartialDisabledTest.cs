@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace It3xl.Test.MoneyField.Silverlight
 {
 	[TestClass]
-	public class PartialPartDisabledTest : SilverlightTest
+	public class PartialDisabledTest : SilverlightTest
 	{
 		private readonly LocalScaffold _scaffold = new LocalScaffold();
 
@@ -16,7 +16,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
-		// TODO.it3xl.com: PartialPartDisabledTest:
+		// TODO.it3xl.com: PartialDisabledTest:
 
 		// Test of the ignoring of partial values from ViewModel on a get and on a set. 
 		// Test main behaviours.

@@ -70,18 +70,12 @@ namespace It3xl.FormattedInput.View
 		}
 
 		/// <summary>
-		/// The bitness of the integer part.
+		/// Hides the partial part.
 		/// </summary>
-		public UInt16? IntegerBitness
+		public Boolean PartialDisabled
 		{
-			get
-			{
-				return Converter.IntegerBitness;
-			}
-			set
-			{
-				Converter.IntegerBitness = value;
-			}
+			get { return Converter.PartialDisabled; }
+			set { Converter.PartialDisabled = value; }
 		}
 
 

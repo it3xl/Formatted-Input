@@ -102,7 +102,7 @@
     <Compile Include="PartialBitnessTest.cs" />
     <Compile Include="InitializationTest.cs" />
     <Compile Include="DecimalSeparatorAlternativeTest.cs" />
-    <Compile Include="PartialPartDisabledTest.cs" />
+    <Compile Include="PartialDisabledTest.cs" />
     <Compile Include="NegativeValuesTest.cs" />
     <Compile Include="DummyTest.cs" />
     <Compile Include="GroupSeparatorTest.cs" />

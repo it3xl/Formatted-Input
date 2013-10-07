@@ -16,7 +16,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
-		// TODO.it3xl.com: It's a grate TODO. Defenetly, I am not planning to do it now.
+		// It's a grate TODO. Defenetly, I am not planning to do it now.
+		// If I implement this I could delete the PartialDisabled for sake of PartialBitness == 0;
 
 		
 	}

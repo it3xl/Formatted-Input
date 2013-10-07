@@ -55,6 +55,7 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				var state = new StateController(
 						DecimalSeparator,
+						PartialDisabled,
 						GroupSeparator,
 						TextBeforeChanging
 					)
@@ -103,11 +104,8 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void FormatAndManageCaretRaw(ProcessingState state)
 		{
-			if(state.FormattingType == FormattingAfter.CorrectValueResetting
-				&& state.CaretPosition == 0)
+			if (SetCaretOnStart(state))
 			{
-				state.CaretPosition = state.FormattedValue.IndexOf(DecimalSeparator);
-
 				return;
 			}
 
@@ -132,9 +130,8 @@ namespace It3xl.FormattedInput.View.Converter
 
 			NotDigitCharsProcessingWithCaret(state);
 
-			var number = state.FormattedValue.Split(DecimalSeparator);
-			state.IntegerFormatted = number.First();
-			state.PartialFormatted = number.Last();
+			state.IntegerFormatted = state.GetInteger();
+			state.PartialFormatted = state.GetPartial();
 
 			IntegerPartProcessingWithCaret(state);
 			PartialPartProcessingWithCaret(state);
@@ -146,6 +143,27 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				state.CaretPosition = state.IntegerFormatted.Length;
 			}
+		}
+
+		/// <summary>
+		/// Sets the caret position on the start.
+		/// </summary>
+		/// <param name="state"></param>
+		/// <returns></returns>
+		private bool SetCaretOnStart(ProcessingState state)
+		{
+			if (state.FormattingType != FormattingAfter.CorrectValueResetting)
+			{
+				return false;
+			}
+			if (state.CaretPosition != 0)
+			{
+				return false;
+			}
+
+			state.CaretPosition = state.GetIntegerEndCaretPosition();
+
+			return true;
 		}
 
 		/// <summary>
@@ -206,20 +224,6 @@ namespace It3xl.FormattedInput.View.Converter
 				state.CaretPosition++;
 			}
 
-			if(IntegerBitness.HasValue)
-			{
-				var bitness = IntegerBitness.Value;
-				if (
-					false
-					&&
-					bitness < state.IntegerFormatted.Length)
-				{
-					// Process the caret somehow.
-
-					state.IntegerFormatted = state.IntegerFormatted.Substring(0, bitness);
-				}
-			}
-
 			if (GroupSeparator.IsDefault())
 			{
 				return;
@@ -227,7 +231,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			// The group separator processing.
 			var lengthWithoutSeparator = state.IntegerFormatted.Length;
-			var caretPositionWithoutSeparator = state.CaretPosition;
+			var caretPositionWithoutGroupSeparator = state.CaretPosition;
 
 			var integerInvert = String.Join(null, state.IntegerFormatted.Reverse());
 			for (var i = 0; i < lengthWithoutSeparator; i++)
@@ -250,15 +254,15 @@ namespace It3xl.FormattedInput.View.Converter
 			state.IntegerFormatted = String.Join(null, integerInvert.Reverse());
 
 			// Actualizes caret position.
-			var digitsAfterCaretWithoutSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutSeparator);
-			var separarotAmountAfterCaret = digitsAfterCaretWithoutSeparator / 3;
-			if (0 < digitsAfterCaretWithoutSeparator && digitsAfterCaretWithoutSeparator % 3 == 0)
+			var digitsAfterCaretWithoutGroupSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutGroupSeparator);
+			var separarotAmountAfterCaret = digitsAfterCaretWithoutGroupSeparator / 3;
+			if (0 < digitsAfterCaretWithoutGroupSeparator && digitsAfterCaretWithoutGroupSeparator % 3 == 0)
 			{
 				separarotAmountAfterCaret--;
 			}
 			if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
-				&& 0 < digitsAfterCaretWithoutSeparator
-				&& digitsAfterCaretWithoutSeparator % 3 == 0)
+				&& 0 < digitsAfterCaretWithoutGroupSeparator
+				&& digitsAfterCaretWithoutGroupSeparator % 3 == 0)
 			{
 				separarotAmountAfterCaret++;
 			}
@@ -273,7 +277,12 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		private void PartialPartProcessingWithCaret(ProcessingState state)
 		{
-			// After the decimal separator should be two digits.
+			if(PartialDisabled)
+			{
+				return;
+			}
+
+			// After the decimal separator should be two digits for now (PartialBitness is not implemented).
 
 			var decimalSeparatorPosition = 
 				state.IntegerFormatted.InvokeNotNull(el => el.Length)

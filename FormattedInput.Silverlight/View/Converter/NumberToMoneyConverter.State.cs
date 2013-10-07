@@ -13,7 +13,13 @@ namespace It3xl.FormattedInput.View.Converter
 		private const Char ZeroChar = '0';
 		private const String ZeroPartialString = "00";
 
-		const String NumberStandartFormattingKey = "n";
+		private const String NumberStandartFormattingKey = "n";
+
+		private readonly Type _typeDouble = typeof(Double);
+		private readonly Type _typeDoubleNullabe = typeof(Double?);
+		private readonly Type _typeDecimal = typeof(Decimal);
+		private readonly Type _typeDecimalNullabe = typeof(Decimal?);
+
 
 
 		/// <summary>
@@ -127,11 +133,17 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 		}
 
+		/// <summary>
+		/// Hides the partial part.
+		/// </summary>
+		public Boolean PartialDisabled { get; set; }
+
 
 		/// <summary>
 		/// See <see cref="DecimalSeparatorAlternative"/>.
 		/// </summary>
 		private char _decimalSeparatorAlternative;
+
 		/// <summary>
 		/// The additional decimal part's separator char, acceptable at the input or past time.
 		/// </summary>
@@ -159,7 +171,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		private Int32 CaretPositionBeforeTextChanging { get; set; }
 		/// <summary>
-		/// Sets the <see cref="CaretPositionBeforeTextChanging"/>
+		/// Sets the <see cref="CaretPositionBeforeTextChanging"/> property.
 		/// </summary>
 		/// <param name="caretPosition">The caret position.</param>
 		public void SetCaretPositionBeforeTextChanging(Int32 caretPosition)
@@ -174,13 +186,14 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			get
 			{
+				if(PartialDisabled)
+				{
+					return new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+				}
+
 				return new[] { DecimalSeparator, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 			}
 		}
 
-		/// <summary>
-		/// The bitness of the integer part.
-		/// </summary>
-		public UInt16? IntegerBitness { get; set; }
 	}
 }
