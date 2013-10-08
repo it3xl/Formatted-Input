@@ -54,7 +54,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
-		public void TextBeforeChangingInitedOnStart()
+		public void TextBeforeChangingInitedOnStartAsync()
 		{
 			var viewModel = new ViewModelForTests
 				{

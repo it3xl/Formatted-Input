@@ -13,7 +13,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void DecimalSeparatorExcessiveProcessingWithCaret(ProcessingState state)
 		{
-			if(PartialDisabled)
+			if(PartialDisabledCurrent)
 			{
 				return;
 			}
@@ -43,7 +43,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void DecimalSeparatorMissed(ProcessingState state)
 		{
-			if(PartialDisabled)
+			if(PartialDisabledCurrent)
 			{
 				return;
 			}
@@ -64,7 +64,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void DecimalSeparatorDeletedProcessingWithCaret(ProcessingState state)
 		{
-			if(PartialDisabled)
+			if(PartialDisabledCurrent)
 			{
 				return;
 			}

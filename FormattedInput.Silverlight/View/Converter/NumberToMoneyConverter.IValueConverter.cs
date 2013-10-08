@@ -29,13 +29,13 @@ namespace It3xl.FormattedInput.View.Converter
 			String unformattedValue;
 			if(doubleNullableValue.HasValue)
 			{
-				unformattedValue = GetCustomSerialisationFromDouble(doubleNullableValue.Value);
+				unformattedValue = GetCustomSerialisation(doubleNullableValue.Value);
 			}
 			// ReSharper disable ConditionIsAlwaysTrueOrFalse
 			// ReSharper disable HeuristicUnreachableCode
 			else if(decimalNullableValue.HasValue)
 			{
-				unformattedValue = GetCustomSerialisationFromDecimal(decimalNullableValue.Value);
+				unformattedValue = GetCustomSerialisation(decimalNullableValue.Value);
 			}
 			else
 			{
@@ -49,7 +49,7 @@ namespace It3xl.FormattedInput.View.Converter
 			String formatteValue;
 			var selectionStartDummy = 0;
 
-			FormatAndManageCaret(unformattedValue, FocusEnum.HasNoState, out formatteValue, ref selectionStartDummy);
+			Process(unformattedValue, FocusEnum.Gotten, out formatteValue, ref selectionStartDummy);
 
 			WriteLogAction(() => String.Format("Convert. unformattedValue = {0}", unformattedValue));
 			WriteLogAction(() => String.Format("Convert. formattedValue = {0}", formatteValue));
@@ -71,7 +71,7 @@ namespace It3xl.FormattedInput.View.Converter
 			var stringValue = value as String;
 			if (String.IsNullOrEmpty(stringValue))
 			{
-				WriteLogAction(() => String.Format("ConvertBack. return = {0}", "null"));
+				WriteLogAction(() => String.Format("ConvertBack. return {0}", "null"));
 
 				// Only a string is available.
 				return null;
@@ -80,7 +80,7 @@ namespace It3xl.FormattedInput.View.Converter
 			if(targetType == _typeDouble 
 				|| targetType == _typeDoubleNullabe)
 			{
-				Double doubleValue = GetDoubleFromCustomSerialisation(stringValue);
+				var doubleValue = GetDouble(stringValue);
 
 				return doubleValue;
 			}
@@ -88,7 +88,7 @@ namespace It3xl.FormattedInput.View.Converter
 			if(targetType == _typeDecimal 
 				|| targetType == _typeDecimalNullabe)
 			{
-				Decimal decimalValue = GetDecimalFromCustomSerialisation(stringValue);
+				var decimalValue = GetDecimal(stringValue);
 
 				return decimalValue;
 			}

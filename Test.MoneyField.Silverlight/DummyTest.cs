@@ -24,7 +24,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[Description("Useless test to demonstrate the parallel testing.")]
 		[TestMethod]
 		[Asynchronous]
-		public void DummyParallelTesting()
+		public void DummyParallelTestingAsync()
 		{
 
 			// HowTo:

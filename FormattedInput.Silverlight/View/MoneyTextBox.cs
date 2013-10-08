@@ -35,7 +35,7 @@ namespace It3xl.FormattedInput.View
 			}
 			set
 			{
-				Converter.GroupSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
+				Converter.GroupSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
 			}
 		}
 
@@ -50,7 +50,7 @@ namespace It3xl.FormattedInput.View
 			}
 			set
 			{
-				Converter.DecimalSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
+				Converter.DecimalSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
 			}
 		}
 
@@ -65,7 +65,7 @@ namespace It3xl.FormattedInput.View
 			}
 			set
 			{
-				Converter.DecimalSeparatorAlternative = value.InvokeNotNullOrEmpty(el => el.ToCharFromFirst());
+				Converter.DecimalSeparatorAlternative = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
 			}
 		}
 
@@ -76,6 +76,15 @@ namespace It3xl.FormattedInput.View
 		{
 			get { return Converter.PartialDisabled; }
 			set { Converter.PartialDisabled = value; }
+		}
+
+		/// <summary>
+		/// Hides the partial part on a text input.
+		/// </summary>
+		public Boolean PartialDisabledOnInput
+		{
+			get { return Converter.PartialDisabledOnInput; }
+			set { Converter.PartialDisabledOnInput = value; }
 		}
 
 
@@ -129,7 +138,7 @@ namespace It3xl.FormattedInput.View
 				textBox.Text)
 			);
 
-			ProcessText(FocusEnum.HasNoState);
+			ProcessText(FocusEnum.Gotten);
 		}
 
 		void textBox_GotFocus(object sender, RoutedEventArgs e)
@@ -176,7 +185,7 @@ namespace It3xl.FormattedInput.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formattedValue;
-			Converter.FormatAndManageCaret(unformattedValue, focusState, out formattedValue, ref selectionStart);
+			Converter.Process(unformattedValue, focusState, out formattedValue, ref selectionStart);
 
 			textFormatted = unformattedValue != formattedValue;
 			if (textFormatted)

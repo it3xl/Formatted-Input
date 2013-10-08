@@ -8,8 +8,8 @@ namespace It3xl.FormattedInput.View.Converter
 	public sealed partial class NumberToMoneyConverter
 	{
 		/// <summary>
-		/// Helpful method for tests of the <see cref="FormatAndManageCaret"/> method.
-		/// <seealso cref="FormatAndManageCaret"/>
+		/// Helpful method for tests of the <see cref="Process"/> method.
+		/// <seealso cref="Process"/>
 		/// </summary>
 		/// <param name="unformattedValue"></param>
 		/// <param name="textBeforeChanging">
@@ -20,7 +20,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
-		public void TestFormatAndManageCaret(
+		public void TestProcess(
 			String unformattedValue,
 			String textBeforeChanging,
 			Int32 lastCaretPosition,
@@ -31,7 +31,7 @@ namespace It3xl.FormattedInput.View.Converter
 			TextBeforeChanging = textBeforeChanging;
 			CaretPositionBeforeTextChanging = lastCaretPosition;
 
-			FormatAndManageCaret(unformattedValue, focusState, out resultingFormattedValue, ref caretPosition);
+			Process(unformattedValue, focusState, out resultingFormattedValue, ref caretPosition);
 		}
 
 		/// <summary>
@@ -41,12 +41,13 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
-		public void FormatAndManageCaret(
+		public void Process(
 			String unformattedValue,
 			FocusEnum focusState,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
+			_focusState = focusState;
 			var lastCaretPosition = CaretPositionBeforeTextChanging;
 
 			resultingFormattedValue = unformattedValue;
@@ -55,17 +56,17 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				var state = new StateController(
 						DecimalSeparator,
-						PartialDisabled,
+						PartialDisabledCurrent,
 						GroupSeparator,
 						TextBeforeChanging
 					)
 					.GetProcessingStates(
 						lastCaretPosition,
-						focusState,
+						_focusState,
 						caretPosition,
 						unformattedValue);
 
-				FormatAndManageCaretRaw(state);
+				FormatAndManageCaret(state);
 
 				resultingFormattedValue = state.FormattedValue;
 
@@ -102,7 +103,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// The lower implementation of a formatting.
 		/// </summary>
 		/// <param name="state"></param>
-		private void FormatAndManageCaretRaw(ProcessingState state)
+		private void FormatAndManageCaret(ProcessingState state)
 		{
 			if (SetCaretOnStart(state))
 			{
@@ -136,8 +137,12 @@ namespace It3xl.FormattedInput.View.Converter
 			IntegerPartProcessingWithCaret(state);
 			PartialPartProcessingWithCaret(state);
 
-			var preliminatyFormattedValue = state.IntegerFormatted + DecimalSeparator + state.PartialFormatted;
-			state.FormattedValue = FormatByPrecisionForDouble(preliminatyFormattedValue);
+			var preliminaryFormattedValue = state.IntegerFormatted;
+			if(PartialDisabledCurrent == false)
+			{
+				preliminaryFormattedValue  += DecimalSeparator + state.PartialFormatted;
+			}
+			state.FormattedValue = FormatByPrecisionForDouble(preliminaryFormattedValue);
 
 			if(state.JumpCaretToEndOfInteger)
 			{
@@ -187,146 +192,6 @@ namespace It3xl.FormattedInput.View.Converter
 				if (index <= (state.CaretPosition - 1))
 				{
 					state.CaretPosition -= 1;
-				}
-			}
-		}
-
-		/// <summary>
-		/// Processing of the integer part of a number.
-		/// </summary>
-		/// <param name="state"></param>
-		/// <returns></returns>
-		private void IntegerPartProcessingWithCaret(ProcessingState state)
-		{
-			// Deletion of the 0 in the integer part if a input started from the 0 value.
-			if (1 < state.IntegerFormatted.Length
-				&& state.IntegerPrevious == ZeroString
-				&& state.IntegerFormatted.Last() == ZeroChar)
-			{
-				state.IntegerFormatted = state.IntegerFormatted.Remove(state.IntegerFormatted.Length - 1, 1);
-			}
-
-			// Leading zeros' processing.
-			while (1 < state.IntegerFormatted.Length && state.IntegerFormatted.First() == ZeroChar)
-			{
-				state.IntegerFormatted = state.IntegerFormatted.Remove(0, 1);
-				if (0 < state.CaretPosition)
-				{
-					state.CaretPosition--;
-				}
-			}
-
-			// Before decimal separator should be the 0, if it's the first.
-			if (state.IntegerFormatted.Length == 0)
-			{
-				state.IntegerFormatted = ZeroString;
-
-				state.CaretPosition++;
-			}
-
-			if (GroupSeparator.IsDefault())
-			{
-				return;
-			}
-
-			// The group separator processing.
-			var lengthWithoutSeparator = state.IntegerFormatted.Length;
-			var caretPositionWithoutGroupSeparator = state.CaretPosition;
-
-			var integerInvert = String.Join(null, state.IntegerFormatted.Reverse());
-			for (var i = 0; i < lengthWithoutSeparator; i++)
-			{
-				if (i == 0)
-				{
-					continue;
-				}
-				if (0 < i % 3)
-				{
-					continue;
-				}
-
-				var offset = i / 3 - 1;
-				integerInvert = integerInvert.Insert(i + offset, GroupSeparatorChar);
-
-				state.CaretPosition++;
-			}
-
-			state.IntegerFormatted = String.Join(null, integerInvert.Reverse());
-
-			// Actualizes caret position.
-			var digitsAfterCaretWithoutGroupSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutGroupSeparator);
-			var separarotAmountAfterCaret = digitsAfterCaretWithoutGroupSeparator / 3;
-			if (0 < digitsAfterCaretWithoutGroupSeparator && digitsAfterCaretWithoutGroupSeparator % 3 == 0)
-			{
-				separarotAmountAfterCaret--;
-			}
-			if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
-				&& 0 < digitsAfterCaretWithoutGroupSeparator
-				&& digitsAfterCaretWithoutGroupSeparator % 3 == 0)
-			{
-				separarotAmountAfterCaret++;
-			}
-
-			state.CaretPosition -= separarotAmountAfterCaret;
-		}
-
-		/// <summary>
-		/// Processing of the partial part of a number.
-		/// </summary>
-		/// <param name="state"></param>
-		/// <returns></returns>
-		private void PartialPartProcessingWithCaret(ProcessingState state)
-		{
-			if(PartialDisabled)
-			{
-				return;
-			}
-
-			// After the decimal separator should be two digits for now (PartialBitness is not implemented).
-
-			var decimalSeparatorPosition = 
-				state.IntegerFormatted.InvokeNotNull(el => el.Length)
-				+ DecimalSeparatorChar.Length;
-
-			if (state.PartialFormatted.Length == 0)
-			{
-				state.PartialFormatted = ZeroPartialString;
-			}
-			else if (state.PartialFormatted.Length == 1)
-			{
-				if (state.CaretPosition == decimalSeparatorPosition
-					&& state.OneSymbolDeletionType == DeletionDirection.BackspaceButton)
-				{
-					state.PartialFormatted = ZeroString + state.PartialFormatted;
-				}
-				else if (state.CaretPosition == decimalSeparatorPosition
-					&& state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
-				{
-					if(state.PartialPrevious.StartsWith(ZeroString))
-					{
-						state.PartialFormatted = ZeroPartialString;
-					}
-					else
-					{
-						state.PartialFormatted = ZeroString + state.PartialFormatted;
-					}
-				}
-				else
-				{
-					state.PartialFormatted = state.PartialFormatted + ZeroString;
-				}
-			}
-			else if (2 < state.PartialFormatted.Length)
-			{
-				var needCutSecondPartialDigit = state.PartialFormatted.Length == 3
-					&& state.CaretPosition == (decimalSeparatorPosition + 1);
-				if (needCutSecondPartialDigit)
-				{
-					state.PartialFormatted = state.PartialFormatted.Remove(1, 1);
-				}
-				else
-				{
-					state.PartialFormatted = state.PartialFormatted.Substring(0, 2);
 				}
 			}
 		}

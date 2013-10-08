@@ -52,12 +52,12 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 
 			result = result.Replace(DecimalSeparatorChar, LocalScaffold.CurrentTestBox.DecimalSeparatorChar);
 
-			if (LocalScaffold.CurrentTestBox.DecimalSeparatorAlternativeChar.ToCharFromFirst().IsDefault() == false)
+			if (LocalScaffold.CurrentTestBox.DecimalSeparatorAlternativeChar.ToCharFirst().IsDefault() == false)
 			{
 				result = result.Replace(DecimalSeparatorAlternativeChar, LocalScaffold.CurrentTestBox.DecimalSeparatorAlternativeChar);
 			}
 
-			if (LocalScaffold.CurrentTestBox.GroupSeparatorChar.ToCharFromFirst().IsDefault() == false)
+			if (LocalScaffold.CurrentTestBox.GroupSeparatorChar.ToCharFirst().IsDefault() == false)
 			{
 				result = result.Replace(GroupSeparatorChar, LocalScaffold.CurrentTestBox.GroupSeparatorChar);
 			}

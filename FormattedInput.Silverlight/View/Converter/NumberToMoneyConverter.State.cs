@@ -67,7 +67,7 @@ namespace It3xl.FormattedInput.View.Converter
 				{
 					return CultureInfo.CurrentCulture.NumberFormat
 						.NumberGroupSeparator
-						.ToCharFromFirst();
+						.ToCharFirst();
 				}
 
 				return _groupSeparator.Value;
@@ -110,7 +110,7 @@ namespace It3xl.FormattedInput.View.Converter
 				{
 					return CultureInfo.CurrentCulture.NumberFormat
 						.NumberDecimalSeparator
-						.ToCharFromFirst();
+						.ToCharFirst();
 				}
 
 				return _decimalSeparator;
@@ -137,6 +137,45 @@ namespace It3xl.FormattedInput.View.Converter
 		/// Hides the partial part.
 		/// </summary>
 		public Boolean PartialDisabled { get; set; }
+
+		/// <summary>
+		/// Hides the partial part on a text input (on focus).
+		/// </summary>
+		public Boolean PartialDisabledOnInput { get; set; }
+
+		/// <summary>
+		/// Target text-element has the focus.
+		/// </summary>
+		private FocusEnum _focusState;
+
+		/// <summary>
+		/// The current state for disabling of the partila part.
+		/// </summary>
+		private Boolean PartialDisabledCurrent
+		{
+			get
+			{
+				const Boolean disabled = true;
+				const Boolean none = false;
+
+				if (PartialDisabled)
+				{
+					return disabled;
+				}
+
+				if(PartialDisabledOnInput)
+				{
+					if(_focusState == FocusEnum.No)
+					{
+						return none;
+					}
+
+					return disabled;
+				}
+
+				return none;
+			}
+		}
 
 
 		/// <summary>
@@ -186,7 +225,7 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			get
 			{
-				if(PartialDisabled)
+				if(PartialDisabledCurrent)
 				{
 					return new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 				}

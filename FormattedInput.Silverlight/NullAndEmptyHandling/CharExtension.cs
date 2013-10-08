@@ -10,7 +10,7 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 		/// </summary>
 		/// <param name="targer"></param>
 		/// <returns></returns>
-		public static char ToCharFromFirst(this String targer)
+		public static char ToCharFirst(this String targer)
 		{
 			if(targer.IsNullOrEmpty())
 			{

@@ -8,7 +8,12 @@
 		/// <summary>
 		/// The default value.
 		/// </summary>
-		HasNoState,
+		No,
+
+		/// <summary>
+		/// Target text-control has the input focus.
+		/// </summary>
+		Gotten,
 
 		/// <summary>
 		/// Focus was just gotten before current text and caret processing.

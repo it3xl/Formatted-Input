@@ -147,15 +147,11 @@ namespace It3xl.FormattedInput.View.Controller
 				return;
 			}
 
-			if (_textBeforeChanging.Contains(_decimalSeparator) == false)
-			{
-				return;
-			}
-
 			var number = _textBeforeChanging.Split(_decimalSeparator);
 
 			state.IntegerPrevious = number.First();
-			state.PartialPrevious = number.Last();
+
+			state.PartialPrevious = _partialDisabled ? String.Empty : number.Last();
 		}
 
 		private Boolean? GetStateGroupSeparatorDeleted(ProcessingState state)

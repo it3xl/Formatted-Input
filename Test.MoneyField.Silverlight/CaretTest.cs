@@ -22,7 +22,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
-		public void MoveCaretFromPartialEndToIntegerEndOnFocus()
+		public void MoveCaretFromPartialEndToIntegerEndOnFocusAsync()
 		{
 			Int32 beforeInputCaretPosition;
 			_scaffold.DoubleNullableMoneyTexBox.Text = "12 334.52|".ToSpecificValue(out beforeInputCaretPosition);

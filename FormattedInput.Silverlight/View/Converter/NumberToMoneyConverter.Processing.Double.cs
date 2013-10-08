@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
 
 namespace It3xl.FormattedInput.View.Converter
@@ -9,67 +10,41 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// The custom double serialization.
 		/// </summary>
-		/// <param name="doubleValue"></param>
+		/// <param name="number"></param>
 		/// <returns></returns>
-		private String GetCustomSerialisationFromDouble(Double doubleValue)
+		private String GetCustomSerialisation(Double? number)
 		{
-			var unformattedValue = doubleValue
+			if(number == null)
+			{
+				return String.Empty;
+			}
+
+			var invariant = number.Value
 				.ToString(NumberStandartFormattingKey, CultureInfo.InvariantCulture);
 
-			// The order is important! The GroupSeparatorChar replacing must go before the DecimalSeparatorChar replacing.
-			if (GroupSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator)
-			{
-				// The turn form CultureInfo.InvariantCulture to the custom separator.
-				unformattedValue = unformattedValue.Replace(
-					CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator,
-					GroupSeparatorChar);
-			}
+			var custom = ToCustomSerialisation(invariant);
 
-			if (DecimalSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
-			{
-				// The turn form CultureInfo.InvariantCulture to the custom separator.
-				unformattedValue = unformattedValue.Replace(
-					CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator,
-					DecimalSeparatorChar);
-			}
-
-			return unformattedValue;
+			return custom;
 		}
 
 		/// <summary>
-		/// The custom double conversion.
+		/// Gets the custom double conversion.
 		/// </summary>
-		/// <param name="stringValue"></param>
+		/// <param name="customSerialisation"></param>
 		/// <returns></returns>
-		private double GetDoubleFromCustomSerialisation(String stringValue)
+		private Double? GetDouble(String customSerialisation)
 		{
-			var cSharpDigitalSerialisation = stringValue;
-
-			// Remove the group delimiter.
-			GroupSeparator.InvokeNotDefault(el =>
+			if (customSerialisation.IsNullOrEmpty())
 			{
-				if (GroupSeparator == NonBreakingSpaceChar)
-				{
-					cSharpDigitalSerialisation.Replace(BreakingSpaceChar, NonBreakingSpaceChar);
-				}
-
-				cSharpDigitalSerialisation = cSharpDigitalSerialisation.Replace(GroupSeparatorChar, String.Empty);
-			}
-			);
-
-			if (DecimalSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
-			{
-				// The turn to the CultureInfo.InvariantCulture.
-				cSharpDigitalSerialisation = cSharpDigitalSerialisation.Replace(
-					DecimalSeparatorChar,
-					CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator);
+				return null;
 			}
 
-			WriteLogAction(() => String.Format("ConvertBack. return = {0}", cSharpDigitalSerialisation));
+			var invariant = ToInvariantSerialisation(customSerialisation);
+			WriteLogAction(() => String.Format("GetDouble. return = {0}", invariant));
 
 			Double doubleValue;
 			Double.TryParse(
-				cSharpDigitalSerialisation,
+				invariant,
 				NumberStyles.AllowDecimalPoint,
 				CultureInfo.InvariantCulture,
 				out doubleValue
@@ -86,8 +61,8 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		private String FormatByPrecisionForDouble(String value)
 		{
-			var currentDouble = GetDoubleFromCustomSerialisation(value);
-			var serialisationWithPrecision = GetCustomSerialisationFromDouble(currentDouble);
+			var currentDouble = GetDouble(value);
+			var serialisationWithPrecision = GetCustomSerialisation(currentDouble);
 
 			return serialisationWithPrecision;
 		}

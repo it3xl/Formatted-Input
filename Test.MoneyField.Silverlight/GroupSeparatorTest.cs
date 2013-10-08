@@ -39,7 +39,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "|89.00".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "1234567|89.00".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestFormatAndManageCaret(input, beforeInput, beforeInputCaretPosition, FocusEnum.HasNoState, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "123 456 7|89.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -56,7 +56,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 					GroupSeparatorChar = Char.MinValue.ToString(CultureInfo.InvariantCulture)
 				};
 
-			Assert.IsTrue(textBox.GroupSeparatorChar.ToCharFromFirst() == Char.MinValue);
+			Assert.IsTrue(textBox.GroupSeparatorChar.ToCharFirst() == Char.MinValue);
 		}
 	
 	}
