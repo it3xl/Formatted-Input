@@ -18,6 +18,27 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+		/// <summary>
+		/// Tests ignoring of the partial part of a number from a ViewMode and replacing it by the zero.
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		public void PartialIgnoringFromViewMode()
+		{
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
+			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
+
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
+
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
+			});
+
+			EnqueueTestComplete();
+		}
 
 		[TestMethod]
 		public void PartialDisabled()
@@ -78,15 +99,14 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
 			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-		}
-		// Test main behaviours for PartialDisabled.
-		/* Test cases:
-		 * |0
-		 * |
-		 * |
-		 */
 
-		// Test of the ignoring of partial values from ViewModel on a get and on a set. 
+			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
+			input = "|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
 		// Test main behaviours for PartialDisabledOnInput.
 		// TODO.it3xl.com: PartialDisabledTest:
 

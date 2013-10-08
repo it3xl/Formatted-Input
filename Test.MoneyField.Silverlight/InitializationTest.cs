@@ -67,11 +67,11 @@ namespace It3xl.Test.MoneyField.Silverlight
 				{
 					Int32 expectedCaretPosition;
 
-					Assert.AreEqual(
-						"|0.00".ToSpecificValue(out expectedCaretPosition),
-						testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChanging
+					Assert.IsTrue(
+						"|0.00".ToSpecificValue(out expectedCaretPosition)
+						== testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChanging
 					);
-					Assert.AreEqual(expectedCaretPosition, testPage.DoubleNullableMoneyTexBox.SelectionStart);
+					Assert.IsTrue(expectedCaretPosition == testPage.DoubleNullableMoneyTexBox.SelectionStart);
 				});
 
 			EnqueueTestComplete();

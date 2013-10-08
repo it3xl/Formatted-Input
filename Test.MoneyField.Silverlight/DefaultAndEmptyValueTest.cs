@@ -99,7 +99,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaret);
 				});
 
-
 			EnqueueCallback(() =>
 				{
 					Int32 beforeInputCaretPosition;
