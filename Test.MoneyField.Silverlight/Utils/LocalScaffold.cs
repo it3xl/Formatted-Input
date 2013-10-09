@@ -34,6 +34,22 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 			DecimalNullableMoneyTexBox = testPage.DecimalNullableMoneyTexBox;
 			DecimalMoneyTexBox = testPage.DecimalMoneyTexBox;
 
+
+			DoubleNullableMoneyTexBox.PartialDisabled = false;
+			DoubleNullableMoneyTexBox.PartialDisabledOnInput = false;
+
+			DoubleMoneyTexBox.PartialDisabled = false;
+			DoubleMoneyTexBox.PartialDisabledOnInput = false;
+
+			DecimalNullableMoneyTexBox.PartialDisabled = false;
+			DecimalNullableMoneyTexBox.PartialDisabledOnInput = false;
+
+			DecimalMoneyTexBox.PartialDisabled = false;
+			DecimalMoneyTexBox.PartialDisabledOnInput = false;
+
+
+
+
 			testPanel.Children.Add(testPage);
 		}
 	}

@@ -42,8 +42,30 @@ namespace It3xl.Test.MoneyField.Silverlight
 			EnqueueTestComplete();
 		}
 
+		/// <summary>
+		/// Tests seting from a ViewModel for the PartialDisabled = true;
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("SetCaretBeforeGroupSeparator")]
+		public void SetCaretBeforeGroupSeparator()
+		{
+			_scaffold.ViewModel.DoubleNullableMoney = 123456.74;
+			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3;
 
+			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
+			// !!! Inportant! Don't set a breakpoint between a focus' setting and a block with a first Assert!
+			// Cause: the focus on that brekpoint in the Visual Studio leads to a loss of the focus at a testing element in a browser.
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
 
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "123| 456.74".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+			});
+
+			EnqueueTestComplete();
+		}
 	
 	}
 }

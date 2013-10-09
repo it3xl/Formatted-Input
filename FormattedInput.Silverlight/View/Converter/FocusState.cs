@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Describes the critical states of the TextBox's focus.
 	/// </summary>
-	public enum FocusEnum
+	public enum FocusState
 	{
 		/// <summary>
 		/// The default value.

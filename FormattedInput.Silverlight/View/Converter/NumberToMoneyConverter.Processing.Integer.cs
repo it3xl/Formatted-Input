@@ -14,17 +14,17 @@ namespace It3xl.FormattedInput.View.Converter
 		private void IntegerPartProcessingWithCaret(ProcessingState state)
 		{
 			// Deletion of the 0 in the integer part if a input started from the 0 value.
-			if (1 < state.IntegerFormatted.Length
+			if (1 < state.IntegerFormatting.Length
 				&& state.IntegerPrevious == ZeroString
-				&& state.IntegerFormatted.Last() == ZeroChar)
+				&& state.IntegerFormatting.Last() == ZeroChar)
 			{
-				state.IntegerFormatted = state.IntegerFormatted.Remove(state.IntegerFormatted.Length - 1, 1);
+				state.IntegerFormatting = state.IntegerFormatting.Remove(state.IntegerFormatting.Length - 1, 1);
 			}
 
 			// Leading zeros' processing.
-			while (1 < state.IntegerFormatted.Length && state.IntegerFormatted.First() == ZeroChar)
+			while (1 < state.IntegerFormatting.Length && state.IntegerFormatting.First() == ZeroChar)
 			{
-				state.IntegerFormatted = state.IntegerFormatted.Remove(0, 1);
+				state.IntegerFormatting = state.IntegerFormatting.Remove(0, 1);
 				if (0 < state.CaretPosition)
 				{
 					state.CaretPosition--;
@@ -33,9 +33,9 @@ namespace It3xl.FormattedInput.View.Converter
 
 			// Before decimal separator should be the 0, if it's the first.
 			if (PartialDisabledCurrent == false
-				&& state.IntegerFormatted.Length == 0)
+				&& state.IntegerFormatting.Length == 0)
 			{
-				state.IntegerFormatted = ZeroString;
+				state.IntegerFormatting = ZeroString;
 
 				state.CaretPosition++;
 			}
@@ -46,10 +46,10 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			// The group separator processing.
-			var lengthWithoutSeparator = state.IntegerFormatted.Length;
+			var lengthWithoutSeparator = state.IntegerFormatting.Length;
 			var caretPositionWithoutGroupSeparator = state.CaretPosition;
 
-			var integerInvert = String.Join(null, state.IntegerFormatted.Reverse());
+			var integerInvert = String.Join(null, state.IntegerFormatting.Reverse());
 			for (var i = 0; i < lengthWithoutSeparator; i++)
 			{
 				if (i == 0)
@@ -67,7 +67,7 @@ namespace It3xl.FormattedInput.View.Converter
 				state.CaretPosition++;
 			}
 
-			state.IntegerFormatted = String.Join(null, integerInvert.Reverse());
+			state.IntegerFormatting = String.Join(null, integerInvert.Reverse());
 
 			// Actualizes caret position.
 			var digitsAfterCaretWithoutGroupSeparator = Math.Abs(lengthWithoutSeparator - caretPositionWithoutGroupSeparator);

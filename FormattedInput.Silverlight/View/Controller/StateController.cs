@@ -37,7 +37,7 @@ namespace It3xl.FormattedInput.View.Controller
 		/// <returns></returns>
 		internal ProcessingState GetProcessingStates(
 			Int32 lastCaretPosition,
-			FocusEnum focusState,
+			FocusState focusState,
 			Int32 caretPosition,
 			String unformattedValue)
 		{
@@ -101,11 +101,11 @@ namespace It3xl.FormattedInput.View.Controller
 		/// </summary>
 		/// <param name="focusState"></param>
 		/// <param name="state"></param>
-		private void SetJumpCaretToEndOfInteger(FocusEnum focusState, ProcessingState state)
+		private void SetJumpCaretToEndOfInteger(FocusState focusState, ProcessingState state)
 		{
 			state.JumpCaretToEndOfInteger = false;
 
-			if (focusState != FocusEnum.JustGotten)
+			if (focusState != FocusState.JustGotten)
 			{
 				return;
 			}

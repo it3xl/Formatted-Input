@@ -43,6 +43,8 @@
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
+						
+						PartialDisabledOnInput="true"
 				
 						x:Name="DoubleNullableMoney"
 						Margin="5"
@@ -62,7 +64,7 @@
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
 						GroupSeparatorChar = ' '
-				
+						
 						x:Name="DoubleMoney"
 						Margin="5"
 						BorderBrush="SteelBlue"

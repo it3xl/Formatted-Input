@@ -24,30 +24,28 @@ namespace It3xl.FormattedInput.View.Converter
 			String unformattedValue,
 			String textBeforeChanging,
 			Int32 lastCaretPosition,
-			FocusEnum focusState,
+			FocusState focusState,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
 			TextBeforeChanging = textBeforeChanging;
 			CaretPositionBeforeTextChanging = lastCaretPosition;
+			FocusState = focusState;
 
-			Process(unformattedValue, focusState, out resultingFormattedValue, ref caretPosition);
+			Process(unformattedValue, out resultingFormattedValue, ref caretPosition);
 		}
 
 		/// <summary>
 		/// The entry pont of the formatting and the caret management.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
-		/// <param name="focusState">The critical state of the TextBox's focus.</param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
 		public void Process(
 			String unformattedValue,
-			FocusEnum focusState,
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
-			_focusState = focusState;
 			var lastCaretPosition = CaretPositionBeforeTextChanging;
 
 			resultingFormattedValue = unformattedValue;
@@ -62,7 +60,7 @@ namespace It3xl.FormattedInput.View.Converter
 					)
 					.GetProcessingStates(
 						lastCaretPosition,
-						_focusState,
+						FocusState,
 						caretPosition,
 						unformattedValue);
 
@@ -111,6 +109,18 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			DecimalSeparatorAlternatingReplacing(state);
+
+			if(PartialDisabledOnInput
+				&& state.PartialFormatted.IsNotNullOrEmpty())
+			{
+				state.FormattedValue = state.IntegerFormatted + DecimalSeparator + ZerosPartialString;
+			}
+			if(PartialDisabledOnInput
+				&& FocusState == FocusState.JustGotten)
+			{
+				state.FormattedValue = state.IntegerFormatted;
+			}
+
 			DecimalSeparatorDeletedProcessingWithCaret(state);
 
 			// Catch a first digital input and ingnore others.
@@ -131,22 +141,22 @@ namespace It3xl.FormattedInput.View.Converter
 
 			NotDigitCharsProcessingWithCaret(state);
 
-			state.IntegerFormatted = state.GetInteger();
-			state.PartialFormatted = state.GetPartial();
+			state.IntegerFormatting = state.IntegerFormatted;
+			state.PartialFormatting = state.PartialFormatted;
 
 			IntegerPartProcessingWithCaret(state);
 			PartialPartProcessingWithCaret(state);
 
-			var preliminaryFormattedValue = state.IntegerFormatted;
+			var preliminaryFormattedValue = state.IntegerFormatting;
 			if(PartialDisabledCurrent == false)
 			{
-				preliminaryFormattedValue  += DecimalSeparator + state.PartialFormatted;
+				preliminaryFormattedValue  += DecimalSeparator + state.PartialFormatting;
 			}
 			state.FormattedValue = FormatByPrecisionForDouble(preliminaryFormattedValue);
 
 			if(state.JumpCaretToEndOfInteger)
 			{
-				state.CaretPosition = state.IntegerFormatted.Length;
+				state.CaretPosition = state.IntegerFormatting.Length;
 			}
 		}
 

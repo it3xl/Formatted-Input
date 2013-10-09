@@ -11,7 +11,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 		private const String ZeroString = "0";
 		private const Char ZeroChar = '0';
-		private const String ZeroPartialString = "00";
+		private const String ZerosPartialString = "00";
 
 		private const String NumberStandartFormattingKey = "n";
 
@@ -144,9 +144,9 @@ namespace It3xl.FormattedInput.View.Converter
 		public Boolean PartialDisabledOnInput { get; set; }
 
 		/// <summary>
-		/// Target text-element has the focus.
+		/// The input focus state for a target text-element.
 		/// </summary>
-		private FocusEnum _focusState;
+		public FocusState FocusState { get; set; }
 
 		/// <summary>
 		/// The current state for disabling of the partila part.
@@ -165,7 +165,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 				if(PartialDisabledOnInput)
 				{
-					if(_focusState == FocusEnum.No)
+					if(FocusState == FocusState.No)
 					{
 						return none;
 					}

@@ -19,6 +19,76 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 		/// <summary>
+		/// Tests the PartialDisabled main behaviors.
+		/// </summary>
+		[TestMethod]
+		public void PartialDisabled()
+		{
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
+
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			var beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "01|".ToSpecificValue(out inputCaretPositionRef);
+
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
+			input = "1|0".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "0.|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "0|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
+			input = ".|0".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|0".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "012sdfjkls348sf.|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "12 348|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "1|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "d|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
+			input = "|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
+			input = "|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusState.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
 		/// Tests ignoring of the partial part of a number from a ViewMode and replacing it by the zero.
 		/// </summary>
 		[TestMethod]
@@ -40,75 +110,95 @@ namespace It3xl.Test.MoneyField.Silverlight
 			EnqueueTestComplete();
 		}
 
+		/// <summary>
+		/// Tests PartialDisabledOnInput main behaviors.
+		/// </summary>
 		[TestMethod]
-		public void PartialDisabled()
+		[Asynchronous]
+		[Tag("PartialDisabledOnInput")]
+		public void PartialDisabledOnInput()
 		{
-			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
 
-			Int32 beforeInputCaretPosition;
-			Int32 inputCaretPositionRef;
-			String formatteValueOut;
-			Int32 expectedCaretPosition;
+			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
 
-			var beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
-			var input = "01|".ToSpecificValue(out inputCaretPositionRef);
+			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
+			// !!! Inportant! Don't set a breakpoint between a focus' setting and a block with a first Assert!
+			// Cause: the focus on that brekpoint in the Visual Studio leads to a loss of the focus at a testing element in a browser.
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
 
-			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+				// ensure the "LostFocus" for the DoubleNullableMoneyTexBox.
+				_scaffold.DoubleMoneyTexBox.Focus();
+			});
 
-			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
-			input = "1|0".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
 
-			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
-			input = "0.|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "0|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|.00".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
+			});
 
-			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
-			input = ".|0".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "|0".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-
-			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
-			input = "012sdfjkls348sf.|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "12 348|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-
-			beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
-			input = "1|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "1|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-
-			beforeInput = "|".ToSpecificValue(out beforeInputCaretPosition);
-			input = "d|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-
-			beforeInput = "0|".ToSpecificValue(out beforeInputCaretPosition);
-			input = "|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-
-			beforeInput = "|0".ToSpecificValue(out beforeInputCaretPosition);
-			input = "|".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(input, beforeInput, beforeInputCaretPosition, FocusEnum.Gotten, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+			EnqueueTestComplete();
 		}
 
-		// Test main behaviours for PartialDisabledOnInput.
-		// TODO.it3xl.com: PartialDisabledTest:
+		/// <summary>
+		/// Tests seting from a ViewModel for the PartialDisabledOnInput = true;
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("PartialDisabledOnInputForViewModel")]
+		public void PartialDisabledOnInputForViewModel()
+		{
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
 
-}
+			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
+
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
+
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|.00".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
+			});
+
+			EnqueueTestComplete();
+		}
+
+		/// <summary>
+		/// Tests seting from a ViewModel for the PartialDisabled = true;
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("PartialDisabledForViewModel")]
+		public void PartialDisabledForViewModel()
+		{
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
+			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = false;
+
+			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
+
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
+
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
+			});
+
+			EnqueueTestComplete();
+		}
+
+	}
 }

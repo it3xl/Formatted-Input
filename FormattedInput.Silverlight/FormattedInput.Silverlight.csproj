@@ -70,7 +70,7 @@
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.Partial.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.Integer.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.Number.cs" />
-    <Compile Include="View\Converter\FocusEnum.cs" />
+    <Compile Include="View\Converter\FocusState.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.GroupSeparator.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Processing.DecimalSeparator.cs" />
     <Compile Include="View\Converter\NumberToMoneyConverter.Utils.cs" />

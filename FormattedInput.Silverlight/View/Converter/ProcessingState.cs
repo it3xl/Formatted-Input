@@ -84,7 +84,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// The formatted integer part.
 		/// </summary>
-		internal string IntegerFormatted { get; set; }
+		internal string IntegerFormatting { get; set; }
 
 		/// <summary>
 		/// The previous partial part.
@@ -94,7 +94,36 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <summary>
 		/// The formatted partial part.
 		/// </summary>
-		internal string PartialFormatted { get; set; }
+		internal string PartialFormatting { get; set; }
+
+		/// <summary>
+		/// Current formatted integer part of a number.
+		/// </summary>
+		/// <returns></returns>
+		internal String IntegerFormatted
+		{
+			get
+			{
+				return FormattedValue.Split(_decimalSeparator).First();
+			}
+		}
+
+		/// <summary>
+		/// Current formatted patial part of a number.
+		/// </summary>
+		/// <returns></returns>
+		internal String PartialFormatted
+		{
+			get
+			{
+				if (_partialDisabled)
+				{
+					return String.Empty;
+				}
+
+				return FormattedValue.Split(_decimalSeparator).Last();
+			}
+		}
 
 		/// <summary>
 		/// Requires to move the caret to the end of the integer's part position.
@@ -123,34 +152,6 @@ namespace It3xl.FormattedInput.View.Converter
 				: FormattedValue.IndexOf(_decimalSeparator);
 
 			return result;
-		}
-
-		/// <summary>
-		/// Gets the current integer part of a number.
-		/// </summary>
-		/// <returns></returns>
-		internal String GetInteger()
-		{
-			if(_partialDisabled)
-			{
-				return FormattedValue;
-			}
-
-			return FormattedValue.Split(_decimalSeparator).First();
-		}
-
-		/// <summary>
-		/// Gets the current patial part of a number.
-		/// </summary>
-		/// <returns></returns>
-		internal String GetPartial()
-		{
-			if(_partialDisabled)
-			{
-				return String.Empty;
-			}
-
-			return FormattedValue.Split(_decimalSeparator).Last();
 		}
 
 	}

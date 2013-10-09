@@ -8,5 +8,10 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 		{
 			return String.IsNullOrEmpty(val);
 		}
+
+		public static Boolean IsNotNullOrEmpty(this String val)
+		{
+			return String.IsNullOrEmpty(val) == false;
+		}
 	}
 }

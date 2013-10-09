@@ -19,48 +19,48 @@ namespace It3xl.FormattedInput.View.Converter
 			// After the decimal separator should be two digits for now (PartialBitness is not implemented).
 
 			var decimalSeparatorPosition =
-				state.IntegerFormatted.InvokeNotNull(el => el.Length)
+				state.IntegerFormatting.InvokeNotNull(el => el.Length)
 				+ DecimalSeparatorChar.Length;
 
-			if (state.PartialFormatted.Length == 0)
+			if (state.PartialFormatting.Length == 0)
 			{
-				state.PartialFormatted = ZeroPartialString;
+				state.PartialFormatting = ZerosPartialString;
 			}
-			else if (state.PartialFormatted.Length == 1)
+			else if (state.PartialFormatting.Length == 1)
 			{
 				if (state.CaretPosition == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.BackspaceButton)
 				{
-					state.PartialFormatted = ZeroString + state.PartialFormatted;
+					state.PartialFormatting = ZeroString + state.PartialFormatting;
 				}
 				else if (state.CaretPosition == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
 				{
 					if (state.PartialPrevious.StartsWith(ZeroString))
 					{
-						state.PartialFormatted = ZeroPartialString;
+						state.PartialFormatting = ZerosPartialString;
 					}
 					else
 					{
-						state.PartialFormatted = ZeroString + state.PartialFormatted;
+						state.PartialFormatting = ZeroString + state.PartialFormatting;
 					}
 				}
 				else
 				{
-					state.PartialFormatted = state.PartialFormatted + ZeroString;
+					state.PartialFormatting = state.PartialFormatting + ZeroString;
 				}
 			}
-			else if (2 < state.PartialFormatted.Length)
+			else if (2 < state.PartialFormatting.Length)
 			{
-				var needCutSecondPartialDigit = state.PartialFormatted.Length == 3
+				var needCutSecondPartialDigit = state.PartialFormatting.Length == 3
 					&& state.CaretPosition == (decimalSeparatorPosition + 1);
 				if (needCutSecondPartialDigit)
 				{
-					state.PartialFormatted = state.PartialFormatted.Remove(1, 1);
+					state.PartialFormatting = state.PartialFormatting.Remove(1, 1);
 				}
 				else
 				{
-					state.PartialFormatted = state.PartialFormatted.Substring(0, 2);
+					state.PartialFormatting = state.PartialFormatting.Substring(0, 2);
 				}
 			}
 		}

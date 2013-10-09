@@ -87,6 +87,15 @@ namespace It3xl.FormattedInput.View
 			set { Converter.PartialDisabledOnInput = value; }
 		}
 
+		/// <summary>
+		/// Sets a current state of the focus.
+		/// </summary>
+		private void SetFocusState(FocusState focusState)
+		{
+			Converter.FocusState = focusState;
+		}
+
+
 
 		public MoneyTextBox()
 		{
@@ -103,6 +112,7 @@ namespace It3xl.FormattedInput.View
 			textBox.TextChanged += textBox_TextChanged;
 			textBox.SelectionChanged += textBox_SelectionChanged;
 			textBox.GotFocus += textBox_GotFocus;
+			textBox.LostFocus += textBox_LostFocus;
 		}
 
 		/// <summary>
@@ -138,7 +148,7 @@ namespace It3xl.FormattedInput.View
 				textBox.Text)
 			);
 
-			ProcessText(FocusEnum.Gotten);
+			ProcessText();
 		}
 
 		void textBox_GotFocus(object sender, RoutedEventArgs e)
@@ -151,17 +161,25 @@ namespace It3xl.FormattedInput.View
 				textBox.Text)
 			);
 
-			ProcessText(FocusEnum.JustGotten);
+			SetFocusState(FocusState.JustGotten);
+			ProcessText();
+			SetFocusState(FocusState.Gotten);
 		}
 
-		private void ProcessText(FocusEnum focusState)
+		void textBox_LostFocus(object sender, RoutedEventArgs e)
+		{
+			SetFocusState(FocusState.No);
+			ProcessText();
+		}
+
+		private void ProcessText()
 		{
 			// TODO.it3xl.com: Check a whip out recursion and break it up.
 
 			var textBox = this;
 
 			Boolean textFormatted;
-			FormatTextAndManageCaretInRecursion(focusState, out textFormatted);
+			FormatTextAndManageCaretInRecursion(out textFormatted);
 
 			// Helps to ignore the excessive TextChanged event triggered by formatting.
 			// It breaks the recursion.
@@ -177,7 +195,7 @@ namespace It3xl.FormattedInput.View
 		/// Formats the text and manages the caret's position.<para/>
 		/// Starts a recursion if it invoked from the TextChangent event handler.
 		/// </summary>
-		private void FormatTextAndManageCaretInRecursion(FocusEnum focusState, out Boolean textFormatted)
+		private void FormatTextAndManageCaretInRecursion(out Boolean textFormatted)
 		{
 			var textBox = this;
 
@@ -185,7 +203,7 @@ namespace It3xl.FormattedInput.View
 			var unformattedValue = textBox.Text ?? String.Empty;
 
 			String formattedValue;
-			Converter.Process(unformattedValue, focusState, out formattedValue, ref selectionStart);
+			Converter.Process(unformattedValue, out formattedValue, ref selectionStart);
 
 			textFormatted = unformattedValue != formattedValue;
 			if (textFormatted)
