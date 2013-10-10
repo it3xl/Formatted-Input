@@ -29,7 +29,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Text = "12 334.52|".ToSpecificValue(out beforeInputCaretPosition);
 			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = beforeInputCaretPosition;
 
-			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
+			_scaffold.DoubleNullableMoneyTexBox.Focus();
 
 			EnqueueCallback(() =>
 			{

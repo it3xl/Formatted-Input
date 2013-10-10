@@ -64,10 +64,10 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			_logItemsControl = LogItemsControl;
 
 			DoubleNullableMoneyTexBox = DoubleNullableMoney;
-			//DoubleMoneyTexBox = DoubleMoney;
+			DoubleMoneyTexBox = DoubleMoney;
 
-			//DecimalNullableMoneyTexBox = DecimalNullableMoney;
-			//DecimalMoneyTexBox = DecimalMoney;
+			DecimalNullableMoneyTexBox = DecimalNullableMoney;
+			DecimalMoneyTexBox = DecimalMoney;
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
