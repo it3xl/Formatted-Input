@@ -1,4 +1,5 @@
 ﻿using It3xl.FormattedInput.NullAndEmptyHandling;
+using It3xl.FormattedInput.View.Controller;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -28,12 +29,12 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 			else if (state.PartialFormatting.Length == 1)
 			{
-				if (state.CaretPosition == decimalSeparatorPosition
+				if (state.CaretPositionForProcessing == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.BackspaceButton)
 				{
 					state.PartialFormatting = ZeroString + state.PartialFormatting;
 				}
-				else if (state.CaretPosition == decimalSeparatorPosition
+				else if (state.CaretPositionForProcessing == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
 				{
 					if (state.PartialPrevious.StartsWith(ZeroString))
@@ -53,7 +54,7 @@ namespace It3xl.FormattedInput.View.Converter
 			else if (2 < state.PartialFormatting.Length)
 			{
 				var needCutSecondPartialDigit = state.PartialFormatting.Length == 3
-					&& state.CaretPosition == (decimalSeparatorPosition + 1);
+					&& state.CaretPositionForProcessing == (decimalSeparatorPosition + 1);
 				if (needCutSecondPartialDigit)
 				{
 					state.PartialFormatting = state.PartialFormatting.Remove(1, 1);

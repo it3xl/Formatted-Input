@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using It3xl.FormattedInput.NullAndEmptyHandling;
+using WeakClosureProject;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -20,7 +21,13 @@ namespace It3xl.FormattedInput.View.Converter
 		private readonly Type _typeDecimal = typeof(Decimal);
 		private readonly Type _typeDecimalNullabe = typeof(Decimal?);
 
+		private Double? _lastViewDouble;
+		private Decimal? _lastViewDecimal;
 
+		private Boolean _viewModelValueChanged;
+		private Boolean _jumpCaretToEndOfIntegerOnNextProcessing;
+
+		private WeakClosure<MoneyTextBox> _moneyBox;
 
 		/// <summary>
 		/// Will be executed in case of a exception.

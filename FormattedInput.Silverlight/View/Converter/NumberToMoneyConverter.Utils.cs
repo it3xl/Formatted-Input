@@ -19,5 +19,6 @@ namespace It3xl.FormattedInput.View.Converter
 			// It's the breaking space. Fix it!
 			charValue = NonBreakingSpaceChar;
 		}
+
 	}
 }

@@ -40,15 +40,13 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 		{
 			String logMessage = logMessageAction();
 
+			var span = DateTime.Now - _lastLogTime;
 			if (LogItems.Any()
-				&& LogItems.Last() != "_"
-				&& (TimeSpan.FromMilliseconds(100) < DateTime.Now - _lastLogTime)
-				)
+				&& (TimeSpan.FromMilliseconds(100) < span))
 			{
-				_lastLogTime = DateTime.Now;
-
 				LogItems.Insert(0, "_");
 			}
+			_lastLogTime = DateTime.Now;
 
 			LogItems.Insert(0, logMessage);
 		}
@@ -66,10 +64,10 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			_logItemsControl = LogItemsControl;
 
 			DoubleNullableMoneyTexBox = DoubleNullableMoney;
-			DoubleMoneyTexBox = DoubleMoney;
+			//DoubleMoneyTexBox = DoubleMoney;
 
-			DecimalNullableMoneyTexBox = DecimalNullableMoney;
-			DecimalMoneyTexBox = DecimalMoney;
+			//DecimalNullableMoneyTexBox = DecimalNullableMoney;
+			//DecimalMoneyTexBox = DecimalMoney;
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)

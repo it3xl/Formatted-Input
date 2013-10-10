@@ -99,7 +99,7 @@ namespace It3xl.FormattedInput.View
 
 		public MoneyTextBox()
 		{
-			Converter = new NumberToMoneyConverter();
+			Converter = new NumberToMoneyConverter(this);
 
 			Loaded += LoadedHandler;
 		}
@@ -142,7 +142,7 @@ namespace It3xl.FormattedInput.View
 		{
 			var textBox = this;
 
-			NumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+			NumberToMoneyConverter.WriteLogAction(() => String.Format("* TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
 				textBox.SelectionStart,
 				textBox.SelectionLength,
 				textBox.Text)
@@ -155,7 +155,7 @@ namespace It3xl.FormattedInput.View
 		{
 			var textBox = this;
 
-			NumberToMoneyConverter.WriteLogAction(() => String.Format("textBox_TextChanged. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+			NumberToMoneyConverter.WriteLogAction(() => String.Format("* GotFocus. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
 				textBox.SelectionStart,
 				textBox.SelectionLength,
 				textBox.Text)
@@ -168,6 +168,14 @@ namespace It3xl.FormattedInput.View
 
 		void textBox_LostFocus(object sender, RoutedEventArgs e)
 		{
+			var textBox = this;
+
+			NumberToMoneyConverter.WriteLogAction(() => String.Format("* LostFocus. SelectionStart = {0}. SelectionLength = {1}. Text = {2}",
+				textBox.SelectionStart,
+				textBox.SelectionLength,
+				textBox.Text)
+			);
+
 			SetFocusState(FocusState.No);
 			ProcessText();
 		}

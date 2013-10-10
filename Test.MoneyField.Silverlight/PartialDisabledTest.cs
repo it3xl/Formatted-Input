@@ -93,7 +93,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
-		public void PartialIgnoringFromViewMode()
+		public void PartialIgnoringFromViewModeAsync()
 		{
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
 			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
@@ -116,7 +116,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		[Asynchronous]
 		[Tag("PartialDisabledOnInput")]
-		public void PartialDisabledOnInput()
+		public void PartialDisabledOnInputAsync()
 		{
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
@@ -156,7 +156,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		[Asynchronous]
 		[Tag("PartialDisabledOnInputForViewModel")]
-		public void PartialDisabledOnInputForViewModel()
+		public void PartialDisabledOnInputForViewModelAsync()
 		{
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
@@ -181,7 +181,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		[Asynchronous]
 		[Tag("PartialDisabledForViewModel")]
-		public void PartialDisabledForViewModel()
+		public void PartialDisabledForViewModelAsync()
 		{
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = true;
 			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = false;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
+using It3xl.FormattedInput.View.Controller;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -25,9 +26,9 @@ namespace It3xl.FormattedInput.View.Converter
 			while (1 < state.IntegerFormatting.Length && state.IntegerFormatting.First() == ZeroChar)
 			{
 				state.IntegerFormatting = state.IntegerFormatting.Remove(0, 1);
-				if (0 < state.CaretPosition)
+				if (0 < state.CaretPositionForProcessing)
 				{
-					state.CaretPosition--;
+					state.CaretPositionForProcessing--;
 				}
 			}
 
@@ -37,7 +38,7 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				state.IntegerFormatting = ZeroString;
 
-				state.CaretPosition++;
+				state.CaretPositionForProcessing++;
 			}
 
 			if (GroupSeparator.IsDefault())
@@ -47,7 +48,7 @@ namespace It3xl.FormattedInput.View.Converter
 
 			// The group separator processing.
 			var lengthWithoutSeparator = state.IntegerFormatting.Length;
-			var caretPositionWithoutGroupSeparator = state.CaretPosition;
+			var caretPositionWithoutGroupSeparator = state.CaretPositionForProcessing;
 
 			var integerInvert = String.Join(null, state.IntegerFormatting.Reverse());
 			for (var i = 0; i < lengthWithoutSeparator; i++)
@@ -64,7 +65,7 @@ namespace It3xl.FormattedInput.View.Converter
 				var offset = i / 3 - 1;
 				integerInvert = integerInvert.Insert(i + offset, GroupSeparatorChar);
 
-				state.CaretPosition++;
+				state.CaretPositionForProcessing++;
 			}
 
 			state.IntegerFormatting = String.Join(null, integerInvert.Reverse());
@@ -83,7 +84,7 @@ namespace It3xl.FormattedInput.View.Converter
 				separarotAmountAfterCaret++;
 			}
 
-			state.CaretPosition -= separarotAmountAfterCaret;
+			state.CaretPositionForProcessing -= separarotAmountAfterCaret;
 		}
 	}
 }

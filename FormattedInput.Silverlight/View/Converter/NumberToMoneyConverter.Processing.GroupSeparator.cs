@@ -1,4 +1,6 @@
-﻿namespace It3xl.FormattedInput.View.Converter
+﻿using It3xl.FormattedInput.View.Controller;
+
+namespace It3xl.FormattedInput.View.Converter
 {
 	public sealed partial class NumberToMoneyConverter
 	{
@@ -16,11 +18,11 @@
 			switch (state.OneSymbolDeletionType)
 			{
 				case DeletionDirection.BackspaceButton:
-					state.CaretPosition--;
-					state.FormattedValue = state.FormattedValue.Remove(state.CaretPosition, 1);
+					state.CaretPositionForProcessing--;
+					state.FormattingValue = state.FormattingValue.Remove(state.CaretPositionForProcessing, 1);
 					break;
 				case DeletionDirection.DeleteButton:
-					state.FormattedValue = state.FormattedValue.Remove(state.CaretPosition, 1);
+					state.FormattingValue = state.FormattingValue.Remove(state.CaretPositionForProcessing, 1);
 					break;
 			}
 		}

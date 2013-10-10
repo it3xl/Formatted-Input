@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using It3xl.FormattedInput.View;
 using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
@@ -276,7 +277,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[TestMethod]
 		public void InitiatingSettings()
 		{
-			var converter = new NumberToMoneyConverter
+			var converter = new NumberToMoneyConverter(new MoneyTextBox())
 				{
 					DecimalSeparator = Char.MinValue,
 				};

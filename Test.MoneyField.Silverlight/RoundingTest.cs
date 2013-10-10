@@ -69,6 +69,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// <see cref="Double.MaxValue"/> rounding test.
 		/// </summary>
 		[TestMethod]
+		[Tag("DoubleMaxValue")]
 		public void DoubleMaxValue()
 		{
 			Int32 beforeInputCaretPosition;
@@ -84,7 +85,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 			// Imitation insertion from a ViewMode by the Conver method.
 			var testValue = "|" + valueBase;
 
-			var resultValue = valueBase.Replace(".", "|.");
+			//var resultValue = valueBase.Replace(".", "|.");
+			var resultValue = testValue;
 
 			_scaffold.ViewModel.DoubleNullableMoney = veryLargeDouble;
 			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));

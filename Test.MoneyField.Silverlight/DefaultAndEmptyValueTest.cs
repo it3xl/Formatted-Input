@@ -84,20 +84,18 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
+		[Tag("DoubleBehaviorsAsync")]
 		public void DoubleBehaviorsAsync()
 		{
 			Int32 expectedCaretPosition;
 
-			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "|0.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == 0);
 
 			_scaffold.DoubleMoneyTexBox.Focus();
 
 			var expectedCaret = expectedCaretPosition;
-			EnqueueCallback(() =>
-				{
-					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaret);
-				});
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaret));
 
 			EnqueueCallback(() =>
 				{

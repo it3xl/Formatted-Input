@@ -46,41 +46,21 @@ namespace It3xl.FormattedInput.View.Converter
 			out String resultingFormattedValue,
 			ref Int32 caretPosition)
 		{
+			WriteLogAction(() => " ->  Process");
+
 			var lastCaretPosition = CaretPositionBeforeTextChanging;
 
 			resultingFormattedValue = unformattedValue;
 
 			try
 			{
-				var state = new StateController(
-						DecimalSeparator,
-						PartialDisabledCurrent,
-						GroupSeparator,
-						TextBeforeChanging
-					)
-					.GetProcessingStates(
-						lastCaretPosition,
-						FocusState,
-						caretPosition,
-						unformattedValue);
 
+				var state = PrepareStates(unformattedValue, caretPosition, lastCaretPosition);
 				FormatAndManageCaret(state);
 
-				resultingFormattedValue = state.FormattedValue;
+				resultingFormattedValue = state.FormattingValue;
 
-				if (state.CaretPosition < 0)
-				{
-					// It's definetly an error.
-					// Fix the impossible negative caret position for sake of the unwanted exception.
-					state.CaretPosition = 0;
-				}
-				if (resultingFormattedValue.Length < state.CaretPosition)
-				{
-					// It's definetly an error.
-					state.CaretPosition = resultingFormattedValue.Length;
-				}
-
-				caretPosition = state.CaretPosition;
+				caretPosition = state.CaretPositionForProcessing;
 			}
 			catch (Exception ex)
 			{
@@ -103,32 +83,29 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void FormatAndManageCaret(ProcessingState state)
 		{
-			if (SetCaretOnStart(state))
-			{
-				return;
-			}
+			JumpCaretFromPartialEndToIntegerEnd(state);
 
 			DecimalSeparatorAlternatingReplacing(state);
 
 			if(PartialDisabledOnInput
 				&& state.PartialFormatted.IsNotNullOrEmpty())
 			{
-				state.FormattedValue = state.IntegerFormatted + DecimalSeparator + ZerosPartialString;
+				state.FormattingValue = state.IntegerFormatted + DecimalSeparator + ZerosPartialString;
 			}
 			if(PartialDisabledOnInput
 				&& FocusState == FocusState.JustGotten)
 			{
-				state.FormattedValue = state.IntegerFormatted;
+				state.FormattingValue = state.IntegerFormatted;
 			}
 
 			DecimalSeparatorDeletedProcessingWithCaret(state);
 
 			// Catch a first digital input and ingnore others.
 			if(0 < state.UnformattedValue.Length
-				&& state.FormattedValue.Any(el => CustomSerialilzationChars.Contains(el)) == false)
+				&& state.FormattingValue.Any(el => CustomSerialilzationChars.Contains(el)) == false)
 			{
-				state.FormattedValue = String.Empty;
-				state.CaretPosition = 0;
+				state.FormattingValue = String.Empty;
+				state.CaretPositionForProcessing = 0;
 
 				// !!!
 				return;
@@ -152,33 +129,38 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				preliminaryFormattedValue  += DecimalSeparator + state.PartialFormatting;
 			}
-			state.FormattedValue = FormatByPrecisionForDouble(preliminaryFormattedValue);
+			state.FormattingValue = FormatByPrecisionForDouble(preliminaryFormattedValue);
 
 			if(state.JumpCaretToEndOfInteger)
 			{
-				state.CaretPosition = state.IntegerFormatting.Length;
+				state.CaretPositionForProcessing = state.IntegerFormatting.Length;
 			}
+
+			CorrectCaretOnEnd(state);
 		}
 
+
 		/// <summary>
-		/// Sets the caret position on the start.
+		/// Sets the caret position on the just gotten focus.
 		/// </summary>
 		/// <param name="state"></param>
 		/// <returns></returns>
-		private bool SetCaretOnStart(ProcessingState state)
+		private void JumpCaretFromPartialEndToIntegerEnd(ProcessingState state)
 		{
-			if (state.FormattingType != FormattingAfter.CorrectValueResetting)
+			if(FocusState != FocusState.JustGotten)
 			{
-				return false;
+				return;
 			}
-			if (state.CaretPosition != 0)
+			if(PartialDisabledCurrent)
 			{
-				return false;
+				return;
+			}
+			if (state.CaretPositionForProcessing != state.FormattingValue.Length)
+			{
+				return;
 			}
 
-			state.CaretPosition = state.GetIntegerEndCaretPosition();
-
-			return true;
+			state.CaretPositionForProcessing = state.GetIntegerEndPosition();
 		}
 
 		/// <summary>
@@ -187,7 +169,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void NotDigitCharsProcessingWithCaret(ProcessingState state)
 		{
-			var stringForIteraction = state.FormattedValue;
+			var stringForIteraction = state.FormattingValue;
 			foreach (var @char in stringForIteraction)
 			{
 				if (CustomSerialilzationChars.Contains(@char))
@@ -196,13 +178,32 @@ namespace It3xl.FormattedInput.View.Converter
 				}
 
 				// Let's delete only the first entry of that char for now.
-				var index = state.FormattedValue.IndexOf(@char);
-				state.FormattedValue = state.FormattedValue.Remove(index, 1);
+				var index = state.FormattingValue.IndexOf(@char);
+				state.FormattingValue = state.FormattingValue.Remove(index, 1);
 
-				if (index <= (state.CaretPosition - 1))
+				if (index <= (state.CaretPositionForProcessing - 1))
 				{
-					state.CaretPosition -= 1;
+					state.CaretPositionForProcessing -= 1;
 				}
+			}
+		}
+
+		private static void CorrectCaretOnEnd(ProcessingState state)
+		{
+			if (state.CaretPositionForProcessing < 0)
+			{
+				WriteLogAction(() => "!!! The negative caret position.");
+
+				// It's definetly an error.
+				// Fix the impossible negative caret position for sake of the unwanted exception.
+				state.CaretPositionForProcessing = 0;
+			}
+			if (state.FormattingValue.Length < state.CaretPositionForProcessing)
+			{
+				WriteLogAction(() => "!!! The caret position bigger than the text length.");
+
+				// It's definetly an error.
+				state.CaretPositionForProcessing = state.FormattingValue.Length;
 			}
 		}
 
