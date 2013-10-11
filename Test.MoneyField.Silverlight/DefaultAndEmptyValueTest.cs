@@ -1,5 +1,6 @@
-﻿using System;
-using System.Diagnostics;
+﻿// ReSharper disable RedundantArgumentName
+
+using System;
 using It3xl.FormattedInput.View.Converter;
 using It3xl.Test.MoneyField.Silverlight.Utils;
 using Microsoft.Silverlight.Testing;
@@ -141,8 +142,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
 
-			this.PrepareSetFocusFromDebugger();
-			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
+			this.PrepareFocusFromDebugger(controlForFocus:_scaffold.DoubleNullableMoneyTexBox);
 
 			EnqueueCallback(() =>
 				{

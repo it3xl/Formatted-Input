@@ -29,12 +29,12 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[Tag("SeparatorAddedFirstOnlyAsync")]
 		public void SeparatorAddedFirstOnlyAsync()
 		{
-			_scaffold.DoubleNullableMoneyTexBox.Focus();
-			_scaffold.DoubleNullableMoneyTexBox.Text = _scaffold.DoubleNullableMoneyTexBox.DecimalSeparatorChar.ToString(CultureInfo.InvariantCulture);
+			_scaffold.DoubleNullableMoneyTexBox.Text = _scaffold.DoubleNullableMoneyTexBox
+				.DecimalSeparatorChar;
 			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 1;
 
-			//EnqueueConditional(() => true);
-			//EnqueueDelay(TimeSpan.FromMilliseconds(500));
+			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
+
 			EnqueueCallback(() =>
 				{
 					Int32 expectedCaretPosition;
