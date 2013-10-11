@@ -38,7 +38,7 @@
 
 					<TextBlock Text="MoneyTextBox + Nullable{Double}"/>
 					<View:MoneyTextBox
-						Text="{Binding DoubleNullableMoney}"
+						Text="{Binding DoubleNullableMoney, ConverterParameter=DoubleNullableMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
@@ -57,7 +57,7 @@
 
 					<TextBlock Text="MoneyTextBox + Double"/>
 					<View:MoneyTextBox
-						Text="{Binding DoubleMoney}"
+						Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
@@ -83,7 +83,7 @@
 
 					<TextBlock Text="MoneyTextBox + Nullable{Decimal}"/>
 					<View:MoneyTextBox
-						Text="{Binding DecimalNullableMoney}"
+						Text="{Binding DecimalNullableMoney, ConverterParameter=DecimalNullableMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'
@@ -102,7 +102,7 @@
 
 					<TextBlock Text="MoneyTextBox + Decimal"/>
 					<View:MoneyTextBox
-						Text="{Binding DecimalMoney}"
+						Text="{Binding DecimalMoney, ConverterParameter=DecimalMoney}"
 				
 						DecimalSeparatorChar = ','
 						DecimalSeparatorAlternativeChar = '.'

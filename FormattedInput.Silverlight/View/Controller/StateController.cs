@@ -20,7 +20,7 @@ namespace It3xl.FormattedInput.View.Controller
 			/// <summary>
 			/// A text that was before current processing.
 			/// </summary>
-			private readonly String _textBeforeChanging;
+			private readonly String _textBeforeChangingNotNull;
 
 			internal StateController(
 				Char decimalSeparator,
@@ -33,7 +33,7 @@ namespace It3xl.FormattedInput.View.Controller
 				PartialDisabled = partialDisabled;
 
 				_groupSeparator = groupSeparator;
-				_textBeforeChanging = textBeforeChanging;
+				_textBeforeChangingNotNull = textBeforeChanging ?? String.Empty;
 			}
 
 			/// <summary>
@@ -56,7 +56,7 @@ namespace It3xl.FormattedInput.View.Controller
 				var state = new ProcessingState(unformattedValue, jumpCaretToEndOfInteger)
 					{
 						Controller = this,
-						CaretPositionForProcessing = caretPosition,
+						Formatting = { CaretPosition = caretPosition },
 					};
 
 				SetFormattingType(state);
@@ -66,7 +66,7 @@ namespace It3xl.FormattedInput.View.Controller
 
 				if (state.FormattingType == FormattingAfter.OneSymbolDeleted)
 				{
-					state.OneSymbolDeletionType = state.CaretPositionForProcessing < lastCaretPosition
+					state.OneSymbolDeletionType = state.Formatting.CaretPosition < lastCaretPosition
 						? DeletionDirection.BackspaceButton
 						: DeletionDirection.DeleteButton;
 
@@ -85,21 +85,22 @@ namespace It3xl.FormattedInput.View.Controller
 			private void SetFormattingType(ProcessingState state)
 			{
 				FormattingAfter formattingAfter;
-				if (String.IsNullOrEmpty(_textBeforeChanging))
+				if (_textBeforeChangingNotNull.IsNullOrEmpty()
+					&& state.UnformattedValue.IsNullOrEmpty())
 				{
-					formattingAfter = FormattingAfter.EmptyStartValue;
+					formattingAfter = FormattingAfter.EmptyValue;
 				}
-				else if (state.UnformattedValue == _textBeforeChanging)
+				else if (state.UnformattedValue == _textBeforeChangingNotNull)
 				{
 					formattingAfter = FormattingAfter.CorrectValueResetting;
 				}
-				else if (Math.Abs(state.UnformattedValue.Length - _textBeforeChanging.Length) != 1)
+				else if (Math.Abs(state.UnformattedValue.Length - _textBeforeChangingNotNull.Length) != 1)
 				{
 					formattingAfter = FormattingAfter.GroupPastingOrDeletion;
 				}
 				else
 				{
-					var subtraction = state.UnformattedValue.Length - _textBeforeChanging.Length;
+					var subtraction = state.UnformattedValue.Length - _textBeforeChangingNotNull.Length;
 					formattingAfter = 0 < subtraction
 						? FormattingAfter.OneSymbolAdded
 						: FormattingAfter.OneSymbolDeleted;
@@ -128,12 +129,12 @@ namespace It3xl.FormattedInput.View.Controller
 			/// <param name="state"></param>
 			private void SetPreviousStates(ProcessingState state)
 			{
-				if (_textBeforeChanging.IsNullOrEmpty())
+				if (_textBeforeChangingNotNull.IsNullOrEmpty())
 				{
 					return;
 				}
 
-				var number = _textBeforeChanging.Split(DecimalSeparator);
+				var number = _textBeforeChangingNotNull.Split(DecimalSeparator);
 
 				state.IntegerPrevious = number.First();
 
@@ -149,12 +150,12 @@ namespace It3xl.FormattedInput.View.Controller
 
 				for (var i = 0; i < state.UnformattedValue.Length; i++)
 				{
-					if (state.UnformattedValue[i] == _textBeforeChanging[i])
+					if (state.UnformattedValue[i] == _textBeforeChangingNotNull[i])
 					{
 						continue;
 					}
 
-					return _textBeforeChanging[i] == _groupSeparator;
+					return _textBeforeChangingNotNull[i] == _groupSeparator;
 				}
 
 				return false;

@@ -11,12 +11,12 @@
 		GroupPastingOrDeletion,
 
 		/// <summary>
-		/// It's the first formatting after a call from the <see cref="NumberToMoneyConverter.Convert"/> method.
+		/// Control has empty value now and earlier.
 		/// </summary>
-		EmptyStartValue,
+		EmptyValue,
 
 		/// <summary>
-		/// It's the formatting of focus. Also it rises just after <see cref="EmptyStartValue"/>,
+		/// It's the formatting of focus. Also it rises just after <see cref="EmptyValue"/>,
 		///  in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
 		/// </summary>
 		CorrectValueResetting,

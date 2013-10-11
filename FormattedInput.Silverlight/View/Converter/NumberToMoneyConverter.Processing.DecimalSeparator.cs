@@ -19,21 +19,21 @@ namespace It3xl.FormattedInput.View.Converter
 				return;
 			}
 
-			var separatorCount = state.FormattingValue.Count(el => el == DecimalSeparator);
+			var separatorCount = state.Formatting.Text.Count(el => el == DecimalSeparator);
 			if (separatorCount < 2)
 			{
 				return;
 			}
 
 			// Let's stay just the first decimal separator.
-			var index = state.FormattingValue.IndexOf(DecimalSeparator);
-			state.FormattingValue = state.FormattingValue
+			var index = state.Formatting.Text.IndexOf(DecimalSeparator);
+			state.Formatting.Text = state.Formatting.Text
 				.Replace(DecimalSeparatorChar, String.Empty)
 				.Insert(index, DecimalSeparatorChar);
 
-			if (index + 1 < state.CaretPositionForProcessing)
+			if (index + 1 < state.Formatting.CaretPosition)
 			{
-				state.CaretPositionForProcessing -= separatorCount - 1;
+				state.Formatting.CaretPosition -= separatorCount - 1;
 			}
 		}
 
@@ -49,13 +49,13 @@ namespace It3xl.FormattedInput.View.Converter
 				return;
 			}
 
-			var separatorCount = state.FormattingValue.Count(el => el == DecimalSeparator);
+			var separatorCount = state.Formatting.Text.Count(el => el == DecimalSeparator);
 			if (0 < separatorCount)
 			{
 				return;
 			}
 
-			state.FormattingValue += DecimalSeparator;
+			state.Formatting.Text += DecimalSeparator;
 		}
 
 		/// <summary>
@@ -77,17 +77,17 @@ namespace It3xl.FormattedInput.View.Converter
 
 			// Restoring of the Decimal Separator and carret promotion.
 			// The Decimal Separator delition means onle caret promotion.
-			var wasDeletedSeparator = state.FormattingValue.Contains(DecimalSeparator) == false;
+			var wasDeletedSeparator = state.Formatting.Text.Contains(DecimalSeparator) == false;
 			if (wasDeletedSeparator == false)
 			{
 				return;
 			}
 
-			state.FormattingValue = state.FormattingValue.Insert(state.CaretPositionForProcessing, DecimalSeparatorChar);
+			state.Formatting.Text = state.Formatting.Text.Insert(state.Formatting.CaretPosition, DecimalSeparatorChar);
 
 			if (state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
 			{
-				state.CaretPositionForProcessing++;
+				state.Formatting.CaretPosition++;
 			}
 		}
 
@@ -108,7 +108,7 @@ namespace It3xl.FormattedInput.View.Converter
 				return;
 			}
 
-			state.FormattingValue = state.FormattingValue
+			state.Formatting.Text = state.Formatting.Text
 				.Replace(DecimalSeparatorAlternative, DecimalSeparator);
 		}
 	}

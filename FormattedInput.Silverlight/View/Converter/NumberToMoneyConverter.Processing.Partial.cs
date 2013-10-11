@@ -20,48 +20,48 @@ namespace It3xl.FormattedInput.View.Converter
 			// After the decimal separator should be two digits for now (PartialBitness is not implemented).
 
 			var decimalSeparatorPosition =
-				state.IntegerFormatting.InvokeNotNull(el => el.Length)
+				state.Formatting.Integer.InvokeNotNull(el => el.Length)
 				+ DecimalSeparatorChar.Length;
 
-			if (state.PartialFormatting.Length == 0)
+			if (state.Formatting.Partial.Length == 0)
 			{
-				state.PartialFormatting = ZerosPartialString;
+				state.Formatting.Partial = ZerosPartialString;
 			}
-			else if (state.PartialFormatting.Length == 1)
+			else if (state.Formatting.Partial.Length == 1)
 			{
-				if (state.CaretPositionForProcessing == decimalSeparatorPosition
+				if (state.Formatting.CaretPosition == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.BackspaceButton)
 				{
-					state.PartialFormatting = ZeroString + state.PartialFormatting;
+					state.Formatting.Partial = ZeroString + state.Formatting.Partial;
 				}
-				else if (state.CaretPositionForProcessing == decimalSeparatorPosition
+				else if (state.Formatting.CaretPosition == decimalSeparatorPosition
 					&& state.OneSymbolDeletionType == DeletionDirection.DeleteButton)
 				{
 					if (state.PartialPrevious.StartsWith(ZeroString))
 					{
-						state.PartialFormatting = ZerosPartialString;
+						state.Formatting.Partial = ZerosPartialString;
 					}
 					else
 					{
-						state.PartialFormatting = ZeroString + state.PartialFormatting;
+						state.Formatting.Partial = ZeroString + state.Formatting.Partial;
 					}
 				}
 				else
 				{
-					state.PartialFormatting = state.PartialFormatting + ZeroString;
+					state.Formatting.Partial = state.Formatting.Partial + ZeroString;
 				}
 			}
-			else if (2 < state.PartialFormatting.Length)
+			else if (2 < state.Formatting.Partial.Length)
 			{
-				var needCutSecondPartialDigit = state.PartialFormatting.Length == 3
-					&& state.CaretPositionForProcessing == (decimalSeparatorPosition + 1);
+				var needCutSecondPartialDigit = state.Formatting.Partial.Length == 3
+					&& state.Formatting.CaretPosition == (decimalSeparatorPosition + 1);
 				if (needCutSecondPartialDigit)
 				{
-					state.PartialFormatting = state.PartialFormatting.Remove(1, 1);
+					state.Formatting.Partial = state.Formatting.Partial.Remove(1, 1);
 				}
 				else
 				{
-					state.PartialFormatting = state.PartialFormatting.Substring(0, 2);
+					state.Formatting.Partial = state.Formatting.Partial.Substring(0, 2);
 				}
 			}
 		}

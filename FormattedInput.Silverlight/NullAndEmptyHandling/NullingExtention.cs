@@ -13,5 +13,14 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 		{
 			return String.IsNullOrEmpty(val) == false;
 		}
+
+		public static Int32 LengthNullable(this String val)
+		{
+			if(val.IsNullOrEmpty())
+			{
+				return 0;
+			}
+			return val.Length;
+		}
 	}
 }

@@ -50,7 +50,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
-		/// Tests the correct work of the <see cref="NumberToMoneyConverter.TextBeforeChanging"/> on the start.
+		/// Tests the correct work of the <see cref="NumberToMoneyConverter.TextBeforeChangingNotNull"/> on the start.
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
@@ -70,7 +70,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 					Assert.IsTrue(
 						"|0.00".ToSpecificValue(out expectedCaretPosition)
-						== testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChanging
+						== testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChangingNotNull
 					);
 					Assert.IsTrue(expectedCaretPosition == testPage.DoubleNullableMoneyTexBox.SelectionStart);
 				});

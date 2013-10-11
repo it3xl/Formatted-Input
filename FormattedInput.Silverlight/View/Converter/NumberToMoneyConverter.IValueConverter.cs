@@ -53,7 +53,7 @@ namespace It3xl.FormattedInput.View.Converter
 			// !!! caretPositionDummy
 			// it has no sense to set the caret position here as a target MoneyTextBox may have a different value in many cases.
 			// If length of a current text will be shorter than a caret position, then the caret position will be ignored.
-			// And all things are ignored if a debugger not attached.
+			// And all things are ignored if a debugger not attached (Debugger.IsAttached == false).
 
 			//_moneyBox.ExecuteIfTargetNotNull(el => el.SelectionStart = caretPositionDummy);
 

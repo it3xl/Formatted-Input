@@ -18,11 +18,11 @@ namespace It3xl.FormattedInput.View.Converter
 			switch (state.OneSymbolDeletionType)
 			{
 				case DeletionDirection.BackspaceButton:
-					state.CaretPositionForProcessing--;
-					state.FormattingValue = state.FormattingValue.Remove(state.CaretPositionForProcessing, 1);
+					state.Formatting.CaretPosition--;
+					state.Formatting.Text = state.Formatting.Text.Remove(state.Formatting.CaretPosition, 1);
 					break;
 				case DeletionDirection.DeleteButton:
-					state.FormattingValue = state.FormattingValue.Remove(state.CaretPositionForProcessing, 1);
+					state.Formatting.Text = state.Formatting.Text.Remove(state.Formatting.CaretPosition, 1);
 					break;
 			}
 		}

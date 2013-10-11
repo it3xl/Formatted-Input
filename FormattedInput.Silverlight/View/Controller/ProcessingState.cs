@@ -1,6 +1,4 @@
-﻿// ReSharper disable ConvertToAutoProperty
-
-using System;
+﻿using System;
 using System.Linq;
 using It3xl.FormattedInput.NullAndEmptyHandling;
 using It3xl.FormattedInput.View.Converter;
@@ -12,6 +10,8 @@ namespace It3xl.FormattedInput.View.Controller
 	/// </summary>
 	internal sealed partial class ProcessingState
 	{
+		public readonly FormattingState Formatting = new FormattingState();
+
 		/// <summary>
 		/// The value before formatting.
 		/// </summary>
@@ -19,42 +19,12 @@ namespace It3xl.FormattedInput.View.Controller
 
 		private ProcessingState(String unformattedValue, Boolean jumpCaretToEndOfInteger)
 		{
-			FormattingValue = unformattedValue;
+			UnformattedValue = unformattedValue ?? String.Empty;
+			Formatting.Text = UnformattedValue;
 
-			UnformattedValue = unformattedValue;
 			JumpCaretToEndOfInteger = jumpCaretToEndOfInteger;
 		}
 
-		/// <summary>
-		/// The money representation.
-		/// </summary>
-		internal String FormattingValue { get; set; }
-
-		private int _caretPositionForProcessing;
-		/// <summary>
-		/// The position of the caret (cursor).
-		/// </summary>
-		internal Int32 CaretPositionForProcessing
-		{
-			get
-			{
-				return _caretPositionForProcessing;
-			}
-			set
-			{
-				_caretPositionForProcessing = value;
-			}
-		}
-
-		/// <summary>
-		/// The formatted integer part.
-		/// </summary>
-		internal string IntegerFormatting { get; set; }
-
-		/// <summary>
-		/// The formatted partial part.
-		/// </summary>
-		internal string PartialFormatting { get; set; }
 
 
 		/// <summary>
@@ -103,7 +73,7 @@ namespace It3xl.FormattedInput.View.Controller
 		{
 			get
 			{
-				return FormattingValue.Split(DecimalSeparator).First();
+				return Formatting.Text.Split(DecimalSeparator).First();
 			}
 		}
 
@@ -120,7 +90,7 @@ namespace It3xl.FormattedInput.View.Controller
 					return String.Empty;
 				}
 
-				return FormattingValue.Split(DecimalSeparator).Last();
+				return Formatting.Text.Split(DecimalSeparator).Last();
 			}
 		}
 
@@ -154,9 +124,17 @@ namespace It3xl.FormattedInput.View.Controller
 		/// <returns></returns>
 		internal Int32 GetIntegerEndPosition()
 		{
-			var result = PartialDisabled
-				? FormattingValue.InvokeNotNull(el => el.Length)
-				: FormattingValue.IndexOf(DecimalSeparator);
+			int result;
+			if (PartialDisabled)
+			{
+				result = Formatting.Text.InvokeNotNull(el => el.Length);
+			}
+			else
+			{
+				result = Formatting.Text.IsNullOrEmpty()
+					? 0
+					: Formatting.Text.IndexOf(DecimalSeparator);
+			}
 
 			return result;
 		}

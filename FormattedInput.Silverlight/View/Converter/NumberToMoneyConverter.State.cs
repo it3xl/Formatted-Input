@@ -207,10 +207,15 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 		}
 
+		private string _textBeforeChangingNotNull;
 		/// <summary>
 		/// The text that was before the formatting.
 		/// </summary>
-		public String TextBeforeChanging { get; private set; }
+		public String TextBeforeChangingNotNull
+		{
+			get { return _textBeforeChangingNotNull ?? String.Empty; }
+			private set { _textBeforeChangingNotNull = value ?? String.Empty; }
+		}
 
 		/// <summary>
 		/// The last caret position before the formatting.

@@ -19,7 +19,7 @@ namespace It3xl.FormattedInput.View.Converter
 				DecimalSeparator,
 				PartialDisabledCurrent,
 				GroupSeparator,
-				TextBeforeChanging
+				TextBeforeChangingNotNull
 				);
 
 			var jumpCaretToEndOfInteger = _jumpCaretToEndOfIntegerOnNextProcessing;
