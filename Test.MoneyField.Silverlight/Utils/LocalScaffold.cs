@@ -22,7 +22,7 @@ namespace It3xl.Test.MoneyField.Silverlight.Utils
 		/// </summary>
 		public void TestInitialize(Panel testPanel)
 		{
-			var testPage = new MainPage();
+			var testPage = new ScaffoldTestPage();
 
 			CurrentTestBox = testPage.DoubleNullableMoneyTexBox;
 

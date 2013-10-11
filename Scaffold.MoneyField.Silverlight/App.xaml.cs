@@ -17,7 +17,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			RootVisual = new MainPage();
+			RootVisual = new ManualTestPage();
 		}
 
 		private void Application_Exit(object sender, EventArgs e)

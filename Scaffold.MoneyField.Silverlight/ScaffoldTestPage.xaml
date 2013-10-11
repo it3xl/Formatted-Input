@@ -5,7 +5,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:View="clr-namespace:It3xl.FormattedInput.View;assembly=It3xl.FormattedInput"
 	xmlns:ViewModel="clr-namespace:It3xl.Scaffold.MoneyField.Silverlight.ViewModel"
-	x:Class="It3xl.Scaffold.MoneyField.Silverlight.MainPage"
+	x:Class="It3xl.Scaffold.MoneyField.Silverlight.ScaffoldTestPage"
 	
 	
 	mc:Ignorable="d"

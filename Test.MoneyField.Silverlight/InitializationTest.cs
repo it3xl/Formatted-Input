@@ -61,7 +61,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 				{
 					DoubleNullableMoney = 0
 				};
-			var testPage = new MainPage{DataContext = viewModel};
+			var testPage = new ScaffoldTestPage{DataContext = viewModel};
 			TestPanel.Children.Add(testPage);
 
 			EnqueueCallback(() =>

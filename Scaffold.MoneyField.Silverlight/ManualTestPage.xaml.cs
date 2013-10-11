@@ -9,7 +9,7 @@ using It3xl.Scaffold.MoneyField.Silverlight.ViewModel;
 
 namespace It3xl.Scaffold.MoneyField.Silverlight
 {
-	public partial class MainPage
+	public partial class ManualTestPage
 	{
 		public MoneyTextBox DoubleNullableMoneyTexBox { get; private set; }
 		public MoneyTextBox DoubleMoneyTexBox { get; private set; }
@@ -52,7 +52,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 		}
 
 
-		public MainPage()
+		public ManualTestPage()
 		{
 			NumberToMoneyConverter.ShowExeptionAction = ex => MessageBox.Show(ex.ToString());
 			NumberToMoneyConverter.WriteLogAction = AddLogItem;
