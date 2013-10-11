@@ -107,13 +107,13 @@ namespace It3xl.FormattedInput.View
 
 		private void LoadedHandler(object sender, RoutedEventArgs routedEventArgs)
 		{
-			CorrectBinding(Converter);
-
 			var textBox = this;
 			textBox.TextChanged += textBox_TextChanged;
 			textBox.SelectionChanged += textBox_SelectionChanged;
 			textBox.GotFocus += textBox_GotFocus;
 			textBox.LostFocus += textBox_LostFocus;
+
+			CorrectBinding(Converter);
 		}
 
 		/// <summary>
