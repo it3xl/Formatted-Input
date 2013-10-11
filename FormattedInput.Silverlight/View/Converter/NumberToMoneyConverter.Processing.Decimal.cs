@@ -40,7 +40,7 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			var invariant = ToInvariantSerialisation(customSerialisation);
-			WriteLogAction(() => String.Format("GetDecimal. return = {0}", invariant));
+			//WriteLogAction(() => String.Format("    GetDecimal. return = {0}", invariant));
 
 			Decimal decimalValue;
 			Decimal.TryParse(

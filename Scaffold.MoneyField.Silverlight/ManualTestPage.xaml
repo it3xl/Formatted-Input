@@ -24,104 +24,128 @@
 	
 
 	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="282"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
 
 		<StackPanel>
 
-			<Border BorderThickness="5" BorderBrush="LightSteelBlue" Background="Lavender" Margin="5" Padding="5">
+			<Border BorderThickness="2" BorderBrush="LightSteelBlue" Background="Lavender" Margin="2" Padding="2">
 				<StackPanel>
-					<TextBlock Text="Double" FontWeight="Bold"/>
-					
-					<Grid Margin="5"/>
-					
-					<TextBlock Text="TextBox + Nullable{Double}"/>
-					<TextBox Margin="5" Text="{Binding DoubleNullableMoney, Mode=TwoWay}"/>
 
-					<TextBlock Text="MoneyTextBox + Nullable{Double}"/>
-					<View:MoneyTextBox
-						Text="{Binding DoubleNullableMoney, ConverterParameter=DoubleNullableMoney}"
-				
-						DecimalSeparatorChar = ','
-						DecimalSeparatorAlternativeChar = '.'
-						GroupSeparatorChar = ' '
-				
-						x:Name="DoubleNullableMoney"
-						Margin="5"
-						BorderBrush="LightSteelBlue"
-						BorderThickness="5"
-					/>
-					
-					<Grid Margin="5"/>
-					
-					<TextBlock Text="TextBox + Double"/>
-					<TextBox Margin="5" Text="{Binding DoubleMoney, Mode=TwoWay}"/>
+					<!--<StackPanel Orientation="Horizontal">
+						<TextBlock Text="TextBox + Nullable{Double}"/>
+						<TextBox Margin="2" Text="{Binding DoubleNullableMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
+					</StackPanel>
 
-					<TextBlock Text="MoneyTextBox + Double"/>
-					<View:MoneyTextBox
-						Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="MoneyTextBox + Nullable{Double}"/>
+						<View:MoneyTextBox
+							Text="{Binding DoubleNullableMoney, ConverterParameter=DoubleNullableMoney}"
 				
-						DecimalSeparatorChar = ','
-						DecimalSeparatorAlternativeChar = '.'
-						GroupSeparatorChar = ' '
+							DecimalSeparatorChar = ','
+							DecimalSeparatorAlternativeChar = '.'
+							GroupSeparatorChar = ' '
+				
+							x:Name="DoubleNullableMoney"
+							Margin="2"
+							BorderBrush="LightSteelBlue"
+							BorderThickness="2"
+							MinWidth="400"
+						/>
+					</StackPanel>-->
+					
+					<Grid Margin="2"/>
+
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="TextBox + Double"/>
+						<TextBox Margin="2" Text="{Binding DoubleMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
+					</StackPanel>
+
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="MoneyTextBox + Double"/>
+						<View:MoneyTextBox
+							Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
+				
+							DecimalSeparatorChar = ','
+							DecimalSeparatorAlternativeChar = '.'
+							GroupSeparatorChar = ' '
 						
-						x:Name="DoubleMoney"
-						Margin="5"
-						BorderBrush="SteelBlue"
-						BorderThickness="5"
-					/>
+							x:Name="DoubleMoney"
+							Margin="2"
+							BorderBrush="SteelBlue"
+							BorderThickness="2"
+							MinWidth="400"
+						/>
+					</StackPanel>
+					
 				</StackPanel>
 			</Border>
 
 
-			<Border BorderThickness="5" BorderBrush="LightGreen" Background="LightYellow" Margin="5" Padding="5">
+			<!--<Border BorderThickness="2" BorderBrush="LightGreen" Background="LightYellow" Margin="2" Padding="2">
 				<StackPanel>
-					<TextBlock Text="Decimal" FontWeight="Bold"/>
 
-					<Grid Margin="5"/>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="TextBox + Nullable{Decimal}"/>
+						<TextBox Margin="2" Text="{Binding DecimalNullableMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
+					</StackPanel>
 
-					<TextBlock Text="TextBox + Nullable{Decimal}"/>
-					<TextBox Margin="5" Text="{Binding DecimalNullableMoney, Mode=TwoWay}"/>
-
-					<TextBlock Text="MoneyTextBox + Nullable{Decimal}"/>
-					<View:MoneyTextBox
-						Text="{Binding DecimalNullableMoney, ConverterParameter=DecimalNullableMoney}"
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="MoneyTextBox + Nullable{Decimal}"/>
+						<View:MoneyTextBox
+							Text="{Binding DecimalNullableMoney, ConverterParameter=DecimalNullableMoney}"
 				
-						DecimalSeparatorChar = ','
-						DecimalSeparatorAlternativeChar = '.'
-						GroupSeparatorChar = ' '
+							DecimalSeparatorChar = ','
+							DecimalSeparatorAlternativeChar = '.'
+							GroupSeparatorChar = ' '
 				
-						x:Name="DecimalNullableMoney"
-						Margin="5"
-						BorderBrush="LightSteelBlue"
-						BorderThickness="5"
-					/>
+							x:Name="DecimalNullableMoney"
+							Margin="2"
+							BorderBrush="LightSteelBlue"
+							BorderThickness="2"
+							MinWidth="400"
+						/>
+					</StackPanel>
 
-					<Grid Margin="5"/>
+					<Grid Margin="2"/>
 
-					<TextBlock Text="TextBox + Decimal"/>
-					<TextBox Margin="5" Text="{Binding DecimalMoney, Mode=TwoWay}"/>
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="TextBox + Decimal"/>
+						<TextBox Margin="2" Text="{Binding DecimalMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
+					</StackPanel>
 
-					<TextBlock Text="MoneyTextBox + Decimal"/>
-					<View:MoneyTextBox
-						Text="{Binding DecimalMoney, ConverterParameter=DecimalMoney}"
+					<StackPanel Orientation="Horizontal">
+						<TextBlock Text="MoneyTextBox + Decimal"/>
+						<View:MoneyTextBox
+							Text="{Binding DecimalMoney, ConverterParameter=DecimalMoney}"
 				
-						DecimalSeparatorChar = ','
-						DecimalSeparatorAlternativeChar = '.'
-						GroupSeparatorChar = ' '
+							DecimalSeparatorChar = ','
+							DecimalSeparatorAlternativeChar = '.'
+							GroupSeparatorChar = ' '
 				
-						x:Name="DecimalMoney"
-						Margin="5"
-						BorderBrush="SteelBlue"
-						BorderThickness="5"
-					/>
+							x:Name="DecimalMoney"
+							Margin="2"
+							BorderBrush="SteelBlue"
+							BorderThickness="2"
+							MinWidth="400"
+						/>
+					</StackPanel>
 				</StackPanel>
-			</Border>
+			</Border>-->
 			
-			<Button Margin="5" Content="Set Randov Value Button" Click="SetAmountRandomValueButton_Click" />
-			<Button Margin="5" Content="Clear Log Button" Click="ClearLog_Click" />
-
-			<ItemsControl Margin="5" x:Name="LogItemsControl"/>
+			<StackPanel Orientation="Horizontal">
+				<Button Margin="2" Content="Set Randov Value Button" Click="SetAmountRandomButton_Click" />
+				<Button Margin="2" Content="Set Default Value Button" Click="SetDefaultValueButton_Click" />
+				<Button Margin="2" Content="Clear Log Button" Click="ClearLog_Click" />
+			</StackPanel>
 			
 		</StackPanel>
+
+		<ScrollViewer Grid.Row="1">
+			<ItemsControl Margin="2" x:Name="LogItemsControl"/>
+		</ScrollViewer>
 		
 	</Grid>
 </UserControl>

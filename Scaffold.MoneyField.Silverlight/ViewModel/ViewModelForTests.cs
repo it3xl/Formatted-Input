@@ -1,4 +1,5 @@
 ﻿using System;
+using It3xl.FormattedInput.View.Converter;
 using Microsoft.Practices.Prism.ViewModel;
 
 namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
@@ -19,6 +20,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			{
 				_doubleNullableMoney = value;
 
+				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DoubleNullableMoney = {0}", value));
 				RaisePropertyChanged(() => DoubleNullableMoney);
 			}
 		}
@@ -34,6 +36,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			{
 				_doubleMoney = value;
 
+				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DoubleMoney = {0}", value));
 				RaisePropertyChanged(() => DoubleMoney);
 			}
 		}
@@ -50,6 +53,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			{
 				_decimalNullableMoney = value;
 
+				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DecimalNullableMoney = {0}", value));
 				RaisePropertyChanged(() => DecimalNullableMoney);
 			}
 		}
@@ -65,6 +69,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight.ViewModel
 			{
 				_decimalMoney = value;
 
+				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DecimalMoney = {0}", value));
 				RaisePropertyChanged(() => DecimalMoney);
 			}
 		}

@@ -24,8 +24,47 @@ namespace It3xl.FormattedInput.View.Converter
 		private Double? _lastViewDouble;
 		private Decimal? _lastViewDecimal;
 
-		private Boolean _viewModelValueChanged;
-		private Boolean _jumpCaretToEndOfIntegerOnNextProcessing;
+		private Boolean ViewModelValueChanged
+		{
+			get { return _viewModelValueChanged; }
+			set
+			{
+				if (value != _viewModelValueChanged)
+				{
+					if(value)
+					{
+						WriteLogAction(() => "  >> ViewModelValueChanged = true");
+					}
+					else
+					{
+						WriteLogAction(() => "  << ViewModelValueChanged = false");
+					}
+				}
+
+				_viewModelValueChanged = value;
+			}
+		}
+
+		private Boolean JumpCaretToEndOfIntegerOnNextProcessing
+		{
+			get { return _jumpCaretToEndOfIntegerOnNextProcessing; }
+			set
+			{
+				if (value != _jumpCaretToEndOfIntegerOnNextProcessing)
+				{
+					if(value)
+					{
+						WriteLogAction(() => "  >>>> JumpCaretToEndOfIntegerOnNextProcessing = true");
+					}
+					else
+					{
+						WriteLogAction(() => "  <<<< JumpCaretToEndOfIntegerOnNextProcessing = false");
+					}
+				}
+
+				_jumpCaretToEndOfIntegerOnNextProcessing = value;
+			}
+		}
 
 		private WeakClosure<MoneyTextBox> _moneyBox;
 
@@ -208,6 +247,9 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		private string _textBeforeChangingNotNull;
+		private bool _jumpCaretToEndOfIntegerOnNextProcessing;
+		private bool _viewModelValueChanged;
+
 		/// <summary>
 		/// The text that was before the formatting.
 		/// </summary>

@@ -88,7 +88,12 @@ namespace It3xl.FormattedInput.View.Controller
 				if (_textBeforeChangingNotNull.IsNullOrEmpty()
 					&& state.UnformattedValue.IsNullOrEmpty())
 				{
-					formattingAfter = FormattingAfter.EmptyValue;
+					formattingAfter = FormattingAfter.EmptyValueBeforeAndNow;
+				}
+				else if (_textBeforeChangingNotNull.IsNotNullOrEmpty()
+					&& state.UnformattedValue.IsNullOrEmpty())
+				{
+					formattingAfter = FormattingAfter.EmptyValueBecome;
 				}
 				else if (state.UnformattedValue == _textBeforeChangingNotNull)
 				{
@@ -107,6 +112,8 @@ namespace It3xl.FormattedInput.View.Controller
 				}
 
 				state.FormattingType = formattingAfter;
+
+				NumberToMoneyConverter.WriteLogAction(() => String.Format("  !! FormattingType = {0}", formattingAfter));
 			}
 
 			/// <summary>

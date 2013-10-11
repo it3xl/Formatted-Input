@@ -22,7 +22,7 @@ namespace It3xl.FormattedInput.View.Converter
 				TextBeforeChangingNotNull
 				);
 
-			var jumpCaretToEndOfInteger = _jumpCaretToEndOfIntegerOnNextProcessing;
+			var jumpCaretToEndOfInteger = JumpCaretToEndOfIntegerOnNextProcessing;
 
 			var state = controller.GetProcessingStates(
 				lastCaretPosition,
@@ -33,11 +33,11 @@ namespace It3xl.FormattedInput.View.Converter
 				);
 
 			// It's a crappy trick but I should play by rules for now (because i tired).
-			_jumpCaretToEndOfIntegerOnNextProcessing = false;
-			if (_viewModelValueChanged)
+			JumpCaretToEndOfIntegerOnNextProcessing = false;
+			if (ViewModelValueChanged)
 			{
-				_viewModelValueChanged = false;
-				_jumpCaretToEndOfIntegerOnNextProcessing = true;
+				ViewModelValueChanged = false;
+				JumpCaretToEndOfIntegerOnNextProcessing = true;
 			}
 
 			return state;

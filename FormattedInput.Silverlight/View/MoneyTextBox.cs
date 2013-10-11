@@ -97,6 +97,7 @@ namespace It3xl.FormattedInput.View
 
 
 
+
 		public MoneyTextBox()
 		{
 			Converter = new NumberToMoneyConverter(this);
@@ -210,16 +211,18 @@ namespace It3xl.FormattedInput.View
 			var selectionStart = textBox.SelectionStart;
 			var unformattedValue = textBox.Text ?? String.Empty;
 
-			String formattedValue;
-			Converter.Process(unformattedValue, out formattedValue, ref selectionStart);
+			String formattedText;
+			Converter.Process(unformattedValue, out formattedText, ref selectionStart);
 
-			textFormatted = unformattedValue != formattedValue;
+			textFormatted = unformattedValue != formattedText;
 			if (textFormatted)
 			{
+				NumberToMoneyConverter.WriteLogAction(() => String.Format(" = Text = {0}", formattedText));
 				// It starts the recursion.
-				textBox.Text = formattedValue;
+				textBox.Text = formattedText;
 			}
 
+			NumberToMoneyConverter.WriteLogAction(() => String.Format(" = SelectionStart = {0}", selectionStart));
 			textBox.SelectionStart = selectionStart;
 		}
 

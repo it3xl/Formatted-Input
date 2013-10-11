@@ -42,25 +42,25 @@ namespace It3xl.FormattedInput.View.Converter
 		/// The entry pont of the formatting and the caret management.
 		/// </summary>
 		/// <param name="unformattedValue"></param>
-		/// <param name="resultingFormattedValue"></param>
+		/// <param name="text"></param>
 		/// <param name="caretPosition"></param>
 		public void Process(
 			String unformattedValue,
-			out String resultingFormattedValue,
+			out String text,
 			ref Int32 caretPosition)
 		{
 			WriteLogAction(() => " ->  Process");
 
 			var lastCaretPosition = CaretPositionBeforeTextChanging;
 
-			resultingFormattedValue = unformattedValue??String.Empty;
+			text = unformattedValue??String.Empty;
 
 			try
 			{
 				var state = PrepareStates(unformattedValue, caretPosition, lastCaretPosition);
 				FormatAndManageCaret(state);
 
-				resultingFormattedValue = state.Formatting.Text;
+				text = state.Formatting.Text;
 
 				caretPosition = state.Formatting.CaretPosition;
 			}
@@ -69,12 +69,12 @@ namespace It3xl.FormattedInput.View.Converter
 				ShowExeptionAction.InvokeNotNull(action => action(ex));
 
 				// Let's set default states, since we screwed up.
-				resultingFormattedValue = String.Empty;
+				text = String.Empty;
 				caretPosition = 0;
 			}
 			finally
 			{
-				TextBeforeChangingNotNull = resultingFormattedValue;
+				TextBeforeChangingNotNull = text;
 				CaretPositionBeforeTextChanging = caretPosition;
 			}
 		}
@@ -85,7 +85,11 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void FormatAndManageCaret(ProcessingState state)
 		{
-			if (state.FormattingType == FormattingAfter.EmptyValue)
+			if (state.FormattingType == FormattingAfter.EmptyValueBeforeAndNow)
+			{
+				return;
+			}
+			if (state.FormattingType == FormattingAfter.EmptyValueBecome)
 			{
 				return;
 			}

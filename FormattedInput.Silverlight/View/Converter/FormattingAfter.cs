@@ -13,10 +13,15 @@
 		/// <summary>
 		/// Control has empty value now and earlier.
 		/// </summary>
-		EmptyValue,
+		EmptyValueBeforeAndNow,
 
 		/// <summary>
-		/// It's the formatting of focus. Also it rises just after <see cref="EmptyValue"/>,
+		/// Control was not empty but now become.
+		/// </summary>
+		EmptyValueBecome,
+
+		/// <summary>
+		/// It's the formatting of focus. Also it rises just after <see cref="EmptyValueBeforeAndNow"/>,
 		///  in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
 		/// </summary>
 		CorrectValueResetting,

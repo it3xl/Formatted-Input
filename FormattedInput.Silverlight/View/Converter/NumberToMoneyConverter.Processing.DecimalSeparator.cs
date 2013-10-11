@@ -98,11 +98,14 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="state"></param>
 		private void DecimalSeparatorAlternatingReplacing(ProcessingState state)
 		{
+			if (state.Formatting.Text.IsNullOrEmpty())
+			{
+				return;
+			}
 			if (DecimalSeparatorAlternative.IsDefault())
 			{
 				return;
 			}
-
 			if (DecimalSeparatorAlternative == DecimalSeparator)
 			{
 				return;

@@ -51,9 +51,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 		[Tag("SetCaretBeforeGroupSeparatorAsync")]
 		public void SetCaretBeforeGroupSeparatorAsync()
 		{
-			//STUB.it3xl.com: restor the test.
-			EnqueueTestComplete();
-			return;
+			////STUB.it3xl.com: restor the test.
+			//EnqueueTestComplete();
+			//return;
 
 
 
@@ -62,6 +62,9 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3;
 
 			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
+			EnqueueDelay(TimeSpan.FromSeconds(5));
+
+			//EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3);
 			EnqueueCallback(() =>
 			{
 				Int32 expectedCaretPosition;

@@ -22,10 +22,10 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 		/// <summary>
-		/// Nullable{Double} Behaviors.
+		/// Nullable{Double} Behaviors. The start value is empty.
 		/// </summary>
 		[TestMethod]
-		public void NullableDoubleBehaviors()
+		public void NullableDoubleFromEmptyBehaviors()
 		{
 			Int32 beforeInputCaretPosition;
 			Int32 inputCaretPositionRef;
@@ -67,6 +67,58 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 			Assert.IsTrue(formatteValueOut == "0.31|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// Nullable{Double} Behaviors. The start value is not empty.
+		/// </summary>
+		[TestMethod]
+		[Tag("NullableDoubleToEmptyBehaviors")]
+		public void NullableDoubleToEmptyBehaviors()
+		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			var beforeInput = "1 234|.98".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "|".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// Double Behaviors. The start value is not empty.
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("DoubleToEmptyBehaviorsAsync")]
+		public void DoubleToEmptyBehaviorsAsync()
+		{
+			Int32 beforeInputCaretPosition;
+			_scaffold.DoubleMoneyTexBox.Text = "1234.98|".ToSpecificValue(out beforeInputCaretPosition);
+			_scaffold.DoubleMoneyTexBox.SelectionStart = beforeInputCaretPosition;
+
+			Int32 expectedCaretPosition;
+
+			EnqueueCallback(() =>
+			{
+				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "1 234.98|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
+
+				_scaffold.ViewModel.DoubleMoney = 0;
+			});
+
+			//this.PrepareFocusFromDebugger(controlForFocus: _scaffold.DoubleMoneyTexBox);
+
+			EnqueueCallback(() =>
+			{
+				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
+			});
+
+			EnqueueTestComplete();
 		}
 
 		/// <summary>

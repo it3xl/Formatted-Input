@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,10 +41,12 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 				&& (TimeSpan.FromMilliseconds(100) < span))
 			{
 				LogItems.Insert(0, "_");
+				Debug.WriteLine("_");
 			}
 			_lastLogTime = DateTime.Now;
 
 			LogItems.Insert(0, logMessage);
+			Debug.WriteLine(logMessage);
 		}
 
 
@@ -59,7 +62,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			_logItemsControl = LogItemsControl;
 		}
 
-		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
+		private void SetAmountRandomButton_Click(object sender, RoutedEventArgs e)
 		{
 			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
 
@@ -68,6 +71,14 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			TestingViewModel.DecimalNullableMoney = (Decimal)randomDouble;
 			TestingViewModel.DecimalMoney = (Decimal)randomDouble;
 
+		}
+
+		private void SetDefaultValueButton_Click(object sender, RoutedEventArgs e)
+		{
+			TestingViewModel.DoubleNullableMoney = null;
+			TestingViewModel.DoubleMoney = 0;
+			TestingViewModel.DecimalNullableMoney = null;
+			TestingViewModel.DecimalMoney = 0;
 		}
 
 		private void ClearLog_Click(object sender, RoutedEventArgs e)

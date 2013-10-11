@@ -54,7 +54,6 @@ namespace It3xl.FormattedInput.View.Converter
 			// it has no sense to set the caret position here as a target MoneyTextBox may have a different value in many cases.
 			// If length of a current text will be shorter than a caret position, then the caret position will be ignored.
 			// And all things are ignored if a debugger not attached (Debugger.IsAttached == false).
-
 			//_moneyBox.ExecuteIfTargetNotNull(el => el.SelectionStart = caretPositionDummy);
 
 			WriteLogAction(() => String.Format("formattedValue = {0}. unformattedValue = {1}", formatteValue, unformattedValue));
@@ -112,12 +111,12 @@ namespace It3xl.FormattedInput.View.Converter
 
 		private void SetViewModelValueChanged(Double? viewModelDouble)
 		{
-			_viewModelValueChanged = _lastViewDouble != viewModelDouble;
+			ViewModelValueChanged = _lastViewDouble != viewModelDouble;
 		}
 
 		private void SetViewModelValueChanged(Decimal? viewModelDecimal)
 		{
-			_viewModelValueChanged = _lastViewDecimal != viewModelDecimal;
+			ViewModelValueChanged = _lastViewDecimal != viewModelDecimal;
 		}
 
 		private void SetLastViewModelValue(Double? viewDouble, Decimal? viewDecimal)
