@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,65 +26,35 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 		}
 
 
-		private static ItemsControl _logItemsControl;
-		private static ObservableCollection<String> LogItems
-		{
-			get
-			{
-				return _logItemsControl.ItemsSource as ObservableCollection<String>;
-			}
-		}
-
 		private static DateTime _lastLogTime = DateTime.Now;
 
-		private static void AddLogItem(Func<String> logMessageAction)
+		private static void WriteToVisualStudioOutput(Func<String> logMessageAction)
 		{
-			String logMessage = logMessageAction();
+			var logMessage = logMessageAction();
 
 			var span = DateTime.Now - _lastLogTime;
-			if (LogItems.Any()
-				&& (TimeSpan.FromMilliseconds(100) < span))
+			if (TimeSpan.FromMilliseconds(100) < span)
 			{
-				LogItems.Insert(0, "_");
+				Debug.WriteLine("__");
 			}
 			_lastLogTime = DateTime.Now;
 
-			LogItems.Insert(0, logMessage);
+			Debug.WriteLine(logMessage);
 		}
 
 
 		public ScaffoldTestPage()
 		{
 			NumberToMoneyConverter.ShowExeptionAction = ex => MessageBox.Show(ex.ToString());
-			NumberToMoneyConverter.WriteLogAction = AddLogItem;
+			NumberToMoneyConverter.WriteLogAction = WriteToVisualStudioOutput;
 
 			InitializeComponent();
-
-			// Init the View of the logging.
-			LogItemsControl.ItemsSource = new ObservableCollection<String>();
-			_logItemsControl = LogItemsControl;
 
 			DoubleNullableMoneyTexBox = DoubleNullableMoney;
 			DoubleMoneyTexBox = DoubleMoney;
 
 			DecimalNullableMoneyTexBox = DecimalNullableMoney;
 			DecimalMoneyTexBox = DecimalMoney;
-		}
-
-		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
-		{
-			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
-
-			TestingViewModel.DoubleNullableMoney = randomDouble;
-			TestingViewModel.DoubleMoney = randomDouble;
-			TestingViewModel.DecimalNullableMoney = (Decimal)randomDouble;
-			TestingViewModel.DecimalMoney = (Decimal)randomDouble;
-
-		}
-
-		private void ClearLog_Click(object sender, RoutedEventArgs e)
-		{
-			LogItems.Clear();
 		}
 	}
 }

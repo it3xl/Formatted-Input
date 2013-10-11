@@ -26,6 +26,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
+		[Tag("SeparatorAddedFirstOnlyAsync")]
 		public void SeparatorAddedFirstOnlyAsync()
 		{
 			_scaffold.DoubleNullableMoneyTexBox.Focus();

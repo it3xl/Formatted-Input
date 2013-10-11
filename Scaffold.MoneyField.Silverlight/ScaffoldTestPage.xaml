@@ -116,11 +116,6 @@
 				</StackPanel>
 			</Border>
 			
-			<Button Margin="5" Content="Set Randov Value Button" Click="SetAmountRandomValueButton_Click" />
-			<Button Margin="5" Content="Clear Log Button" Click="ClearLog_Click" />
-
-			<ItemsControl Margin="5" x:Name="LogItemsControl"/>
-			
 		</StackPanel>
 		
 	</Grid>

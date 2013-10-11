@@ -11,11 +11,6 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 {
 	public partial class ManualTestPage
 	{
-		public MoneyTextBox DoubleNullableMoneyTexBox { get; private set; }
-		public MoneyTextBox DoubleMoneyTexBox { get; private set; }
-		public MoneyTextBox DecimalNullableMoneyTexBox { get; private set; }
-		public MoneyTextBox DecimalMoneyTexBox { get; private set; }
-
 		public ViewModelForTests TestingViewModel
 		{
 			get
@@ -38,7 +33,7 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 
 		private static void AddLogItem(Func<String> logMessageAction)
 		{
-			String logMessage = logMessageAction();
+			var logMessage = logMessageAction();
 
 			var span = DateTime.Now - _lastLogTime;
 			if (LogItems.Any()
@@ -62,12 +57,6 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 			// Init the View of the logging.
 			LogItemsControl.ItemsSource = new ObservableCollection<String>();
 			_logItemsControl = LogItemsControl;
-
-			DoubleNullableMoneyTexBox = DoubleNullableMoney;
-			DoubleMoneyTexBox = DoubleMoney;
-
-			DecimalNullableMoneyTexBox = DecimalNullableMoney;
-			DecimalMoneyTexBox = DecimalMoney;
 		}
 
 		private void SetAmountRandomValueButton_Click(object sender, RoutedEventArgs e)
