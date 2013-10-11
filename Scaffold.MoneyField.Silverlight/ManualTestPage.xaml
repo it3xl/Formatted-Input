@@ -34,7 +34,7 @@
 			<Border BorderThickness="2" BorderBrush="LightSteelBlue" Background="Lavender" Margin="2" Padding="2">
 				<StackPanel>
 
-					<!--<StackPanel Orientation="Horizontal">
+					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="TextBox + Nullable{Double}"/>
 						<TextBox Margin="2" Text="{Binding DoubleNullableMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
 					</StackPanel>
@@ -54,11 +54,11 @@
 							BorderThickness="2"
 							MinWidth="400"
 						/>
-					</StackPanel>-->
+					</StackPanel>
 					
 					<Grid Margin="2"/>
 
-					<StackPanel Orientation="Horizontal">
+					<!--<StackPanel Orientation="Horizontal">
 						<TextBlock Text="TextBox + Double"/>
 						<TextBox Margin="2" Text="{Binding DoubleMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
 					</StackPanel>
@@ -78,7 +78,7 @@
 							BorderThickness="2"
 							MinWidth="400"
 						/>
-					</StackPanel>
+					</StackPanel>-->
 					
 				</StackPanel>
 			</Border>

@@ -104,9 +104,11 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			EnqueueCallback(() =>
 			{
+				// It imitates a input by a user and caret shouldn't jump to the integer end from the partial end.
 				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "1 234.98|".ToSpecificValue(out expectedCaretPosition));
 				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
 
+				// It's the value which came from the ViewModel.
 				_scaffold.ViewModel.DoubleMoney = 0;
 			});
 
@@ -114,7 +116,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			EnqueueCallback(() =>
 			{
-				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "|".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
 				Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
 			});
 
@@ -131,7 +133,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		{
 			Int32 expectedCaretPosition;
 
-			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "|0.00".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
 
 			this.PrepareFocusFromDebugger(_scaffold.DoubleMoneyTexBox);

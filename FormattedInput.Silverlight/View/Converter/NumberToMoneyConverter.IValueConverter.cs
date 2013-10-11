@@ -16,7 +16,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			WriteLogAction(() => "* Convert (-> Process' caret will be ignored)");
+			WriteLogAction(() => String.Format("* Convert/{0} (-> Process' caret will be ignored)", parameter));
 
 			var doubleNullableValue = value as Double?;
 			var decimalNullableValue = value as Decimal?;
@@ -72,38 +72,64 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <returns></returns>
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			WriteLogAction(() => "* ConvertBack");
+			WriteLogAction(() => String.Format("* ConvertBack/{0}", parameter));
+
+			Object convertBack = GetTypeDefaultValue(targetType);
 
 			var stringValue = value as String;
 			if (String.IsNullOrEmpty(stringValue))
 			{
 				WriteLogAction(() => String.Format("return {0}", "null"));
 
-				// Only a string is available.
-				return null;
+				return convertBack;
 			}
 
-			if(targetType == _typeDouble 
-				|| targetType == _typeDoubleNullabe)
+			if (GetConvertedValue(targetType, stringValue, ref convertBack))
 			{
-				var doubleValue = GetDouble(stringValue);
-
-				SetLastViewModelValue(doubleValue, null);
-
-				return doubleValue;
-			}
-
-			if(targetType == _typeDecimal 
-				|| targetType == _typeDecimalNullabe)
-			{
-				var decimalValue = GetDecimal(stringValue);
-
-				SetLastViewModelValue(null, decimalValue);
-
-				return decimalValue;
+				return convertBack;
 			}
 
 			SetLastViewModelValue(null, null);
+
+			return convertBack;
+		}
+
+		private bool GetConvertedValue(Type targetType, string stringValue, ref object convertBack)
+		{
+			if (targetType == _typeDouble
+			    || targetType == _typeDoubleNullabe)
+			{
+				var doubleValue = GetDouble(stringValue);
+				SetLastViewModelValue(doubleValue, null);
+				convertBack = doubleValue;
+
+				return true;
+			}
+
+			if (targetType == _typeDecimal
+			    || targetType == _typeDecimalNullabe)
+			{
+				var decimalValue = GetDecimal(stringValue);
+				SetLastViewModelValue(null, decimalValue);
+				convertBack = decimalValue;
+
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Gets a default value of a type.
+		/// </summary>
+		/// <param name="targetType"></param>
+		/// <returns></returns>
+		private Object GetTypeDefaultValue(Type targetType)
+		{
+			if(targetType == _typeDouble || targetType == _typeDecimal)
+			{
+				return 0;
+			}
 
 			return null;
 		}

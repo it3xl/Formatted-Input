@@ -1,4 +1,5 @@
-﻿using It3xl.Test.MoneyField.Silverlight.Utils;
+﻿using It3xl.FormattedInput.View.Converter;
+using It3xl.Test.MoneyField.Silverlight.Utils;
 using System;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,36 +45,22 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
-		/// Tests seting from a ViewModel for the PartialDisabled = true;
+		/// Cared set before the Group Separator should stay in that position.
 		/// </summary>
 		[TestMethod]
-		[Asynchronous]
-		[Tag("SetCaretBeforeGroupSeparatorAsync")]
-		public void SetCaretBeforeGroupSeparatorAsync()
+		[Tag("SetCaretBeforeGroupSeparator")]
+		public void SetCaretBeforeGroupSeparator()
 		{
-			////STUB.it3xl.com: restor the test.
-			//EnqueueTestComplete();
-			//return;
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
 
-
-
-
-			_scaffold.ViewModel.DoubleNullableMoney = 123456.74;
-			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3;
-
-			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
-			EnqueueDelay(TimeSpan.FromSeconds(5));
-
-			//EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3);
-			EnqueueCallback(() =>
-			{
-				Int32 expectedCaretPosition;
-
-				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "123| 456.74".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
-			});
-
-			EnqueueTestComplete();
+			var beforeInput = "123| 456.74".ToSpecificValue(out beforeInputCaretPosition);
+			var input = "123| 456.74".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "123| 456.74".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 	
 	}

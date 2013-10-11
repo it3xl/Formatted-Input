@@ -54,8 +54,8 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
-		[Tag("TextBeforeChangingInitedOnStartAsync")]
-		public void TextBeforeChangingInitedOnStartAsync()
+		[Tag("ValueInitedBeforeStartAsync")]
+		public void ValueInitedBeforeStartAsync()
 		{
 			var viewModel = new ViewModelForTests
 				{
@@ -69,7 +69,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 					Int32 expectedCaretPosition;
 
 					Assert.IsTrue(
-						"|0.00".ToSpecificValue(out expectedCaretPosition)
+						"0|.00".ToSpecificValue(out expectedCaretPosition)
 						== testPage.DoubleNullableMoneyTexBox.Converter.TextBeforeChangingNotNull
 					);
 					Assert.IsTrue(expectedCaretPosition == testPage.DoubleNullableMoneyTexBox.SelectionStart);
