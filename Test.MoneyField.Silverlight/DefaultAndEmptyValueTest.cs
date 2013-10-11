@@ -82,7 +82,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "|0.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
 
-			_scaffold.DoubleMoneyTexBox.Focus();
+			this.PrepareFocusFromDebugger(_scaffold.DoubleMoneyTexBox);
 
 			EnqueueCallback(() =>
 				{

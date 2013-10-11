@@ -29,7 +29,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Text = "12 334.52|".ToSpecificValue(out beforeInputCaretPosition);
 			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = beforeInputCaretPosition;
 
-			_scaffold.DoubleNullableMoneyTexBox.Focus();
+			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
 
 			EnqueueCallback(() =>
 			{
@@ -61,9 +61,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.ViewModel.DoubleNullableMoney = 123456.74;
 			_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 3;
 
-			EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
-			// !!! Inportant! Don't set a breakpoint between a focus' setting and a block with a first Assert!
-			// Cause: the focus on that brekpoint in the Visual Studio leads to a loss of the focus at a testing element in a browser.
+			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
 			EnqueueCallback(() =>
 			{
 				Int32 expectedCaretPosition;

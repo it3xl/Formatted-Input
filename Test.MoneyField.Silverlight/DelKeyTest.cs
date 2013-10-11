@@ -267,33 +267,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
-		// TODO.it3xl.com: Delete comment.
-		///// <summary>
-		///// 
-		///// </summary>
-		//[TestMethod]
-		//[Asynchronous]
-		//[Tag("BlockSelfJumpToIntegerEndAsync")]
-		//public void BlockSelfJumpToIntegerEndAsync()
-		//{
-		//	_scaffold.ViewModel.DoubleNullableMoney = 1846.72;
-		//	_scaffold.DoubleNullableMoneyTexBox.SelectionStart = 0;
-
-		//	EnqueueCallback(() => _scaffold.DoubleNullableMoneyTexBox.Focus());
-		//	EnqueueCallback(() => _scaffold.DoubleMoneyTexBox.Focus());
-		//	// !!! Inportant! Don't set a breakpoint between a focus' setting and a block with a first Assert!
-		//	// Cause: the focus on that brekpoint in the Visual Studio leads to a loss of the focus at a testing element in a browser.
-		//	EnqueueCallback(() =>
-		//	{
-		//		Int32 expectedCaretPosition;
-
-		//		Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "|1 846.72".ToSpecificValue(out expectedCaretPosition));
-		//		Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
-		//	});
-
-		//	EnqueueTestComplete();
-		//}
-
 
 	}
 }
