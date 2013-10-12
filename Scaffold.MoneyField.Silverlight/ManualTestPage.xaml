@@ -58,7 +58,7 @@
 					
 					<Grid Margin="2"/>
 
-					<!--<StackPanel Orientation="Horizontal">
+					<StackPanel Orientation="Horizontal">
 						<TextBlock Text="TextBox + Double"/>
 						<TextBox Margin="2" Text="{Binding DoubleMoney, Mode=TwoWay}" Background="WhiteSmoke" BorderThickness="0" MinWidth="400"/>
 					</StackPanel>
@@ -78,7 +78,7 @@
 							BorderThickness="2"
 							MinWidth="400"
 						/>
-					</StackPanel>-->
+					</StackPanel>
 					
 				</StackPanel>
 			</Border>

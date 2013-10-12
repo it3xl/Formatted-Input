@@ -124,43 +124,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
-		/// Double Behaviors.
-		/// </summary>
-		[TestMethod]
-		[Asynchronous]
-		[Tag("DoubleBehaviorsAsync")]
-		public void DoubleBehaviorsAsync()
-		{
-			Int32 expectedCaretPosition;
-
-			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
-
-			this.PrepareFocusFromDebugger(_scaffold.DoubleMoneyTexBox);
-
-			EnqueueCallback(() =>
-				{
-					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
-					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
-				});
-
-			EnqueueCallback(() =>
-				{
-					Int32 beforeInputCaretPosition;
-					_scaffold.DoubleMoneyTexBox.Text = "|".ToSpecificValue(out beforeInputCaretPosition);
-					_scaffold.DoubleMoneyTexBox.SelectionStart = beforeInputCaretPosition;
-				});
-
-			EnqueueCallback(() =>
-				{
-					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.Text == "0|.00".ToSpecificValue(out expectedCaretPosition));
-					Assert.IsTrue(_scaffold.DoubleMoneyTexBox.SelectionStart == expectedCaretPosition);
-				});
-
-			EnqueueTestComplete();
-		}
-
-		/// <summary>
 		/// Nullable Double Empty Behavior.
 		/// </summary>
 		[TestMethod]
