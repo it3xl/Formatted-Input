@@ -85,6 +85,10 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			state.Formatting.CaretPosition -= separarotAmountAfterCaret;
+			if (state.PreservePositionForGroupSeparator)
+			{
+				state.Formatting.CaretPosition--;
+			}
 		}
 	}
 }

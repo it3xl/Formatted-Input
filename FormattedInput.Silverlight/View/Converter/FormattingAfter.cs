@@ -24,7 +24,7 @@
 		/// It's the formatting of focus. Also it rises just after <see cref="EmptyValueBeforeAndNow"/>,
 		///  in the <see cref="NumberToMoneyConverter.ConvertBack"/> method.
 		/// </summary>
-		CorrectValueResetting,
+		ResettingTheSame,
 
 		/// <summary>
 		/// The input or pasting of a one sybmol.

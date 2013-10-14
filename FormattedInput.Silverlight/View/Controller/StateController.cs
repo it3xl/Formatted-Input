@@ -39,7 +39,7 @@ namespace It3xl.FormattedInput.View.Controller
 			/// <summary>
 			/// Initializes states for formatting.
 			/// </summary>
-			/// <param name="lastCaretPosition"></param>
+			/// <param name="lastCaretPosition">The last caret position before the formatting.</param>
 			/// <param name="focusState">The critical state of the TextBox's focus.</param>
 			/// <param name="caretPosition"></param>
 			/// <param name="unformattedValue"></param>
@@ -74,6 +74,8 @@ namespace It3xl.FormattedInput.View.Controller
 
 				state.GroupSeparatorDeleted = GetStateGroupSeparatorDeleted(state);
 
+				SetPreservePositionForGroupSeparator(state);
+
 				return state;
 			}
 
@@ -97,7 +99,7 @@ namespace It3xl.FormattedInput.View.Controller
 				}
 				else if (state.UnformattedValue == _textBeforeChangingNotNull)
 				{
-					formattingAfter = FormattingAfter.CorrectValueResetting;
+					formattingAfter = FormattingAfter.ResettingTheSame;
 				}
 				else if (Math.Abs(state.UnformattedValue.Length - _textBeforeChangingNotNull.Length) != 1)
 				{
@@ -167,6 +169,33 @@ namespace It3xl.FormattedInput.View.Controller
 
 				return false;
 			}
+
+			/// <summary>
+			/// <see cref="PreservePositionForGroupSeparator"/>.
+			/// </summary>
+			/// <param name="state"></param>
+			private void SetPreservePositionForGroupSeparator(ProcessingState state)
+			{
+				if (state.FormattingType != FormattingAfter.ResettingTheSame)
+				{
+					return;
+				}
+				if (_groupSeparator == Char.MinValue)
+				{
+					// The Group Separator don't set.
+					return;
+				}
+
+				var charAfterCaret = state.UnformattedValue.ElementAtOrDefault(state.Formatting.CaretPosition);
+				var notGroupSeparator = charAfterCaret != _groupSeparator;
+				if (notGroupSeparator)
+				{
+					return;
+				}
+
+				state.PreservePositionForGroupSeparator = true;
+			}
+
 		}
 	}
 }

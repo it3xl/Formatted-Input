@@ -11,7 +11,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		/// <param name="unformattedValue"></param>
 		/// <param name="caretPosition"></param>
-		/// <param name="lastCaretPosition"></param>
+		/// <param name="lastCaretPosition">The last caret position before the formatting.</param>
 		/// <returns></returns>
 		private ProcessingState PrepareStates(string unformattedValue, int caretPosition, int lastCaretPosition)
 		{

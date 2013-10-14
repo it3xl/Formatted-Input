@@ -39,11 +39,6 @@ namespace It3xl.FormattedInput.View.Controller
 		internal DeletionDirection? OneSymbolDeletionType { get; private set; }
 
 		/// <summary>
-		/// The sign that the Group Separator has been deleted.
-		/// </summary>
-		internal Boolean? GroupSeparatorDeleted { get; private set; }
-
-		/// <summary>
 		/// The previous integer part.
 		/// </summary>
 		internal string IntegerPrevious { get; private set; }
@@ -52,6 +47,19 @@ namespace It3xl.FormattedInput.View.Controller
 		/// The previous partial part.
 		/// </summary>
 		internal string PartialPrevious { get; private set; }
+
+
+
+		/// <summary>
+		/// The sign that the Group Separator has been deleted.
+		/// </summary>
+		internal Boolean? GroupSeparatorDeleted { get; private set; }
+
+		/// <summary>
+		/// Correct the caret position in the formatting logic for the Group Separator 
+		/// in case if the focus obtained just before the Group Separator.
+		/// </summary>
+		internal Boolean PreservePositionForGroupSeparator { get; private set; }
 
 		/// <summary>
 		/// Requires to move the caret to the end of the integer's part position.
