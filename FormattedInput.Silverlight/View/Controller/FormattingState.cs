@@ -34,6 +34,5 @@ namespace It3xl.FormattedInput.View.Controller
 		/// The formatted partial part.
 		/// </summary>
 		internal string Partial { get; set; }
-		
 	}
 }

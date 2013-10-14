@@ -17,15 +17,17 @@ namespace It3xl.FormattedInput.View.Controller
 		/// </summary>
 		public readonly String UnformattedValue;
 
-		private ProcessingState(String unformattedValue, Boolean jumpCaretToEndOfInteger)
+
+		/// <summary>
+		/// The decimal separator.
+		/// </summary>
+		private Char DecimalSeparator
 		{
-			UnformattedValue = unformattedValue ?? String.Empty;
-			Formatting.Text = UnformattedValue;
-
-			JumpCaretToEndOfInteger = jumpCaretToEndOfInteger;
+			get
+			{
+				return Controller.DecimalSeparator;
+			}
 		}
-
-
 
 		/// <summary>
 		/// Type of formatting.
@@ -50,21 +52,6 @@ namespace It3xl.FormattedInput.View.Controller
 
 
 
-		/// <summary>
-		/// The sign that the Group Separator has been deleted.
-		/// </summary>
-		internal Boolean? GroupSeparatorDeleted { get; private set; }
-
-		/// <summary>
-		/// Correct the caret position in the formatting logic for the Group Separator 
-		/// in case if the focus obtained just before the Group Separator.
-		/// </summary>
-		internal Boolean PreservePositionForGroupSeparator { get; private set; }
-
-		/// <summary>
-		/// Requires to move the caret to the end of the integer's part position.
-		/// </summary>
-		public Boolean JumpCaretToEndOfInteger { get; private set; }
 
 
 		/// <summary>
@@ -104,17 +91,6 @@ namespace It3xl.FormattedInput.View.Controller
 
 
 		/// <summary>
-		/// The decimal separator.
-		/// </summary>
-		private Char DecimalSeparator
-		{
-			get
-			{
-				return Controller.DecimalSeparator;
-			}
-		}
-
-		/// <summary>
 		/// The partial part is disabled.
 		/// </summary>
 		private Boolean PartialDisabled
@@ -125,6 +101,34 @@ namespace It3xl.FormattedInput.View.Controller
 			}
 		}
 
+
+
+		/// <summary>
+		/// The sign that the Group Separator has been deleted.
+		/// </summary>
+		internal Boolean? GroupSeparatorDeleted { get; private set; }
+
+		/// <summary>
+		/// Correct the caret position in the formatting logic for the Group Separator 
+		/// in case if the focus obtained just before the Group Separator.
+		/// </summary>
+		internal Boolean PreservePositionForGroupSeparator { get; private set; }
+
+		/// <summary>
+		/// Requires to move the caret to the end of the integer's part position.
+		/// </summary>
+		public Boolean JumpCaretToEndOfInteger { get; private set; }
+
+
+
+
+		private ProcessingState(String unformattedValue, Boolean jumpCaretToEndOfInteger)
+		{
+			UnformattedValue = unformattedValue ?? String.Empty;
+			Formatting.Text = UnformattedValue;
+
+			JumpCaretToEndOfInteger = jumpCaretToEndOfInteger;
+		}
 
 		/// <summary>
 		/// Returns current position for the end of integer for the caret (cursor).
