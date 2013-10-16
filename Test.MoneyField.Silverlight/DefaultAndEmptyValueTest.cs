@@ -89,12 +89,39 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
+		/// Double To Empty Behavior.
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("DoubleToEmptyTextAsync")]
+		public void DoubleToEmptyTextAsync()
+		{
+			Int32 beforeInputCaretPosition;
+			_scaffold.DoubleMoneyTexBox.Text = "1 2|34.98".ToSpecificValue(out beforeInputCaretPosition);
+			_scaffold.DoubleMoneyTexBox.SelectionStart = beforeInputCaretPosition;
+
+			// ReSharper disable CompareOfFloatsByEqualityOperator
+			EnqueueCallback(() =>
+			{
+				Assert.IsTrue(_scaffold.ViewModel.DoubleMoney == 1234.98);
+
+				_scaffold.DoubleMoneyTexBox.Text = "|".ToSpecificValue(out beforeInputCaretPosition);
+				_scaffold.DoubleMoneyTexBox.SelectionStart = beforeInputCaretPosition;
+			});
+
+			EnqueueCallback(() => Assert.IsTrue(_scaffold.ViewModel.DoubleMoney == 0));
+			// ReSharper restore CompareOfFloatsByEqualityOperator
+
+			EnqueueTestComplete();
+		}
+
+		/// <summary>
 		/// Double Behaviors. The start value is not empty.
 		/// </summary>
 		[TestMethod]
 		[Asynchronous]
-		[Tag("DoubleToEmptyBehaviorsAsync")]
-		public void DoubleToEmptyBehaviorsAsync()
+		[Tag("DoubleToOInViewModelAsync")]
+		public void DoubleToOInViewModelAsync()
 		{
 			Int32 beforeInputCaretPosition;
 			_scaffold.DoubleMoneyTexBox.Text = "1234.98|".ToSpecificValue(out beforeInputCaretPosition);
