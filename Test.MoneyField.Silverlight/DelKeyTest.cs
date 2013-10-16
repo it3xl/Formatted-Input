@@ -33,6 +33,12 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 			Assert.IsTrue(formatteValueOut == "|9 123.25".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|90 623.25".ToSpecificValue(out beforeInputCaretPosition);
+			input = "|0 623.25".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|623.25".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 		/// <summary>
@@ -165,6 +171,18 @@ namespace It3xl.Test.MoneyField.Silverlight
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 			Assert.IsTrue(formatteValueOut == "8| 111 222 333 444 000.00".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|1 846.72".ToSpecificValue(out beforeInputCaretPosition);
+			input = "| 846.72".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|846.72".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+
+			beforeInput = "|1 234 567.72".ToSpecificValue(out beforeInputCaretPosition);
+			input = "| 234 567.72".ToSpecificValue(out inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			Assert.IsTrue(formatteValueOut == "|234 567.72".ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 		/// <summary>
@@ -264,26 +282,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 			input = "45.|2".ToSpecificValue(out inputCaretPositionRef);
 			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 			Assert.IsTrue(formatteValueOut == "45.|00".ToSpecificValue(out expectedCaretPosition));
-			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
-		}
-
-
-		/// <summary>
-		/// 
-		/// </summary>
-		[TestMethod]
-		[Tag("FixCaretForDigitDeletedBeforeGroupSeparator")]
-		public void ____()
-		{
-			Int32 beforeInputCaretPosition;
-			Int32 inputCaretPositionRef;
-			String formatteValueOut;
-			Int32 expectedCaretPosition;
-
-			var beforeInput = "239 81|2 345.98".ToSpecificValue(out beforeInputCaretPosition);
-			var input = "239 81| 345.98".ToSpecificValue(out inputCaretPositionRef);
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
-			Assert.IsTrue(formatteValueOut == "23 981| 345.98".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
