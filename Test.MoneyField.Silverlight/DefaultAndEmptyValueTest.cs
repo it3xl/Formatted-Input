@@ -169,5 +169,30 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 			EnqueueTestComplete();
 		}
+
+		/// <summary>
+		/// Set Null From ViewModel Async.
+		/// </summary>
+		[TestMethod]
+		[Asynchronous]
+		[Tag("SetNullFromViewModelAsync")]
+		public void SetNullFromViewModelAsync()
+		{
+			_scaffold.ViewModel.DoubleNullableMoney = 17.42;
+
+			Int32 expectedCaretPosition;
+
+			Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "17|.42".ToSpecificValue(out expectedCaretPosition));
+
+			_scaffold.ViewModel.DoubleNullableMoney = null;
+
+			EnqueueCallback(() =>
+				{
+					Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "|".ToSpecificValue(out expectedCaretPosition));
+					Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
+				});
+
+			EnqueueTestComplete();
+		}
 	}
 }
