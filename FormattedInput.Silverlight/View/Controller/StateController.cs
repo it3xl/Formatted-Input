@@ -75,6 +75,7 @@ namespace It3xl.FormattedInput.View.Controller
 				state.GroupSeparatorDeleted = GetStateGroupSeparatorDeleted(state);
 
 				SetPreservePositionForGroupSeparator(state);
+				SetPreservePositionForDeletionOfDigitBeforeGroupSeparator(state);
 
 				return state;
 			}
@@ -171,7 +172,7 @@ namespace It3xl.FormattedInput.View.Controller
 			}
 
 			/// <summary>
-			/// <see cref="PreservePositionForGroupSeparator"/>.
+			/// <see cref="ProcessingState.PreservePositionForGroupSeparatorOnFocus"/>.
 			/// </summary>
 			/// <param name="state"></param>
 			private void SetPreservePositionForGroupSeparator(ProcessingState state)
@@ -193,7 +194,33 @@ namespace It3xl.FormattedInput.View.Controller
 					return;
 				}
 
-				state.PreservePositionForGroupSeparator = true;
+				state.PreservePositionForGroupSeparatorOnFocus = true;
+			}
+
+			/// <summary>
+			/// <see cref="ProcessingState.PreservePositionForDeletionOfDigitBeforeGroupSeparator"/>.
+			/// </summary>
+			/// <param name="state"></param>
+			private void SetPreservePositionForDeletionOfDigitBeforeGroupSeparator(ProcessingState state)
+			{
+				if (state.OneSymbolDeletionType != DeletionDirection.DeleteButton)
+				{
+					return;
+				}
+				if (_groupSeparator == Char.MinValue)
+				{
+					// The Group Separator don't set.
+					return;
+				}
+
+				var charAfterCaret = state.UnformattedValue.ElementAtOrDefault(state.Formatting.CaretPosition);
+				var notGroupSeparator = charAfterCaret != _groupSeparator;
+				if (notGroupSeparator)
+				{
+					return;
+				}
+
+				state.PreservePositionForDeletionOfDigitBeforeGroupSeparator = true;
 			}
 
 		}

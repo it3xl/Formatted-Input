@@ -109,10 +109,21 @@ namespace It3xl.FormattedInput.View.Controller
 		internal Boolean? GroupSeparatorDeleted { get; private set; }
 
 		/// <summary>
-		/// Correct the caret position in the formatting logic for the Group Separator 
+		/// Corrects the caret position at the formatting logic for the Group Separator 
 		/// in case if the focus obtained just before the Group Separator.
 		/// </summary>
-		internal Boolean PreservePositionForGroupSeparator { get; private set; }
+		internal Boolean PreservePositionForGroupSeparatorOnFocus { get; private set; }
+
+		/// <summary>
+		/// Corrects the caret position at the formatting logic for the Del key
+		///  pressed just before a digit just befor the Group Separator. 
+		/// </summary>
+		/// <remarks>
+		/// 98 71|2 345.17
+		/// 98 71| 345.17
+		/// 9 871| 345.17
+		/// </remarks>
+		internal Boolean PreservePositionForDeletionOfDigitBeforeGroupSeparator { get; private set; }
 
 		/// <summary>
 		/// Requires to move the caret to the end of the integer's part position.

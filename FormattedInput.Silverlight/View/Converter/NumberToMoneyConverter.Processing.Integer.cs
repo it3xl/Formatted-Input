@@ -85,7 +85,11 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			state.Formatting.CaretPosition -= separarotAmountAfterCaret;
-			if (state.PreservePositionForGroupSeparator)
+			if (state.PreservePositionForGroupSeparatorOnFocus)
+			{
+				state.Formatting.CaretPosition--;
+			}
+			if (state.PreservePositionForDeletionOfDigitBeforeGroupSeparator)
 			{
 				state.Formatting.CaretPosition--;
 			}
