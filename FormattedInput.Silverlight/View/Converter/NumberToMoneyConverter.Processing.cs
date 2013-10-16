@@ -12,6 +12,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <seealso cref="Process"/>
 		/// </summary>
 		/// <param name="focusState">The critical state of the TextBox's focus.</param>
+		/// <param name="runtimeType"> </param>
 		/// <param name="unformattedValue"></param>
 		/// <param name="textBeforeChanging">
 		/// The previous text value.
@@ -20,22 +21,18 @@ namespace It3xl.FormattedInput.View.Converter
 		/// <param name="lastCaretPosition"></param>
 		/// <param name="resultingFormattedValue"></param>
 		/// <param name="caretPosition"></param>
-		public void TestProcess(
-			FocusState focusState,
-			String unformattedValue,
-			String textBeforeChanging,
-			Int32 lastCaretPosition,
-			out String resultingFormattedValue,
-			ref Int32 caretPosition)
+		public void TestProcess(FocusState focusState, RuntimeType runtimeType, string unformattedValue, string textBeforeChanging, int lastCaretPosition, out string resultingFormattedValue, ref int caretPosition)
 		{
 			TextBeforeChangingNotNull = textBeforeChanging;
 			CaretPositionBeforeTextChanging = lastCaretPosition;
 			FocusState = focusState;
+			RuntimeType = runtimeType;
 
 			Process(unformattedValue, out resultingFormattedValue, ref caretPosition);
 
 			// !!! Be aware of this in tests!
 			FocusState = FocusState.No;
+			RuntimeType = RuntimeType.NotInitialized;
 		}
 
 		/// <summary>
@@ -140,7 +137,22 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				preliminaryFormattedValue  += DecimalSeparator + state.Formatting.Partial;
 			}
-			state.Formatting.Text = FormatByPrecisionForDouble(preliminaryFormattedValue);
+
+			if (RuntimeType == RuntimeType.Double)
+			{
+				state.Formatting.Text = FormatByPrecisionForDouble(preliminaryFormattedValue);
+			}
+			else if (RuntimeType == RuntimeType.Decimal)
+			{
+				state.Formatting.Text = FormatByPrecisionForDecimal(preliminaryFormattedValue);
+			}
+			else
+			{
+				WriteLogAction(() => "ERROR. Unsupported typed formatting.");
+
+				state.Formatting.Text = preliminaryFormattedValue;
+			}
+
 
 			if(state.JumpCaretToEndOfInteger)
 			{

@@ -38,6 +38,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 		/// Decimal part rounding test.
 		/// </summary>
 		[TestMethod]
+		[Tag("DoubleRoundingForPartialPart")]
 		public void DoubleRoundingForPartialPart()
 		{
 			Int32 beforeInputCaretPosition;
@@ -49,7 +50,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "123 456 789 123 457 000.|00".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "123 456 789 123 457 000.2|00".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, RuntimeType.Double, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.0|0".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -58,7 +59,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			beforeInput = "123 456 789 123 457 000.0|0".ToSpecificValue(out beforeInputCaretPosition);
 			input = "123 456 789 123 457 000.02|0".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, RuntimeType.Double, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "123 456 789 123 457 000.00|".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
@@ -98,17 +99,51 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var input = beforeInput;
 			inputCaretPositionRef = beforeInputCaretPosition;
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, RuntimeType.Double, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+
+			Assert.IsTrue(formatteValueOut == resultValue.ToSpecificValue(out expectedCaretPosition));
+			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
+		}
+
+		/// <summary>
+		/// <see cref="Decimal.MaxValue"/> rounding test.
+		/// </summary>
+		[TestMethod]
+		[Tag("DecimalMaxValue")]
+		public void DecimalMaxValue()
+		{
+			Int32 beforeInputCaretPosition;
+			Int32 inputCaretPositionRef;
+			String formatteValueOut;
+			Int32 expectedCaretPosition;
+
+			// Cose the Decimal.TryParse can't parse the Decimal.MaxValue, I'll divide the Decimal.MaxValue by 10.
+			const Decimal veryLargeDecimal = Decimal.MaxValue;
+
+			var valueBase = veryLargeDecimal.ToString("n", TestLanguageTranslator.LanguageCulture);
+
+			// Imitation insertion from a ViewMode by the Conver method.
+			var testValue = "|" + valueBase;
+
+			var resultValue = valueBase.Replace(".", "|.");
+			//var resultValue = testValue;
+
+			_scaffold.ViewModel.DecimalNullableMoney = veryLargeDecimal;
+			Assert.IsTrue(_scaffold.DecimalNullableMoneyTexBox.Text == testValue.ToSpecificValue(out expectedCaretPosition));
+			// It has the sense just in a parallel testing. Here, it's always equals the Zero.
+			//Assert.IsTrue(_scaffold.DecimalNullableMoneyTexBox.SelectionStart == <> );
+
+			var beforeInput = testValue.ToSpecificValue(out beforeInputCaretPosition);
+			// Imitation of the TextBox's focus.
+			var input = beforeInput;
+			inputCaretPositionRef = beforeInputCaretPosition;
+
+			_scaffold.DecimalNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, RuntimeType.Decimal, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == resultValue.ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
 		}
 
 
-
-
-		// TODO.it3xl.com: Test the rounding for the Decimal.Max.
-	
-	
 	}
 }

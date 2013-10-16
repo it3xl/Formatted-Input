@@ -33,11 +33,13 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				unformattedValue = GetCustomSerialisation(doubleNullableValue.Value);
 				SetViewModelValueChanged(doubleNullableValue);
+				SetRuntimeType(RuntimeType.Double);
 			}
 			else if(decimalNullableValue.HasValue)
 			{
 				unformattedValue = GetCustomSerialisation(decimalNullableValue.Value);
 				SetViewModelValueChanged(decimalNullableValue);
+				SetRuntimeType(RuntimeType.Decimal);
 			}
 			else
 			{
@@ -73,6 +75,8 @@ namespace It3xl.FormattedInput.View.Converter
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			WriteLogAction(() => String.Format("* ConvertBack/{0}", parameter));
+
+			SetRuntimeType(targetType);
 
 			Object convertBack = GetTypeDefaultValue(targetType);
 
@@ -150,5 +154,36 @@ namespace It3xl.FormattedInput.View.Converter
 			_lastViewDouble = viewDouble;
 			_lastViewDecimal = viewDecimal;
 		}
+
+		/// <summary>
+		/// Sets current typed formatting.
+		/// </summary>
+		/// <param name="targetType"></param>
+		private void SetRuntimeType(RuntimeType targetType)
+		{
+			RuntimeType = targetType;
+		}
+
+		/// <summary>
+		/// Sets current typed formatting.
+		/// </summary>
+		/// <param name="targetType"></param>
+		private void SetRuntimeType(Type targetType)
+		{
+			if (targetType == _typeDouble
+				|| targetType == _typeDoubleNullabe)
+			{
+				RuntimeType = RuntimeType.Double; ;
+			}
+
+			if (targetType == _typeDecimal
+				|| targetType == _typeDecimalNullabe)
+			{
+				RuntimeType = RuntimeType.Decimal; ;
+			}
+
+			RuntimeType = RuntimeType.NotInitialized;
+		}
+
 	}
 }

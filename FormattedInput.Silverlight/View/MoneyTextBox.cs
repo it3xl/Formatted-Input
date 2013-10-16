@@ -17,9 +17,7 @@ namespace It3xl.FormattedInput.View
 		/// Converter with the main logic.<para/>
 		/// </summary>
 		/// <remarks>
-		/// TODO.it3xl.com: Possibly the Converter property should be performed as the WeakReference.<para/>
-		/// I'll test this by the way.<para/>
-		/// In theory, it has no the memory roots.<para/>
+		/// In theory, it has no the memory's roots.<para/>
 		/// In worse case it's fast to apply the WeakReference here.
 		/// </remarks>
 		public NumberToMoneyConverter Converter { get; private set; }
@@ -100,7 +98,7 @@ namespace It3xl.FormattedInput.View
 
 		public MoneyTextBox()
 		{
-			Converter = new NumberToMoneyConverter(this);
+			Converter = new NumberToMoneyConverter();
 
 			Loaded += LoadedHandler;
 		}

@@ -24,6 +24,11 @@ namespace It3xl.FormattedInput.View.Converter
 		private Double? _lastViewDouble;
 		private Decimal? _lastViewDecimal;
 
+		/// <summary>
+		/// Typed formatting flag.
+		/// </summary>
+		private RuntimeType RuntimeType { get; set; }
+
 		private Boolean ViewModelValueChanged
 		{
 			get { return _viewModelValueChanged; }
@@ -65,8 +70,6 @@ namespace It3xl.FormattedInput.View.Converter
 				_jumpCaretToEndOfIntegerOnNextProcessing = value;
 			}
 		}
-
-		private WeakClosure<MoneyTextBox> _moneyBox;
 
 		/// <summary>
 		/// Will be executed in case of a exception.

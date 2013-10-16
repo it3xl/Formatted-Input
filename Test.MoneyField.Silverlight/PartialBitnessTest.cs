@@ -17,7 +17,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 		// It's a grate TODO. Defenetly, I am not planning to do it now.
-		// If I implement this I could delete the PartialDisabled and think about PartialDisabledCurrent for sake of PartialBitness == 0;
+		// If I'll implement this I could delete the PartialDisabled and I should think about the PartialDisabledCurrent for sake of PartialBitness == 0;
 
 		
 	}

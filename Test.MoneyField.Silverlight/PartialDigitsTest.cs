@@ -49,7 +49,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 			var beforeInput = "23.|98".ToSpecificValue(out beforeInputCaretPosition);
 			var input = "23.1|98".ToSpecificValue(out inputCaretPositionRef);
 
-			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
+			_scaffold.DoubleNullableMoneyTexBox.Converter.TestProcess(FocusState.Gotten, RuntimeType.Double, input, beforeInput, beforeInputCaretPosition, out formatteValueOut, ref inputCaretPositionRef);
 
 			Assert.IsTrue(formatteValueOut == "23.1|8".ToSpecificValue(out expectedCaretPosition));
 			Assert.IsTrue(inputCaretPositionRef == expectedCaretPosition);
