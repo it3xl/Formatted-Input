@@ -111,69 +111,6 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 		/// <summary>
-		/// Tests PartialDisabledOnInput main behaviors.
-		/// </summary>
-		[TestMethod]
-		[Asynchronous]
-		[Tag("PartialDisabledOnInput")]
-		public void PartialDisabledOnInputAsync()
-		{
-			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
-			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
-
-			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
-
-			this.PrepareFocusFromDebugger(_scaffold.DoubleNullableMoneyTexBox);
-			EnqueueCallback(() =>
-			{
-				Int32 expectedCaretPosition;
-
-				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
-				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
-
-				// ensure the "LostFocus" for the DoubleNullableMoneyTexBox.
-				_scaffold.DoubleMoneyTexBox.Focus();
-			});
-
-			EnqueueCallback(() =>
-			{
-				Int32 expectedCaretPosition;
-
-				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|.00".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
-				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
-			});
-
-			EnqueueTestComplete();
-		}
-
-		/// <summary>
-		/// Tests seting from a ViewModel for the PartialDisabledOnInput = true;
-		/// </summary>
-		[TestMethod]
-		[Asynchronous]
-		[Tag("PartialDisabledOnInputForViewModel")]
-		public void PartialDisabledOnInputForViewModelAsync()
-		{
-			_scaffold.DoubleNullableMoneyTexBox.PartialDisabled = false;
-			_scaffold.DoubleNullableMoneyTexBox.PartialDisabledOnInput = true;
-
-			_scaffold.ViewModel.DoubleNullableMoney = 12345.74;
-
-			EnqueueCallback(() =>
-			{
-				Int32 expectedCaretPosition;
-
-				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "12 345|.00".ToSpecificValue(out expectedCaretPosition));
-				Assert.IsTrue(expectedCaretPosition == _scaffold.DoubleNullableMoneyTexBox.SelectionStart);
-				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 12345.0);
-			});
-
-			EnqueueTestComplete();
-		}
-
-		/// <summary>
 		/// Tests seting from a ViewModel for the PartialDisabled = true;
 		/// </summary>
 		[TestMethod]
