@@ -89,6 +89,11 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				state.Formatting.CaretPosition--;
 			}
+			if (state.OneSymbolDeletionType == DeletionDirection.BackspaceButton
+				&& state.GroupSeparatorDeleted == true)
+			{
+				state.Formatting.CaretPosition++;
+			}
 		}
 	}
 }
