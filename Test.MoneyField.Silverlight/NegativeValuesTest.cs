@@ -17,7 +17,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 
 
 
-		// TODO.it3x.com: Test negative values.
+		// TODO.it3xl.com: Test negative values behaviours (not a support).
 
 		// Double behaviours.
 		// The Double Min value

@@ -125,12 +125,7 @@ namespace It3xl.FormattedInput.View.Controller
 			/// <param name="state"></param>
 			private void SetNeedHighlightInput(ProcessingState state)
 			{
-				// TODO.it3xl.com: SetNeedHighlightInput.
-				// JumpCaretToEndOfInteger
-				// Input at the end of the partial's part.
-				// Invalid Input.
-				// Invalid input to the empty field.
-				// Integer input exceeding the bitness of the integer part.
+				// it3xl.com: It's a feature for the future.
 			}
 
 			/// <summary>
