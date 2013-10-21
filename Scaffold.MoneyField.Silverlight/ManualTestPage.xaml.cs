@@ -66,19 +66,34 @@ namespace It3xl.Scaffold.MoneyField.Silverlight
 		{
 			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
 
-			TestingViewModel.DoubleNullableMoney = randomDouble;
-			TestingViewModel.DoubleMoney = randomDouble;
-			TestingViewModel.DecimalNullableMoney = (Decimal)randomDouble;
-			TestingViewModel.DecimalMoney = (Decimal)randomDouble;
-
+			SetValueToAll(randomDouble);
 		}
 
 		private void SetDefaultValueButton_Click(object sender, RoutedEventArgs e)
 		{
-			TestingViewModel.DoubleNullableMoney = null;
-			TestingViewModel.DoubleMoney = 0;
-			TestingViewModel.DecimalNullableMoney = null;
-			TestingViewModel.DecimalMoney = 0;
+			SetValueToAll(null);
+		}
+
+		private void SetNegativeValueButton_Click(object sender, RoutedEventArgs e)
+		{
+			var randomDouble = (new Random().NextDouble() + 1) * 80000d;
+			randomDouble = randomDouble * -1;
+
+			SetValueToAll(randomDouble);
+		}
+
+		private void SetValueToAll(Double? randomDouble)
+		{
+			TestingViewModel.DoubleNullableMoney = randomDouble;
+			TestingViewModel.DoubleMoney = randomDouble ?? 0;
+
+			TestingViewModel.DecimalNullableMoney = randomDouble.HasValue ? (Decimal) randomDouble.Value : (Decimal?)null;
+			TestingViewModel.DecimalMoney = (Decimal) (randomDouble ?? 0);
+		}
+
+		private void ChangeViewModelButton_Click(object sender, RoutedEventArgs e)
+		{
+			DataContext = new ViewModelForTests();
 		}
 
 		private void ClearLog_Click(object sender, RoutedEventArgs e)

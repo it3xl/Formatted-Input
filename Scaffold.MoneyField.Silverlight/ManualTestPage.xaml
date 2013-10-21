@@ -136,8 +136,10 @@
 			</Border>-->
 			
 			<StackPanel Orientation="Horizontal">
-				<Button Margin="2" Content="Set Randov Value Button" Click="SetAmountRandomButton_Click" />
-				<Button Margin="2" Content="Set Default Value Button" Click="SetDefaultValueButton_Click" />
+				<Button Margin="2" Content="Set Randov Value" Click="SetAmountRandomButton_Click" />
+				<Button Margin="2" Content="Set Default Value" Click="SetDefaultValueButton_Click" />
+				<Button Margin="2" Content="Set Negative Value" Click="SetNegativeValueButton_Click" />
+				<Button Margin="2" Content="Change ViewModel" Click="ChangeViewModelButton_Click" />
 				<Button Margin="2" Content="Clear Log Button" Click="ClearLog_Click" />
 			</StackPanel>
 			
