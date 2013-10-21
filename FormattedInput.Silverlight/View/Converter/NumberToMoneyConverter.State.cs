@@ -102,47 +102,9 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 		/// <summary>
-		/// See <see cref="GroupSeparator"/>.
+		/// The value for the empty DecimalSeparator.
 		/// </summary>
-		private Char? _groupSeparator;
-		/// <summary>
-		/// The desirable Group Separator char for a view.
-		/// </summary>
-		public Char GroupSeparator
-		{
-			get
-			{
-				if (_groupSeparator == null)
-				{
-					return CultureInfo.CurrentCulture.NumberFormat
-						.NumberGroupSeparator
-						.ToCharFirst();
-				}
-
-				return _groupSeparator.Value;
-			}
-			set
-			{
-				ConvertSpaceToNonBreaking(ref value);
-
-				_groupSeparator = value;
-			}
-		}
-		/// <summary>
-		/// The string representation of the <see cref="GroupSeparator"/> char.
-		/// </summary>
-		public String GroupSeparatorChar
-		{
-			get
-			{
-				if (GroupSeparator == default(Char))
-				{
-					return null;
-				}
-
-				return GroupSeparator.ToString(CultureInfo.InvariantCulture);
-			}
-		}
+		public const Char DefaultDecimalSeparator = '.';
 
 		/// <summary>
 		/// See <see cref="DecimalSeparator"/>.
@@ -157,9 +119,7 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				if (_decimalSeparator == Char.MinValue)
 				{
-					return CultureInfo.CurrentCulture.NumberFormat
-						.NumberDecimalSeparator
-						.ToCharFirst();
+					_decimalSeparator = DefaultDecimalSeparator;
 				}
 
 				return _decimalSeparator;
@@ -171,6 +131,7 @@ namespace It3xl.FormattedInput.View.Converter
 				_decimalSeparator = value;
 			}
 		}
+
 		/// <summary>
 		/// The string representation of the <see cref="DecimalSeparator"/> char.
 		/// </summary>
@@ -178,9 +139,88 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			get
 			{
-				return DecimalSeparator.ToString(CultureInfo.InvariantCulture);
+				return DecimalSeparator.InvokeNotDefault(el => el.ToString(CultureInfo.InvariantCulture), String.Empty);
+			}
+			set
+			{
+				DecimalSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
 			}
 		}
+
+
+		/// <summary>
+		/// See <see cref="DecimalSeparatorAlternative"/>.
+		/// </summary>
+		private char _decimalSeparatorAlternative;
+		/// <summary>
+		/// The additional decimal part's separator char, acceptable at the input or past time.
+		/// </summary>
+		public Char DecimalSeparatorAlternative
+		{
+			get
+			{
+				return _decimalSeparatorAlternative;
+			}
+			set
+			{
+				ConvertSpaceToNonBreaking(ref value);
+
+				_decimalSeparatorAlternative = value;
+			}
+		}
+
+		/// <summary>
+		/// The string representation of the <see cref="DecimalSeparator"/> char.
+		/// </summary>
+		public String DecimalSeparatorAlternativeChar
+		{
+			get
+			{
+				return DecimalSeparatorAlternative.InvokeNotDefault(el => el.ToString(CultureInfo.InvariantCulture), String.Empty);
+			}
+			set
+			{
+				DecimalSeparatorAlternative = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
+			}
+		}
+
+
+		/// <summary>
+		/// See <see cref="GroupSeparator"/>.
+		/// </summary>
+		private Char _groupSeparator;
+		/// <summary>
+		/// The desirable Group Separator char for a view.
+		/// </summary>
+		public Char GroupSeparator
+		{
+			get
+			{
+				return _groupSeparator;
+			}
+			set
+			{
+				ConvertSpaceToNonBreaking(ref value);
+
+				_groupSeparator = value;
+			}
+		}
+
+		/// <summary>
+		/// The string representation of the <see cref="GroupSeparator"/> char.
+		/// </summary>
+		public String GroupSeparatorChar
+		{
+			get
+			{
+				return GroupSeparator.InvokeNotDefault(el => el.ToString(CultureInfo.InvariantCulture), String.Empty);
+			}
+			set
+			{
+				GroupSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
+			}
+		}
+
 
 		/// <summary>
 		/// Hides the partial part.
@@ -227,28 +267,6 @@ namespace It3xl.FormattedInput.View.Converter
 		}
 
 
-		/// <summary>
-		/// See <see cref="DecimalSeparatorAlternative"/>.
-		/// </summary>
-		private char _decimalSeparatorAlternative;
-
-		/// <summary>
-		/// The additional decimal part's separator char, acceptable at the input or past time.
-		/// </summary>
-		public Char DecimalSeparatorAlternative
-		{
-			get
-			{
-				return _decimalSeparatorAlternative;
-			}
-			set
-			{
-				ConvertSpaceToNonBreaking(ref value);
-
-				_decimalSeparatorAlternative = value;
-			}
-		}
-
 		private string _textBeforeChangingNotNull;
 		private bool _jumpCaretToEndOfIntegerOnNextProcessing;
 		private bool _viewModelValueChanged;
@@ -282,14 +300,16 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			get
 			{
-				if(PartialDisabledCurrent)
+				if (PartialDisabledCurrent)
 				{
-					return new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+					return _registeredDigits;
 				}
 
 				return new[] { DecimalSeparator, '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 			}
 		}
+
+		private readonly Char[] _registeredDigits = new[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 	}
 }

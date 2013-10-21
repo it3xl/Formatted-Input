@@ -1,4 +1,5 @@
-﻿using It3xl.Test.MoneyField.Silverlight.Utils;
+﻿using System;
+using It3xl.Test.MoneyField.Silverlight.Utils;
 using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -16,8 +17,25 @@ namespace It3xl.Test.MoneyField.Silverlight
 		}
 
 
+		[TestMethod]
+		[Asynchronous]
+		[Tag("NegativeValueUnsupported")]
+		public void NegativeValueUnsupported()
+		{
+			_scaffold.ViewModel.DoubleNullableMoney = -123456.78;
 
-		// TODO.it3xl.com: Test negative values behaviours (not a support).
+			EnqueueCallback(() =>
+			{
+				Int32 expectedCaretPosition;
+
+				Assert.IsTrue(_scaffold.ViewModel.DoubleNullableMoney == 123456.78);
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.Text == "123 456|.78".ToSpecificValue(out expectedCaretPosition));
+				Assert.IsTrue(_scaffold.DoubleNullableMoneyTexBox.SelectionStart == expectedCaretPosition);
+			});
+
+			EnqueueTestComplete();
+		}
+
 
 		// Double behaviours.
 		// The Double Min value

@@ -29,11 +29,11 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.GroupSeparator.ToString(CultureInfo.InvariantCulture);
+				return Converter.GroupSeparatorChar;
 			}
 			set
 			{
-				Converter.GroupSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
+				Converter.GroupSeparatorChar = value;
 			}
 		}
 
@@ -44,11 +44,11 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.DecimalSeparator.ToString(CultureInfo.InvariantCulture);
+				return Converter.DecimalSeparatorChar;
 			}
 			set
 			{
-				Converter.DecimalSeparator = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
+				Converter.DecimalSeparatorChar = value;
 			}
 		}
 
@@ -59,11 +59,11 @@ namespace It3xl.FormattedInput.View
 		{
 			get
 			{
-				return Converter.DecimalSeparatorAlternative.ToString(CultureInfo.InvariantCulture);
+				return Converter.DecimalSeparatorAlternativeChar;
 			}
 			set
 			{
-				Converter.DecimalSeparatorAlternative = value.InvokeNotNullOrEmpty(el => el.ToCharFirst());
+				Converter.DecimalSeparatorAlternativeChar = value;
 			}
 		}
 
@@ -181,8 +181,6 @@ namespace It3xl.FormattedInput.View
 
 		private void ProcessText()
 		{
-			// TODO.it3xl.com: Check a whip out recursion and break it up.
-
 			var textBox = this;
 
 			Boolean textFormatted;
@@ -209,6 +207,16 @@ namespace It3xl.FormattedInput.View
 			var selectionStart = textBox.SelectionStart;
 			var unformattedValue = textBox.Text ?? String.Empty;
 
+			if(IsRecursion())
+			{
+				textFormatted = true;
+
+				textBox.Text = String.Empty;
+				textBox.SelectionStart = 0;
+
+				return;
+			}
+
 			String formattedText;
 			Converter.Process(unformattedValue, out formattedText, ref selectionStart);
 
@@ -222,6 +230,39 @@ namespace It3xl.FormattedInput.View
 
 			NumberToMoneyConverter.WriteLogAction(() => String.Format(" = SelectionStart = {0}", selectionStart));
 			textBox.SelectionStart = selectionStart;
+		}
+
+		private DateTime _recursionMark;
+		private Int32 _recursionCount;
+
+		/// <summary>
+		/// Manages 
+		/// </summary>
+		/// <returns></returns>
+		private Boolean IsRecursion()
+		{
+			var lastMark = _recursionMark;
+			_recursionMark = DateTime.Now;
+
+			var span = _recursionMark - lastMark;
+
+			if (TimeSpan.FromMinutes(300) < span)
+			{
+				_recursionCount = 0;
+
+				return false;
+			}
+
+			_recursionCount++;
+
+			if(_recursionCount < 30)
+			{
+				return false;
+			}
+
+			_recursionCount = 0;
+
+			return true;
 		}
 
 		private void textBox_SelectionChanged(object sender, RoutedEventArgs e)

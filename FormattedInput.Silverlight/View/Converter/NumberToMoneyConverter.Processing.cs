@@ -48,6 +48,8 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			WriteLogAction(() => " ->  Process");
 
+			FixSeparators();
+
 			var lastCaretPosition = CaretPositionBeforeTextChanging;
 
 			text = unformattedValue??String.Empty;
@@ -73,6 +75,43 @@ namespace It3xl.FormattedInput.View.Converter
 			{
 				TextBeforeChangingNotNull = text;
 				CaretPositionBeforeTextChanging = caretPosition;
+			}
+		}
+
+		/// <summary>
+		/// Checks separators at every separator setter.
+		/// </summary>
+		private void FixSeparators()
+		{
+			if (_registeredDigits.Contains(_decimalSeparator))
+			{
+				_decimalSeparator = DefaultDecimalSeparator;
+			}
+			if (_registeredDigits.Contains(_groupSeparator))
+			{
+				_groupSeparator = Char.MinValue;
+			}
+			if (_registeredDigits.Contains(_decimalSeparatorAlternative))
+			{
+				_decimalSeparatorAlternative = Char.MinValue;
+			}
+
+			if (_decimalSeparator == Char.MinValue)
+			{
+				_decimalSeparator = DefaultDecimalSeparator;
+			}
+			if (_groupSeparator == _decimalSeparator)
+			{
+				_groupSeparator = Char.MinValue;
+			}
+			if (_decimalSeparatorAlternative != Char.MinValue
+				&& _groupSeparator == _decimalSeparatorAlternative)
+			{
+				_decimalSeparatorAlternative = Char.MinValue;
+			}
+			if (_decimalSeparatorAlternative == _decimalSeparator)
+			{
+				_decimalSeparatorAlternative = Char.MinValue;
 			}
 		}
 

@@ -37,6 +37,38 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 
 		/// <summary>
 		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
+		/// For the Reference types.
+		/// </summary>
+		/// <typeparam name="TTarget">A target type for the conditional invocation.</typeparam>
+		/// <typeparam name="TResult">A returned type.</typeparam>
+		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
+		/// <param name="func">A conditionally invoking parameter.</param>
+		/// <param name="defaultResult">A returning result for the default "<see cref="target"/>".</param>
+		/// <returns>
+		/// In accordance with the condition in the name of this method:<para/>
+		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
+		/// false: will be returned the "default(<see cref="TResult"/>)".
+		/// </returns>
+		[DebuggerStepThrough]
+		internal static TResult InvokeNotNull<TTarget, TResult>(this TTarget target, Func<TTarget, TResult> func, TResult defaultResult)
+			where TTarget : class
+		{
+			if (target == null)
+			{
+				return defaultResult;
+			}
+
+			if (func == null)
+			{
+				return defaultResult;
+			}
+
+			return func(target);
+		}
+
+
+		/// <summary>
+		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
 		/// For the Value types.
 		/// </summary>
 		/// <typeparam name="TTarget">A target type for the conditional invocation.</typeparam>
@@ -64,6 +96,38 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 
 			return func(target);
 		}
+
+		/// <summary>
+		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
+		/// For the Value types.
+		/// </summary>
+		/// <typeparam name="TTarget">A target type for the conditional invocation.</typeparam>
+		/// <typeparam name="TResult">A returned type.</typeparam>
+		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
+		/// <param name="func">A conditionally invoking parameter.</param>
+		/// <param name="defaultResult">A returning result for the default "<see cref="target"/>".</param>
+		/// <returns>
+		/// In accordance with the condition in the name of this method:<para/>
+		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
+		/// false: will be returned the "default(<see cref="TResult"/>)".
+		/// </returns>
+		[DebuggerStepThrough]
+		internal static TResult InvokeNotDefault<TTarget, TResult>(this TTarget target, Func<TTarget, TResult> func, TResult defaultResult)
+			where TTarget : struct
+		{
+			if (target.IsDefault())
+			{
+				return defaultResult;
+			}
+
+			if (func == null)
+			{
+				return defaultResult;
+			}
+
+			return func(target);
+		}
+
 
 		/// <summary>
 		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
@@ -103,6 +167,38 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 		/// <typeparam name="TResult">A returned type.</typeparam>
 		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
 		/// <param name="func">A conditionally invoking parameter.</param>
+		/// <param name="defaultResult">A returning result for the default "<see cref="target"/>".</param>
+		/// <returns>
+		/// In accordance with the condition in the name of this method:<para/>
+		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
+		/// false: will be returned the "default(<see cref="TResult"/>)".
+		/// </returns>
+		[DebuggerStepThrough]
+		internal static TResult InvokeNotNullFor<TTarget, TResult>(this TTarget? target, Func<TTarget, TResult> func, TResult defaultResult)
+			where TTarget : struct
+		{
+			if (target == null)
+			{
+				return defaultResult;
+			}
+
+			if (func == null)
+			{
+				return defaultResult;
+			}
+
+			return func(target.Value);
+		}
+
+
+		/// <summary>
+		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
+		/// For the <see cref="Nullable{T}"/> types.
+		/// </summary>
+		/// <typeparam name="TTarget">A target type for the conditional invocation.</typeparam>
+		/// <typeparam name="TResult">A returned type.</typeparam>
+		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
+		/// <param name="func">A conditionally invoking parameter.</param>
 		/// <returns>
 		/// In accordance with the condition in the name of this method:<para/>
 		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
@@ -131,6 +227,42 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 
 		/// <summary>
 		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
+		/// For the <see cref="Nullable{T}"/> types.
+		/// </summary>
+		/// <typeparam name="TTarget">A target type for the conditional invocation.</typeparam>
+		/// <typeparam name="TResult">A returned type.</typeparam>
+		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
+		/// <param name="func">A conditionally invoking parameter.</param>
+		/// <param name="defaultResult">A returning result for the default "<see cref="target"/>".</param>
+		/// <returns>
+		/// In accordance with the condition in the name of this method:<para/>
+		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
+		/// false: will be returned the "default(<see cref="TResult"/>)".
+		/// </returns>
+		[DebuggerStepThrough]
+		internal static TResult InvokeNotNullOrDefault<TTarget, TResult>(this TTarget? target, Func<TTarget, TResult> func, TResult defaultResult)
+			where TTarget : struct
+		{
+			if (target == null)
+			{
+				return defaultResult;
+			}
+			if (target.Value.IsDefault())
+			{
+				return defaultResult;
+			}
+
+			if (func == null)
+			{
+				return defaultResult;
+			}
+
+			return func(target.Value);
+		}
+
+
+		/// <summary>
+		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
 		/// For the String type.
 		/// </summary>
 		/// <typeparam name="TResult">A returned type.</typeparam>
@@ -152,6 +284,35 @@ namespace It3xl.FormattedInput.NullAndEmptyHandling
 			if (func == null)
 			{
 				return default(TResult);
+			}
+
+			return func(target);
+		}
+
+		/// <summary>
+		/// The conditial invocation of the "<see cref="func"/>" parameter depending on the "<see cref="target"/>" parameter.<para/>
+		/// For the String type.
+		/// </summary>
+		/// <typeparam name="TResult">A returned type.</typeparam>
+		/// <param name="target">A parameter for the conditional invocation and passing it to the "<see cref="func"/>" parameter.</param>
+		/// <param name="func">A conditionally invoking parameter.</param>
+		/// <param name="defaultResult">A returning result for the default "<see cref="target"/>".</param>
+		/// <returns>
+		/// In accordance with the condition in the name of this method:<para/>
+		/// true: will be returned a result of an invocation of the "<see cref="func"/>".<para/>
+		/// false: will be returned the "default(<see cref="String"/>)".
+		/// </returns>
+		[DebuggerStepThrough]
+		internal static TResult InvokeNotNullOrEmpty<TResult>(this String target, Func<String, TResult> func, TResult defaultResult)
+		{
+			if (String.IsNullOrEmpty(target))
+			{
+				return defaultResult;
+			}
+
+			if (func == null)
+			{
+				return defaultResult;
 			}
 
 			return func(target);

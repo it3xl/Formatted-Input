@@ -283,7 +283,7 @@ namespace It3xl.Test.MoneyField.Silverlight
 					DecimalSeparator = Char.MinValue,
 				};
 
-			Assert.IsTrue(converter.DecimalSeparator.ToString() == Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+			Assert.IsTrue(converter.DecimalSeparator == NumberToMoneyConverter.DefaultDecimalSeparator);
 		}
 
 
