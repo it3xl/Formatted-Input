@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scaffold.MoneyField.Silverl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormattedInput.JavaScript", "FormattedInput.JavaScript\FormattedInput.JavaScript.csproj", "{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leak.Test.MoneyField.Silverlight", "Leak.Test.MoneyField.Silverlight\Leak.Test.MoneyField.Silverlight.csproj", "{BD8F1BFB-1E21-436C-B419-376DDA4B260C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7CAFDE-7C29-4650-AC02-6E4B80FFC322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD8F1BFB-1E21-436C-B419-376DDA4B260C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD8F1BFB-1E21-436C-B419-376DDA4B260C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD8F1BFB-1E21-436C-B419-376DDA4B260C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD8F1BFB-1E21-436C-B419-376DDA4B260C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

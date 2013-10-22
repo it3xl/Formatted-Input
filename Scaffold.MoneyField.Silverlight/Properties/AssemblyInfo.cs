@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("it3xl.com")]
-[assembly: AssemblyProduct("")]
+[assembly: AssemblyProduct("Scaffold.MoneyField.Silverlight")]
 [assembly: AssemblyCopyright("it3xl.com")]
 [assembly: AssemblyTrademark("it3xl.com FormattedInput")]
 [assembly: AssemblyCulture("")]
