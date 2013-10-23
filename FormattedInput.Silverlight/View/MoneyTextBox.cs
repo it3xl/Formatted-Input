@@ -53,7 +53,7 @@ namespace It3xl.FormattedInput.View
 		}
 
 		/// <summary>
-		/// The additional decimal part's separator char, acceptable at the input or past time.
+		/// The additional decimal part's separator char, acceptable at the input or at a copy/paste time.
 		/// </summary>
 		public String DecimalSeparatorAlternativeChar
 		{

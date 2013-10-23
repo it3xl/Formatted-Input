@@ -153,7 +153,7 @@ namespace It3xl.FormattedInput.View.Converter
 		/// </summary>
 		private char _decimalSeparatorAlternative;
 		/// <summary>
-		/// The additional decimal part's separator char, acceptable at the input or past time.
+		/// The additional decimal part's separator char, acceptable at the input or at a copy/paste time.
 		/// </summary>
 		public Char DecimalSeparatorAlternative
 		{
