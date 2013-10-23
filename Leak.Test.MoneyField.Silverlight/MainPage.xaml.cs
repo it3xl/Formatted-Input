@@ -15,6 +15,11 @@ namespace Leak.Test.MoneyField.Silverlight
 				Interval = TimeSpan.FromSeconds(2),
 			};
 
+		private readonly DispatcherTimer _aliveCheckTimer = new DispatcherTimer
+			{
+				Interval = TimeSpan.FromSeconds(1),
+			};
+
 		public MainPage()
 		{
 			InitializeComponent();
@@ -23,6 +28,9 @@ namespace Leak.Test.MoneyField.Silverlight
 
 			_memoryCheckTimer.Tick += _memoryCheckTimer_Tick;
 			_memoryCheckTimer.Start();
+
+			_aliveCheckTimer.Tick += _aliveCheckTimer_Tick;
+			_aliveCheckTimer.Start();
 		}
 
 		void _memoryCheckTimer_Tick(object sender, EventArgs e)
@@ -35,6 +43,11 @@ namespace Leak.Test.MoneyField.Silverlight
 				},
 				null
 			);
+		}
+
+		void _aliveCheckTimer_Tick(object sender, EventArgs e)
+		{
+			AliveMarkTextBox.Text = DateTime.Now.ToString("HH:mm:ss");
 		}
 
 	}

@@ -11,7 +11,7 @@ namespace Leak.Test.MoneyField.Silverlight.Controller
 	{
 		private readonly DispatcherTimer _loadTimer = new DispatcherTimer
 		{
-			Interval = TimeSpan.FromMilliseconds(500),
+			Interval = TimeSpan.FromMilliseconds(1000),
 		};
 
 		private Grid _injectionElement;

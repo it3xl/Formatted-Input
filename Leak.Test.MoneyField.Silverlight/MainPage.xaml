@@ -10,11 +10,15 @@
 		<StackPanel>
 			<TextBlock Text="Leak.Test.MoneyField.Silverlight" FontWeight="Bold"/>
 			<Grid Margin="10"/>
-			<TextBlock Text="Instruction: Stay it for a long time. The next memory amount shouldn't constantly increase."/>
+			<TextBlock Text="Instruction: Stay it for a while. The next memory amount shouldn't constantly increase."/>
 			<StackPanel Orientation="Horizontal">
 				<TextBlock Text="Used memory: "/>
 				<TextBlock x:Name="MegabytesUsedTextBox" Text="-" FontWeight="Bold"/>
 				<TextBlock Text=" mB"/>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="Alive mark for every second: "/>
+				<TextBlock x:Name="AliveMarkTextBox" Text="-" FontWeight="Bold"/>
 			</StackPanel>
 			
 			<Grid Margin="10"/>
