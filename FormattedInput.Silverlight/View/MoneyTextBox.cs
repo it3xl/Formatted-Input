@@ -236,7 +236,7 @@ namespace It3xl.FormattedInput.View
 		private Int32 _recursionCount;
 
 		/// <summary>
-		/// Manages 
+		/// The recursion interrupter's logic.
 		/// </summary>
 		/// <returns></returns>
 		private Boolean IsRecursion()
@@ -246,7 +246,7 @@ namespace It3xl.FormattedInput.View
 
 			var span = _recursionMark - lastMark;
 
-			if (TimeSpan.FromMinutes(300) < span)
+			if (TimeSpan.FromMilliseconds(200) < span)
 			{
 				_recursionCount = 0;
 
@@ -255,7 +255,7 @@ namespace It3xl.FormattedInput.View
 
 			_recursionCount++;
 
-			if(_recursionCount < 30)
+			if(_recursionCount < 70)
 			{
 				return false;
 			}
