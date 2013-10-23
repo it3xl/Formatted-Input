@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using It3xl.FormattedInput.NullAndEmptyHandling;
-using WeakClosureProject;
 
 namespace It3xl.FormattedInput.View.Converter
 {

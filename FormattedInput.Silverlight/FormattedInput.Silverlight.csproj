@@ -59,9 +59,6 @@
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="WeakClosure">
-      <HintPath>..\!Libs\WeakClosure.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NullAndEmptyHandling\CharExtension.cs" />
