@@ -57,7 +57,7 @@
 						</Paragraph>
 					</RichTextBlock>
 					<View:MoneyTextBox
-						Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
+						Text="{Binding DoubleMoney}"
 						
 						DecimalSeparatorChar = '.'
 						DecimalSeparatorAlternativeChar = ','
@@ -70,7 +70,7 @@
 
 					<Grid Margin="2"/>
 
-					<TextBlock Text="Double" Foreground="Red" FontWeight="Bold"/>
+					<TextBlock Text="Decimal" Foreground="Red" FontWeight="Bold"/>
 					<RichTextBlock>
 						<Paragraph>
 							<Bold>PartialDisabledOnInput="True"</Bold>
@@ -83,7 +83,7 @@
 						</Paragraph>
 					</RichTextBlock>
 					<View:MoneyTextBox
-						Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
+						Text="{Binding DecimalMoney}"
 						
 						PartialDisabledOnInput="True"
 						
@@ -111,7 +111,7 @@
 						</Paragraph>
 					</RichTextBlock>
 					<View:MoneyTextBox
-						Text="{Binding DoubleMoney, ConverterParameter=DoubleMoney}"
+						Text="{Binding DoubleMoneyTwo}"
 						
 						PartialDisabled="True"
 						
@@ -137,7 +137,7 @@
 						</Paragraph>
 					</RichTextBlock>
 					<View:MoneyTextBox
-						Text="{Binding DoubleNullableMoney, ConverterParameter=DoubleNullableMoney}"
+						Text="{Binding DoubleNullableMoney}"
 						
 						DecimalSeparatorChar = '.'
 						DecimalSeparatorAlternativeChar = ','
@@ -150,7 +150,7 @@
 
 					<Grid Margin="2"/>
 
-					<TextBlock Text="Nullable{Double}" Foreground="Red" FontWeight="Bold"/>
+					<TextBlock Text="Nullable{Decimal}" Foreground="Red" FontWeight="Bold"/>
 					<RichTextBlock>
 						<Paragraph>
 							<Bold>PartialDisabledOnInput="True"</Bold>
@@ -163,7 +163,7 @@
 						</Paragraph>
 					</RichTextBlock>
 					<View:MoneyTextBox
-						Text="{Binding DoubleNullableMoney, ConverterParameter=DoubleNullableMoney}"
+						Text="{Binding DecimalNullableMoney}"
 						
 						PartialDisabledOnInput="True"
 						

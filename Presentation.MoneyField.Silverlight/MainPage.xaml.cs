@@ -40,6 +40,8 @@ namespace Presentation.MoneyField.Silverlight
 			TestingViewModel.DoubleNullableMoney = randomDouble;
 			TestingViewModel.DoubleMoney = randomDouble ?? 0;
 
+			TestingViewModel.DoubleMoneyTwo = randomDouble ?? 0;
+
 			TestingViewModel.DecimalNullableMoney = randomDouble.HasValue ? (Decimal) randomDouble.Value : (Decimal?)null;
 			TestingViewModel.DecimalMoney = (Decimal) (randomDouble ?? 0);
 		}

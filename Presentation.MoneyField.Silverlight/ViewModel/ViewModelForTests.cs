@@ -19,8 +19,6 @@ namespace Presentation.MoneyField.Silverlight.ViewModel
 			set
 			{
 				_doubleNullableMoney = value;
-
-				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DoubleNullableMoney = {0}", value));
 				RaisePropertyChanged(() => DoubleNullableMoney);
 			}
 		}
@@ -35,9 +33,22 @@ namespace Presentation.MoneyField.Silverlight.ViewModel
 			set
 			{
 				_doubleMoney = value;
-
-				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DoubleMoney = {0}", value));
 				RaisePropertyChanged(() => DoubleMoney);
+			}
+		}
+
+
+		private Double _doubleMoneyTwo;
+		public Double DoubleMoneyTwo
+		{
+			get
+			{
+				return _doubleMoneyTwo;
+			}
+			set
+			{
+				_doubleMoneyTwo = value;
+				RaisePropertyChanged(() => DoubleMoneyTwo);
 			}
 		}
 
@@ -52,8 +63,6 @@ namespace Presentation.MoneyField.Silverlight.ViewModel
 			set
 			{
 				_decimalNullableMoney = value;
-
-				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DecimalNullableMoney = {0}", value));
 				RaisePropertyChanged(() => DecimalNullableMoney);
 			}
 		}
@@ -68,8 +77,6 @@ namespace Presentation.MoneyField.Silverlight.ViewModel
 			set
 			{
 				_decimalMoney = value;
-
-				NumberToMoneyConverter.WriteLogAction(() => String.Format("  vm  DecimalMoney = {0}", value));
 				RaisePropertyChanged(() => DecimalMoney);
 			}
 		}
