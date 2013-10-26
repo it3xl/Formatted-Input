@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("it3xl.com FormattedInput")]
-[assembly: AssemblyDescription("FormattedInput from the it3xl.com")]
+[assembly: AssemblyDescription("FormattedInput from the it3xl.com - http://formattedinput.codeplex.com/")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("it3xl.com")]
 [assembly: AssemblyProduct("it3xl.com FormattedInput")]

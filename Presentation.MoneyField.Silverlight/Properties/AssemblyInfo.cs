@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Presentation.MoneyField.Silverlight")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("http://formattedinput.codeplex.com/")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Hewlett-Packard Company")]
 [assembly: AssemblyProduct("Presentation.MoneyField.Silverlight")]
