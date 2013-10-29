@@ -173,13 +173,17 @@ namespace It3xl.FormattedInput.View.Converter
 			if (targetType == _typeDouble
 				|| targetType == _typeDoubleNullabe)
 			{
-				RuntimeType = RuntimeType.Double; ;
+				RuntimeType = RuntimeType.Double;
+
+				return;
 			}
 
 			if (targetType == _typeDecimal
 				|| targetType == _typeDecimalNullabe)
 			{
-				RuntimeType = RuntimeType.Decimal; ;
+				RuntimeType = RuntimeType.Decimal;
+
+				return;
 			}
 
 			RuntimeType = RuntimeType.NotInitialized;
