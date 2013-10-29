@@ -47,6 +47,7 @@
 							DecimalSeparatorChar = ','
 							DecimalSeparatorAlternativeChar = '.'
 							GroupSeparatorChar = ' '
+							GroupSeparatorDisabledOnInput="True"
 				
 							x:Name="DoubleNullableMoney"
 							Margin="2"
@@ -71,6 +72,7 @@
 							DecimalSeparatorChar = ','
 							DecimalSeparatorAlternativeChar = '.'
 							GroupSeparatorChar = ' '
+							GroupSeparatorDisabledOnInput="True"
 						
 							x:Name="DoubleMoney"
 							Margin="2"
@@ -140,7 +142,7 @@
 				<Button Margin="2" Content="Set Default Value" Click="SetDefaultValueButton_Click" />
 				<Button Margin="2" Content="Set Negative Value" Click="SetNegativeValueButton_Click" />
 				<Button Margin="2" Content="Change ViewModel" Click="ChangeViewModelButton_Click" />
-				<Button Margin="2" Content="Clear Log Button" Click="ClearLog_Click" />
+				<Button Margin="2" Content="Clear Log" Click="ClearLog_Click" />
 			</StackPanel>
 			
 		</StackPanel>

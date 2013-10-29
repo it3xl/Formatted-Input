@@ -98,6 +98,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="CaretTest.cs" />
+    <Compile Include="GroupSeparatorDisabledOnInputTest.cs" />
     <Compile Include="PartialDisabledOnInput.cs" />
     <Compile Include="DefaultAndEmptyValueTest.cs" />
     <Compile Include="IntegerBitnessTest.cs" />

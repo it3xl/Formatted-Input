@@ -232,6 +232,11 @@ namespace It3xl.FormattedInput.View.Converter
 		public Boolean PartialDisabledOnInput { get; set; }
 
 		/// <summary>
+		/// The GroupSeparator disabled on input state.
+		/// </summary>
+		public Boolean GroupSeparatorDisabledOnInput { get; set; }
+
+		/// <summary>
 		/// The input focus state for a target text-element.
 		/// </summary>
 		public FocusState FocusState { get; set; }
@@ -262,6 +267,38 @@ namespace It3xl.FormattedInput.View.Converter
 				}
 
 				return none;
+			}
+		}
+
+
+		/// <summary>
+		/// Dynamic value for the GropuSeparator.
+		/// </summary>
+		private Char GroupSeparatorDynamic
+		{
+			get
+			{
+				if(GroupSeparatorDisabledOnInput == false)
+				{
+					return GroupSeparator;
+				}
+				if(FocusState == FocusState.No)
+				{
+					return GroupSeparator;
+				}
+
+				return Char.MinValue;
+			}
+		}
+
+		/// <summary>
+		/// The string representation of the <see cref="GroupSeparatorDynamic"/> char.
+		/// </summary>
+		public String GroupSeparatorCharDyninic
+		{
+			get
+			{
+				return GroupSeparatorDynamic.InvokeNotDefault(el => el.ToString(CultureInfo.InvariantCulture), String.Empty);
 			}
 		}
 

@@ -85,6 +85,16 @@ namespace It3xl.FormattedInput.View
 			set { Converter.PartialDisabledOnInput = value; }
 		}
 
+
+		/// <summary>
+		/// The GroupSeparator disabled on input state.
+		/// </summary>
+		public Boolean GroupSeparatorDisabledOnInput
+		{
+			get { return Converter.GroupSeparatorDisabledOnInput; }
+			set { Converter.GroupSeparatorDisabledOnInput = value; }
+		}
+
 		/// <summary>
 		/// Sets a current state of the focus.
 		/// </summary>

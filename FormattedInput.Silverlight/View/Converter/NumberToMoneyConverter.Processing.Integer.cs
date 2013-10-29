@@ -41,7 +41,7 @@ namespace It3xl.FormattedInput.View.Converter
 				state.Formatting.CaretPosition++;
 			}
 
-			if (GroupSeparator.IsDefault())
+			if (GroupSeparatorDynamic.IsDefault())
 			{
 				return;
 			}

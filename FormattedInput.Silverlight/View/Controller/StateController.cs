@@ -16,7 +16,8 @@ namespace It3xl.FormattedInput.View.Controller
 			internal readonly Char DecimalSeparator;
 			internal readonly Boolean PartialDisabled;
 
-			private readonly Char _groupSeparator;
+			private readonly Char _groupSeparatorDynamic;
+
 			/// <summary>
 			/// A text that was before current processing.
 			/// </summary>
@@ -25,14 +26,14 @@ namespace It3xl.FormattedInput.View.Controller
 			internal StateController(
 				Char decimalSeparator,
 				Boolean partialDisabled,
-				Char groupSeparator,
+				Char groupSeparatorDynamic,
 				String textBeforeChanging
 				)
 			{
 				DecimalSeparator = decimalSeparator;
 				PartialDisabled = partialDisabled;
 
-				_groupSeparator = groupSeparator;
+				_groupSeparatorDynamic = groupSeparatorDynamic;
 				_textBeforeChangingNotNull = textBeforeChanging ?? String.Empty;
 			}
 
@@ -153,6 +154,11 @@ namespace It3xl.FormattedInput.View.Controller
 					return null;
 				}
 
+				if(_groupSeparatorDynamic.IsDefault())
+				{
+					return null;
+				}
+
 				for (var i = 0; i < state.UnformattedValue.Length; i++)
 				{
 					if (state.UnformattedValue[i] == _textBeforeChangingNotNull[i])
@@ -160,7 +166,7 @@ namespace It3xl.FormattedInput.View.Controller
 						continue;
 					}
 
-					return _textBeforeChangingNotNull[i] == _groupSeparator;
+					return _textBeforeChangingNotNull[i] == _groupSeparatorDynamic;
 				}
 
 				return false;
@@ -176,14 +182,14 @@ namespace It3xl.FormattedInput.View.Controller
 				{
 					return;
 				}
-				if (_groupSeparator == Char.MinValue)
+				if (_groupSeparatorDynamic == Char.MinValue)
 				{
 					// The Group Separator don't set.
 					return;
 				}
 
 				var charAfterCaret = state.UnformattedValue.ElementAtOrDefault(state.Formatting.CaretPosition);
-				var notGroupSeparator = charAfterCaret != _groupSeparator;
+				var notGroupSeparator = charAfterCaret != _groupSeparatorDynamic;
 				if (notGroupSeparator)
 				{
 					return;
@@ -202,14 +208,14 @@ namespace It3xl.FormattedInput.View.Controller
 				{
 					return;
 				}
-				if (_groupSeparator == Char.MinValue)
+				if (_groupSeparatorDynamic == Char.MinValue)
 				{
 					// The Group Separator don't set.
 					return;
 				}
 
 				var charAfterCaret = state.UnformattedValue.ElementAtOrDefault(state.Formatting.CaretPosition);
-				var notGroupSeparator = charAfterCaret != _groupSeparator;
+				var notGroupSeparator = charAfterCaret != _groupSeparatorDynamic;
 				if (notGroupSeparator)
 				{
 					return;

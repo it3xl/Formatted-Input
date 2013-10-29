@@ -1,4 +1,5 @@
-﻿using It3xl.FormattedInput.View.Controller;
+﻿using System;
+using It3xl.FormattedInput.View.Controller;
 
 namespace It3xl.FormattedInput.View.Converter
 {
@@ -18,7 +19,7 @@ namespace It3xl.FormattedInput.View.Converter
 			var controller = new StateController(
 				DecimalSeparator,
 				PartialDisabledCurrent,
-				GroupSeparator,
+				GroupSeparatorDynamic,
 				TextBeforeChangingNotNull
 				);
 

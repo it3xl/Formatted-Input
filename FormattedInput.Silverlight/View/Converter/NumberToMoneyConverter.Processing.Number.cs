@@ -23,12 +23,12 @@ namespace It3xl.FormattedInput.View.Converter
 			}
 
 			// The order is important! The GroupSeparatorChar replacing must go before the DecimalSeparatorChar replacing.
-			if (GroupSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator)
+			if (GroupSeparatorCharDyninic != CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator)
 			{
 				// The turn form CultureInfo.InvariantCulture to the custom separator.
 				customSerialisation = customSerialisation.Replace(
 					CultureInfo.InvariantCulture.NumberFormat.NumberGroupSeparator,
-					GroupSeparatorChar);
+					GroupSeparatorCharDyninic);
 			}
 
 			if (DecimalSeparatorChar != CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
