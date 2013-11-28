@@ -130,6 +130,10 @@ namespace It3xl.FormattedInput.View.Controller
 		/// </summary>
 		public Boolean JumpCaretToEndOfInteger { get; private set; }
 
+		/// <summary>
+		/// The last caret position before the formatting.
+		/// </summary>
+		public Int32 LastCaretPosition { get; private set; }
 
 
 

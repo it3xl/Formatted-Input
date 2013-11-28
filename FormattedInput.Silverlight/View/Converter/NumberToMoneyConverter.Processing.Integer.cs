@@ -16,10 +16,23 @@ namespace It3xl.FormattedInput.View.Converter
 		{
 			// Deletion of the 0 in the integer part if a input started from the 0 value.
 			if (1 < state.Formatting.Integer.Length
-				&& state.IntegerPrevious == ZeroString
-				&& state.Formatting.Integer.Last() == ZeroChar)
+				&& state.IntegerPrevious == ZeroString)
 			{
-				state.Formatting.Integer = state.Formatting.Integer.Remove(state.Formatting.Integer.Length - 1, 1);
+				if(state.LastCaretPosition == 0)
+				{
+					if (state.Formatting.Integer.Last() == ZeroChar)
+					{
+						state.Formatting.Integer = state.Formatting.Integer.Remove(state.Formatting.Integer.Length - 1, 1);
+					}
+				}
+				else if(state.LastCaretPosition == 1)
+				{
+					if (state.Formatting.Integer.First() == ZeroChar)
+					{
+						state.Formatting.Integer = state.Formatting.Integer.Remove(0, 1);
+						state.Formatting.CaretPosition--;
+					}
+				}
 			}
 
 			// Leading zeros' processing.

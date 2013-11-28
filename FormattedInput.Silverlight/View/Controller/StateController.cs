@@ -58,6 +58,7 @@ namespace It3xl.FormattedInput.View.Controller
 					{
 						Controller = this,
 						Formatting = { CaretPosition = caretPosition },
+						LastCaretPosition = lastCaretPosition,
 					};
 
 				SetFormattingType(state);
