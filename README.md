@@ -12,11 +12,11 @@
     </p>
     <h2>The MoneyTextBox</h2>
     <h2>
-        <a href="http://it3xl.com/Resources_For_External/CodePlex/FormattedInput/" target="_blank">Live example in Silverlight is here</a>
+        <a href="http://it3xl.ru/Resources_For_External/CodePlex/FormattedInput/" target="_blank">Live example in Silverlight is here</a>
     </h2>
     <p>
         screenshort of the example<br/>
-        <a href="http://it3xl.com/Resources_For_External/CodePlex/FormattedInput/" target="_blank"><img title="MoneyTextBox example image" src="http://it3xl.com/Resources_For_External/CodePlex/FormattedInput/sample.jpg" alt="MoneyTextBox example image" style="border: none"></a>
+        <a href="http://it3xl.ru/Resources_For_External/CodePlex/FormattedInput/" target="_blank"><img title="MoneyTextBox example image" src="http://it3xl.ru/Resources_For_External/CodePlex/FormattedInput/sample.jpg" alt="MoneyTextBox example image" style="border: none"></a>
     </p>
     <h3>Features:</h3>
     <p>
@@ -35,7 +35,7 @@
         <strong>PartialDisabledOnInput</strong><br>
         Hides the partial part on a text input.<br>
         <br>
-        it3xl.com
+        it3xl.ru
     </p>
 </div>
 <div class="ClearBoth"></div>
